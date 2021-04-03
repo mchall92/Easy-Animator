@@ -1,16 +1,33 @@
-import java.awt.*;
+import java.util.ArrayList;
 
+/**
+ * This is the user-oriented interface of the animator.
+ *
+ * User can use this class to define size of canvas, add and remove any element they want,
+ * add a move animation, change-color animation or scale animation to any element.
+ *
+ * Also, user can change the priority of showing of any element.
+ * User can get an image which is a slice of an element at a specific time.
+ * User can call the string method to get a log of what happened in the whole process.
+ */
 public interface Window {
     /**
      * Add an Element to the window at position.
+     * @param id The id of the element
      * @param x x coordinate
      * @param y y coordinate
-     * @param color color of the new element
-     * @param id The id of the element
+     * @param r red percentage of color
+     * @param g green percentage of color
+     * @param b blue percentage of color
+     * @param shape shape of the element
+     * @param sizeArg1 direction1 size argument
+     * @param sizeArg2 direction2 size argument
      * @param appearTime At which time this element appears
      * @param disappearTime At which time this element disappears
      */
-    void addElement(int x, int y, Color color, String id, int appearTime, int disappearTime);
+    void addElement(String id, double x, double y, double r, double g, double b,
+                    Shape shape, double sizeArg1, double sizeArg2,
+                    int appearTime, int disappearTime);
 
     /**
      * Remove an Element of a specific id.
@@ -27,16 +44,29 @@ public interface Window {
      * @param fromTime original time
      * @param toTime original time
      */
-    void move(String id, int toX, int toY, int fromTime, int toTime);
+    void move(String id, double toX, double toY, int fromTime, int toTime);
 
     /**
      * Change the color of an Element.
      * @param id id of the element
-     * @param color target color
+     * @param r red arg
+     * @param g green arg
+     * @param b blue arg
      * @param fromTime original time
      * @param toTime original time
      */
-    void changeColor(String id, Color color, int fromTime, int toTime);
+    void changeColor(String id, double r, double g, double b, int fromTime, int toTime);
+
+    /**
+     * User-oriented version of scale method.
+     * Scale an Element of a specific id to a specific size.
+     * @param id id of the element
+     * @param first first argument of size
+     * @param second second argument of size
+     * @param fromTime original time
+     * @param toTime original time
+     */
+    void scale(String id, double first, double second, int fromTime, int toTime);
 
     /**
      * Increase the priority of the Element to highest.
@@ -49,4 +79,25 @@ public interface Window {
      * @param id id of Element
      */
     void decreasePriorityToLowest(String id);
+
+    /**
+     * Get shape by tic.
+     * @param id id of Element
+     * @param time specific time
+     * @return element at a specific time
+     */
+    Image getShapeByTic(String id, int time);
+
+    /**
+     * Get all shapes by tic.
+     * @param time specific time
+     * @return all elements at a specific time
+     */
+    Iterable<Image> getAllShapeByTic(int time);
+
+    /**
+     * get the transformation log of a specific element.
+     * @return the element's log
+     */
+    ArrayList<LogNode> getLog(String id);
 }

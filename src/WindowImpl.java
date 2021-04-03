@@ -1,32 +1,26 @@
-import java.awt.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
+/**
+ * This class implements window, it's a concrete window users can use to generate animation.
+ */
 public class WindowImpl implements Window{
-    private class Node {
-        private int fromTime;
-        private String info;
-
-        public Node(int fromTime, String info) {
-            this.fromTime = fromTime;
-            this.info = info;
-        }
-    }
 
     private HashMap<String, Element> elements;
     private Deque<String> priorities;
     private int width;
     private int height;
-    private StringBuilder log;
-    private ArrayList<Node> actions;
 
+    /**
+     * Initialize the window with a user-defined size.
+     * @param width width of the window
+     * @param height height of the window
+     */
     public WindowImpl(int width, int height) {
         this.elements = new HashMap<>();
         this.priorities = new LinkedList<>();
         this.width = width;
         this.height = height;
-        this.log = new StringBuilder();
-        this.actions = new ArrayList<>();
-        log.append("Shapes:\n");
     }
 
     /**
@@ -34,7 +28,7 @@ public class WindowImpl implements Window{
      * @param x
      * @param y
      */
-    private void checkOutOfBoard(int x, int y) {
+    private void checkOutOfBoard(double x, double y) {
         if (x < 0 || x > width || y < 0 || y > height) {
             throw new IllegalArgumentException("Target position is out of board");
         }
@@ -62,13 +56,14 @@ public class WindowImpl implements Window{
     }
 
     @Override
-    public void addElement(int x, int y, Color color, String id, int appearTime, int disappearTime) {
+    public void addElement(String id, double x, double y, double r, double g, double b,
+                           Shape shape, double sizeArg1, double sizeArg2,
+                           int appearTime, int disappearTime) {
         checkOutOfBoard(x, y);
         priorities.addLast(id);
-        Element ele = new ElementImpl(id, x, y, color, appearTime, disappearTime);
+        Element ele = new ElementImpl(id, new Position(x, y), new Color(r, g, b),
+                shape, new Size(sizeArg1, sizeArg2), appearTime, disappearTime);
         elements.put(id, ele);
-        log.append("Name: " + id + "\n");
-        log.append(ele.toString());
     }
 
     @Override
@@ -79,22 +74,25 @@ public class WindowImpl implements Window{
     }
 
     @Override
-    public void move(String id, int toX, int toY, int fromTime, int toTime) {
+    public void move(String id, double toX, double toY, int fromTime, int toTime) {
         checkOutOfBoard(toX, toY);
         checkTimeSequence(fromTime, toTime);
         checkExist(id);
-        String info = elements.get(id).move(toX, toY, fromTime, toTime);
-        Node action = new Node(fromTime, info);
-        actions.add(action);
+        elements.get(id).move(new Position(toX, toY), fromTime, toTime);
     }
 
     @Override
-    public void changeColor(String id, Color color, int fromTime, int toTime) {
+    public void changeColor(String id, double r, double g, double b, int fromTime, int toTime) {
         checkTimeSequence(fromTime, toTime);
         checkExist(id);
-        String info = elements.get(id).changeColor(color, fromTime, toTime);
-        Node action = new Node(fromTime, info);
-        actions.add(action);
+        elements.get(id).changeColor(new Color(r, g, b), fromTime, toTime);
+    }
+
+    @Override
+    public void scale(String id, double first, double second, int fromTime, int toTime) {
+        checkTimeSequence(fromTime, toTime);
+        checkExist(id);
+        elements.get(id).changeSize(new Size(first, second), fromTime, toTime);
     }
 
     @Override
@@ -112,11 +110,43 @@ public class WindowImpl implements Window{
     }
 
     @Override
+    public Image getShapeByTic(String id, int time) {
+        return elements.get(id).getAtTic(time);
+    }
+
+    @Override
+    public Iterable<Image> getAllShapeByTic(int time) {
+        return elements.values().stream().
+                filter((x) -> time >= x.getAppearTime() && time <= x.getDisappearTime()).
+                map((x) -> x.getAtTic(time)).
+                collect(Collectors.toList());
+    }
+
+    @Override
+    public ArrayList<LogNode> getLog(String id) {
+        return elements.get(id).generateLog();
+    }
+
+    /**
+     * First shows basic information of every element.
+     * Second shows information of transformation in order of time.
+     * @return The string which represents this window
+     */
+    @Override
     public String toString() {
-        actions.sort(Comparator.comparingInt(o -> o.fromTime));
-        for (Node action : actions) {
-            log.append(action.info);
+        StringBuilder sb = new StringBuilder();
+        ArrayList<LogNode> transLog = new ArrayList<>();
+        for (Element e : elements.values()) {
+            transLog.addAll(e.generateLog());
         }
-        return log.toString();
+        transLog.sort(Comparator.comparingInt(LogNode::getTime));
+        sb.append("Shapes:\n");
+        for (Element e : elements.values()) {
+            sb.append(e);
+        }
+        for (LogNode l : transLog) {
+            sb.append(l.getInfo());
+        }
+        return sb.toString();
     }
 }

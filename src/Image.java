@@ -8,6 +8,14 @@ public class Image {
     private Shape shape;
     private Size size;
 
+    /**
+     * Initialize features of this image.
+     * @param id
+     * @param position
+     * @param color
+     * @param shape
+     * @param size
+     */
     public Image(String id, Position position, Color color,
                  Shape shape, Size size) {
         this.id = id;

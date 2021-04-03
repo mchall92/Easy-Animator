@@ -1,3 +1,7 @@
+/**
+ * This class represents a LogNode which contains String representation of a transformation
+ * and the time it happens.
+ */
 public class LogNode {
     private int time;
     private String info;

@@ -1,8 +1,17 @@
-public class Color implements Action{
+/**
+ * This class implements Feature interface and represents a color feature.
+ */
+public class Color implements Feature {
     private double r;
     private double g;
     private double b;
 
+    /**
+     * Initialize red percentage, green percentage and blue percentage.
+     * @param r
+     * @param g
+     * @param b
+     */
     public Color(double r, double g, double b) {
         this.r = r;
         this.g = g;

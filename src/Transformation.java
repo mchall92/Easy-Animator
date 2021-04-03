@@ -4,7 +4,7 @@
 public class Transformation {
     private int fromTime;
         private int toTime;
-        private Action item;
+        private Feature item;
 
     /**
      * Initialize the time period and action.
@@ -12,7 +12,7 @@ public class Transformation {
      * @param toTime ending time of time transformation
      * @param item action this transformation does
      */
-        public Transformation(int fromTime, int toTime, Action item) {
+        public Transformation(int fromTime, int toTime, Feature item) {
             this.fromTime = fromTime;
             this.toTime = toTime;
             this.item = item;
@@ -26,7 +26,7 @@ public class Transformation {
             return toTime;
         }
 
-        public Action getItem() {
+        public Feature getItem() {
             return item;
         }
     }

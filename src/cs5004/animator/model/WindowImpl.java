@@ -133,6 +133,7 @@ public class WindowImpl implements Window {
     //Changed to use priorities to make visual view able to arrange priorities of shapes.
     @Override
     public Iterable<Image> getAllShapeByTic(int time) {
+        Collections.reverse(getPriorities());
         return getPriorities().stream().
                 filter((x) -> time >= x.getAppearTime() && time <= x.getDisappearTime()).
                 map((x) -> x.getAtTic(time)).
@@ -153,7 +154,7 @@ public class WindowImpl implements Window {
         }
         transLog.sort(Comparator.comparingInt(LogNode::getTime));
         sb.append("Shapes:\n");
-        for (Element e : elements.values()) {
+        for (Element e : getPriorities()) {
             sb.append(e);
         }
         for (LogNode l : transLog) {
@@ -164,9 +165,8 @@ public class WindowImpl implements Window {
 
     @Override
     public List<Element> getPriorities() {
-        List<Element> tmp = priorities.stream().map((x) -> elements.get(x)).collect(Collectors.toList());
-        Collections.reverse(tmp);
-        return tmp;
+        return priorities.stream().map((x) ->
+                elements.get(x)).collect(Collectors.toList());
     }
 
     @Override
@@ -175,7 +175,7 @@ public class WindowImpl implements Window {
         sb.append(String.format("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" " +
                         "width=\"%dpx\" height=\"%dpx\" viewBox=\"%d %d %d %d\">\n", width, height,
                 lowestX, lowestY, highestX, highestY));
-        for (Element e : elements.values()) {
+        for (Element e : getPriorities()) {
             sb.append(e.svgShape(speed));
         }
         sb.append("</svg>");

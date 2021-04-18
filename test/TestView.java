@@ -21,9 +21,9 @@
 //    }
 //
 //    @Test
-//    public void testSvg() {
+//    public void testShapeOutput() {
 //        try {
-//            readable = new FileReader("../toh-3-head.txt");
+//            readable = new FileReader("../toh-3-shape.txt");
 //        } catch (FileNotFoundException e) {
 //            e.printStackTrace();
 //        }

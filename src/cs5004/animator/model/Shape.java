@@ -6,9 +6,9 @@ package cs5004.animator.model;
  */
 public enum Shape {
     Oval("Oval", "xRadius", "yRadius", "Center", "ellipse",
-            "cx", "cy", "rx", "ry"),
+            "cx", "cy", "rx", "ry", "ELLIPSE"),
     Rectangle("Rectangle", "Width", "Height", "Min Corner", "rect",
-            "x", "y", "width", "height");
+            "x", "y", "width", "height", "RECTANGLE");
 
     private String type;
     private String sizeTitle1;
@@ -19,7 +19,7 @@ public enum Shape {
     private String svgPosTitle2;
     private String svgSizeTitle1;
     private String svgSizeTitle2;
-
+    private String inputName;
 
     /**
      * @param type
@@ -32,7 +32,9 @@ public enum Shape {
      * @param svgSizeTitle1 new added
      * @param svgSizeTitle2 new added
      */
-    Shape(String type, String sizeTitle1, String sizeTitle2, String posTitle, String svgType, String svgPosTitle1, String svgPosTitle2, String svgSizeTitle1, String svgSizeTitle2) {
+    Shape(String type, String sizeTitle1, String sizeTitle2, String posTitle,
+          String svgType, String svgPosTitle1, String svgPosTitle2, String svgSizeTitle1,
+          String svgSizeTitle2, String inputName) {
         this.type = type;
         this.sizeTitle1 = sizeTitle1;
         this.sizeTitle2 = sizeTitle2;
@@ -42,6 +44,7 @@ public enum Shape {
         this.svgPosTitle2 = svgPosTitle2;
         this.svgSizeTitle1 = svgSizeTitle1;
         this.svgSizeTitle2 = svgSizeTitle2;
+        this.inputName = inputName;
     }
 
     public String toString() {
@@ -82,5 +85,9 @@ public enum Shape {
 
     public String getPosTitle() {
         return posTitle;
+    }
+
+    public String getInputName() {
+        return inputName;
     }
 }

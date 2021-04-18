@@ -44,7 +44,7 @@ public final class Builder implements AnimationBuilder<Window> {
      */
     private Shape findShapeHelper(String shape) {
         for (Shape s : Shape.values()) {
-            if (shape.equalsIgnoreCase(s.toString())) {
+            if (shape.equalsIgnoreCase(s.getInputName())) {
                 return s;
             }
         }

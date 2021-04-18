@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Easy-Animator:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Easy_Animator_jar</output-path>
+    <root id="archive" name="Easy-Animator.jar">
+      <element id="module-output" name="Easy-Animator" />
+    </root>
+  </artifact>
+</component>

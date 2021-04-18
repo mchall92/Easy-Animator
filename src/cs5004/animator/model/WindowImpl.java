@@ -25,9 +25,9 @@ public class WindowImpl implements Window {
      * @param width  width of the window
      * @param height height of the window
      */
-    public WindowImpl(int x, int y, int width, int height) {
+    public WindowImpl(int x, int y, int width, int height, List<String> priorities) {
         this.elements = new HashMap<>();
-        this.priorities = new LinkedList<>();
+        this.priorities = priorities;
         this.lowestX = x;
         this.lowestY = y;
         this.highestX = x + width;
@@ -75,8 +75,7 @@ public class WindowImpl implements Window {
     public void addElement(String id, int x, int y, int r, int g, int b,
                            Shape shape, int sizeArg1, int sizeArg2,
                            int appearTime, int disappearTime) {
-        checkOutOfBoard(x, y);
-        priorities.add(id);
+//        checkOutOfBoard(x, y);
         Element ele = new ElementImpl(id, shape, new Position(x, y), new Color(r, g, b),
                 new Size(sizeArg1, sizeArg2), appearTime, disappearTime);
         elements.put(id, ele);
@@ -91,7 +90,7 @@ public class WindowImpl implements Window {
 
     @Override
     public void move(String id, int toX, int toY, int fromTime, int toTime) {
-        checkOutOfBoard(toX, toY);
+//        checkOutOfBoard(toX, toY);
         checkTimeSequence(fromTime, toTime);
         checkExist(id);
         elements.get(id).move(new Position(toX, toY), fromTime, toTime);
@@ -133,8 +132,8 @@ public class WindowImpl implements Window {
     //Changed to use priorities to make visual view able to arrange priorities of shapes.
     @Override
     public Iterable<Image> getAllShapeByTic(int time) {
-        Collections.reverse(getPriorities());
-        return getPriorities().stream().
+        List<Element> tmp = getPriorities();
+        return tmp.stream().
                 filter((x) -> time >= x.getAppearTime() && time <= x.getDisappearTime()).
                 map((x) -> x.getAtTic(time)).
                 collect(Collectors.toList());
@@ -175,7 +174,8 @@ public class WindowImpl implements Window {
         sb.append(String.format("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" " +
                         "width=\"%dpx\" height=\"%dpx\" viewBox=\"%d %d %d %d\">\n", width, height,
                 lowestX, lowestY, highestX, highestY));
-        for (Element e : getPriorities()) {
+        List<Element> tmp = getPriorities();
+        for (Element e : tmp) {
             sb.append(e.svgShape(speed));
         }
         sb.append("</svg>");

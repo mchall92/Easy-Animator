@@ -1,5 +1,6 @@
 package cs5004.animator.util;
 
+import cs5004.animator.model.Element;
 import cs5004.animator.model.Shape;
 import cs5004.animator.model.Window;
 import cs5004.animator.model.WindowImpl;
@@ -23,6 +24,7 @@ public final class Builder implements AnimationBuilder<Window> {
     private List<TransMove> transMoves;
     private List<TransChangeColor> transChangeColors;
     private List<TransScale> transScales;
+    private List<String> priorities;
 
     /**
      * Construct three collections to record motion information of three different motions.
@@ -33,6 +35,7 @@ public final class Builder implements AnimationBuilder<Window> {
         this.transChangeColors = new ArrayList<>();
         this.transScales = new ArrayList<>();
         this.attributeSrc = new HashMap<>();
+        this.priorities = new LinkedList<>();
     }
 
     /**
@@ -53,7 +56,7 @@ public final class Builder implements AnimationBuilder<Window> {
 
     @Override
     public Window build() {
-        Window window = new WindowImpl(x, y, width, height);
+        Window window = new WindowImpl(x, y, width, height, priorities);
         for (String name : attributeSrc.keySet()) {
             String shape = attributeSrc.get(name).getShape();
             List<TransAll> tmpLs = attributeSrc.get(name).getLs();
@@ -114,6 +117,7 @@ public final class Builder implements AnimationBuilder<Window> {
     @Override
     public AnimationBuilder<Window> declareShape(String name, String shape) {
         this.attributeSrc.put(name, new AttributeSrcNode(shape));
+        this.priorities.add(name);
         return this;
     }
 

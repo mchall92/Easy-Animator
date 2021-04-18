@@ -1,10 +1,10 @@
 Shapes:
 Type: Rectangle
-Min Corner: (145,240), Width: 110, Height: 30, Color: (11, 45, 175) Appears at t=1 Disappears at t=302
-Type: Rectangle
 Min Corner: (190,180), Width: 20, Height: 30, Color: (0, 49, 90) Appears at t=1 Disappears at t=302
 Type: Rectangle
 Min Corner: (167,210), Width: 65, Height: 30, Color: (6, 247, 41) Appears at t=1 Disappears at t=302
+Type: Rectangle
+Min Corner: (145,240), Width: 110, Height: 30, Color: (11, 45, 175) Appears at t=1 Disappears at t=302
 Shape disk1 moves from (190,180) to (190,50) from t=25 to t=35
 Shape disk1 moves from (190,50) to (490,50) from t=36 to t=46
 Shape disk1 moves from (490,50) to (490,240) from t=47 to t=57

@@ -130,9 +130,10 @@ public class WindowImpl implements Window {
         return elements.get(id).getAtTic(time);
     }
 
+    //Changed to use priorities to make visual view able to arrange priorities of shapes.
     @Override
     public Iterable<Image> getAllShapeByTic(int time) {
-        return elements.values().stream().
+        return getPriorities().stream().
                 filter((x) -> time >= x.getAppearTime() && time <= x.getDisappearTime()).
                 map((x) -> x.getAtTic(time)).
                 collect(Collectors.toList());
@@ -163,7 +164,9 @@ public class WindowImpl implements Window {
 
     @Override
     public List<Element> getPriorities() {
-        return priorities.stream().map((x) -> elements.get(x)).collect(Collectors.toList());
+        List<Element> tmp = priorities.stream().map((x) -> elements.get(x)).collect(Collectors.toList());
+        Collections.reverse(tmp);
+        return tmp;
     }
 
     @Override

@@ -19,10 +19,7 @@ output only in .svg files can view tags in text editor can view animation in bro
 > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >
 
 Changes from the last version in the model part:
-1.Changed all double type fields to int type 
-2.Added mehods to genetate svg log 
-3.Changed method signature so that speed
-can be injected into the model 
-4.Add the coordinate of view box borders as fields in WindowImpl
-5.Change the order from appearTime order to Declare order.
+1.Changed all double type fields to int type 2.Added mehods to genetate svg log 3.Changed method signature so that speed
+can be injected into the model 4.Add the coordinate of view box borders as fields in WindowImpl 5.Change the order from
+appearTime order to Declare order.
 

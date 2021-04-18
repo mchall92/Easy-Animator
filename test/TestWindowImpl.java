@@ -1,21 +1,21 @@
-//import static org.junit.Assert.assertEquals;
-//import static org.junit.Assert.assertNull;
+// import static org.junit.Assert.assertEquals;
+// import static org.junit.Assert.assertNull;
 //
-//import cs5004.animator.model.Image;
-//import cs5004.animator.model.LogNode;
-//import cs5004.animator.model.Shape;
-//import cs5004.animator.model.Window;
-//import cs5004.animator.model.WindowImpl;
-//import java.util.ArrayList;
-//import java.util.List;
-//import org.junit.Before;
-//import org.junit.Test;
+// import cs5004.animator.model.Image;
+// import cs5004.animator.model.LogNode;
+// import cs5004.animator.model.Shape;
+// import cs5004.animator.model.Window;
+// import cs5004.animator.model.WindowImpl;
+// import java.util.ArrayList;
+// import java.util.List;
+// import org.junit.Before;
+// import org.junit.Test;
 //
-///**
+/// **
 // * This test class tests methods in WindowImpl.
 // */
 //
-//public class TestWindowImpl {
+// public class TestWindowImpl {
 //
 //  Window single;
 //  Window multiple1;
@@ -984,4 +984,4 @@
 //
 //  }
 //
-//}
+// }

@@ -1,22 +1,22 @@
-//import static org.junit.Assert.assertEquals;
+// import static org.junit.Assert.assertEquals;
 //
-//import cs5004.animator.model.Color;
-//import cs5004.animator.model.Element;
-//import cs5004.animator.model.ElementImpl;
-//import cs5004.animator.model.Image;
-//import cs5004.animator.model.LogNode;
-//import cs5004.animator.model.Position;
-//import cs5004.animator.model.Shape;
-//import cs5004.animator.model.Size;
-//import java.util.List;
-//import org.junit.Before;
-//import org.junit.Test;
+// import cs5004.animator.model.Color;
+// import cs5004.animator.model.Element;
+// import cs5004.animator.model.ElementImpl;
+// import cs5004.animator.model.Image;
+// import cs5004.animator.model.LogNode;
+// import cs5004.animator.model.Position;
+// import cs5004.animator.model.Shape;
+// import cs5004.animator.model.Size;
+// import java.util.List;
+// import org.junit.Before;
+// import org.junit.Test;
 //
-///**
+/// **
 // * This test class tests methods in ElementImpl.
 // */
 //
-//public class TestElementImpl {
+// public class TestElementImpl {
 //
 //  Element oval0;
 //  Element oval1;
@@ -258,7 +258,8 @@
 //    rect3.move(new Position(10, 21), 70, 100);
 //    rect3.move(new Position(-5, 3), 57, 70);
 //
-//    expectedLog = new String[]{"Shape rect3 moves from (-1.0,-1.0) to (0.0,0.0) from t=50 to t=57",
+//    expectedLog = new String[]{"Shape rect3 moves from (-1.0,-1.0) to (0.0,0.0) " +
+//    "from t=50 to t=57",
 //        "Shape rect3 moves from (0.0,0.0) to (-5.0,3.0) from t=57 to t=70",
 //        "Shape rect3 moves from (-5.0,3.0) to (10.0,21.0) from t=70 to t=100"};
 //    logs = rect3.generateLog();
@@ -676,4 +677,4 @@
 //        + "Disappears at t= 120\n";
 //    assertEquals(expected, rect4.toString());
 //  }
-//}
+// }

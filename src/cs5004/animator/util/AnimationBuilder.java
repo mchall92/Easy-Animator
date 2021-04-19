@@ -1,5 +1,10 @@
 package cs5004.animator.util;
 
+/**
+ * This interface represents animation builder which can inject data into model.
+ *
+ * @param <Doc> type of model
+ */
 public interface AnimationBuilder<Doc> {
   /**
    * Constructs a final document.

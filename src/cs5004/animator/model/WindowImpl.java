@@ -1,6 +1,9 @@
 package cs5004.animator.model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /** This class implements window, it's a concrete window users can use to generate animation. */

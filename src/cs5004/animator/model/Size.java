@@ -8,8 +8,8 @@ public class Size implements Feature {
   /**
    * Initialize two args of the size.
    *
-   * @param firstArg
-   * @param secondArg
+   * @param firstArg first argument of size
+   * @param secondArg second argument of size
    */
   public Size(int firstArg, int secondArg) {
     this.firstArg = firstArg;

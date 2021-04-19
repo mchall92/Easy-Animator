@@ -14,7 +14,7 @@ public class SvgHelper {
   }
 
   /**
-   * Generate a svg <animate\n> tag.
+   * Generate a svg tag.
    *
    * @param attributeName The changed attribute
    * @param fromStatus The status of the attribute before changing

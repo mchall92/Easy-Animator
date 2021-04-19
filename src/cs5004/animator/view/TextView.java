@@ -20,12 +20,12 @@ public class TextView implements IView {
     this.out = out;
   }
 
-  /** System.out version of makeVisible */
+  /** System.out version of makeVisible. */
   private void makeVisibleSystem() {
     System.out.print(win.toString());
   }
 
-  /** File version of makeVisible */
+  /** File version of makeVisible. */
   private void makeVisibleFile() {
     File file = new File(out);
     FileWriter fileWriter = null;

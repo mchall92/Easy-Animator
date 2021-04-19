@@ -9,7 +9,8 @@ import cs5004.animator.view.SvgView;
 import cs5004.animator.view.SwingView;
 import cs5004.animator.view.TextView;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.HashMap;
@@ -20,7 +21,7 @@ public class EasyAnimator {
   /**
    * User input args to this method to construct an animation.
    *
-   * @param args
+   * @param args command line arguments
    */
   public static void main(String[] args) {
     HashMap<String, String> argsMap = new HashMap<>();

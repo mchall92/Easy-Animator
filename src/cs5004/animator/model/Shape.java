@@ -29,6 +29,7 @@ public enum Shape {
   private String inputName;
 
   /**
+   * Constructor.
    * @param type official name of the shape
    * @param sizeTitle1 title of first size argument
    * @param sizeTitle2 title of second size argument

@@ -2,7 +2,10 @@ package cs5004.animator.model;
 
 import cs5004.animator.util.SvgHelper;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.OptionalInt;
 
 import static cs5004.animator.util.SvgHelper.animationSvgGenerator;
 
@@ -26,7 +29,7 @@ public class ElementImpl implements Element {
   private ArrayList<LogNode> log;
 
   /**
-   * This constructor constructs the original features of this element
+   * This constructor constructs the original features of this element.
    *
    * @param id The name of the element
    * @param position the position of the element

@@ -1,6 +1,5 @@
 package cs5004.animator.util;
 
-import cs5004.animator.model.Shape;
 import cs5004.animator.model.buildersrc.TransAll;
 
 import java.util.LinkedList;

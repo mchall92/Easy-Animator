@@ -1,15 +1,18 @@
 package cs5004.animator.util;
 
-import cs5004.animator.model.Element;
 import cs5004.animator.model.Shape;
 import cs5004.animator.model.Window;
 import cs5004.animator.model.WindowImpl;
-import cs5004.animator.model.buildersrc.*;
-import cs5004.animator.util.AnimationBuilder;
+import cs5004.animator.model.buildersrc.TransAll;
+import cs5004.animator.model.buildersrc.TransChangeColor;
+import cs5004.animator.model.buildersrc.TransMove;
+import cs5004.animator.model.buildersrc.TransScale;
 
-import cs5004.animator.util.AttributeSrcNode;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 /** This class injects the data from input file and input command into the model. */
 public final class Builder implements AnimationBuilder<Window> {

@@ -1,11 +1,24 @@
 package cs5004.animator.model.buildersrc;
 
+/** This class records transitions in color attribute. */
 public class TransChangeColor extends Trans {
   private int fromTime;
   private int toTime;
   private int r;
   private int g;
   private int b;
+
+  /**
+   * Constructor.
+   */
+  public TransChangeColor(String id, int fromTime1, int toTime1, int r, int g, int b) {
+    super(id);
+    this.fromTime = fromTime1;
+    this.toTime = toTime1;
+    this.r = r;
+    this.g = g;
+    this.b = b;
+  }
 
   public int getFromTime() {
     return fromTime;
@@ -25,14 +38,5 @@ public class TransChangeColor extends Trans {
 
   public int getB() {
     return b;
-  }
-
-  public TransChangeColor(String id, int fromTime1, int toTime1, int r, int g, int b) {
-    super(id);
-    this.fromTime = fromTime1;
-    this.toTime = toTime1;
-    this.r = r;
-    this.g = g;
-    this.b = b;
   }
 }

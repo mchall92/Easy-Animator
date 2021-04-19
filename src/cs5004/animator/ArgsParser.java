@@ -1,6 +1,8 @@
 package cs5004.animator;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * This class represents an ArgParser which parses the input from the user in command line
@@ -9,7 +11,7 @@ import java.util.*;
 public class ArgsParser {
 
   /**
-   * Parse the input from user
+   * Parse the input from user.
    *
    * @param args input from user
    * @return A hashmap which contains information a view needs

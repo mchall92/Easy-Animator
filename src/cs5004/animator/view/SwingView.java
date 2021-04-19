@@ -9,15 +9,14 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
-/**
- * This class represents a view to show the animation visually.
- */
+/** This class represents a view to show the animation visually. */
 public class SwingView extends JFrame implements IView {
 
   private AnimatorPanel animatorPanel;
 
   /**
    * This method constructs a new SwingView.
+   *
    * @param title Title of the frame
    * @param width width of the view
    * @param height height of the view

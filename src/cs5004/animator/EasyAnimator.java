@@ -4,13 +4,15 @@ import cs5004.animator.model.Window;
 import cs5004.animator.util.AnimationBuilder;
 import cs5004.animator.util.AnimationReader;
 import cs5004.animator.util.Builder;
-import cs5004.animator.view.IView;
+import cs5004.animator.view.IViewSVG;
+import cs5004.animator.view.IViewText;
+import cs5004.animator.view.IViewVisual;
+import cs5004.animator.view.PlaybackView;
 import cs5004.animator.view.SvgView;
 import cs5004.animator.view.SwingView;
 import cs5004.animator.view.TextView;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.HashMap;
@@ -21,7 +23,7 @@ public class EasyAnimator {
   /**
    * User input args to this method to construct an animation.
    *
-   * @param args command line arguments
+   * @param args
    */
   public static void main(String[] args) {
     HashMap<String, String> argsMap = new HashMap<>();
@@ -42,20 +44,22 @@ public class EasyAnimator {
     }
     AnimationBuilder<Window> builder = new Builder();
     Window win = AnimationReader.parseFile(readable, builder);
-    IView view;
     if (argsMap.get("view").equals("visual")) {
-      view =
+      IViewVisual view =
           new SwingView(argsMap.get("fileName"), 1440, 900, Integer.parseInt(argsMap.get("speed")));
       view.setAnimator(win);
       view.makeVisible();
     } else if (argsMap.get("view").equals("svg")) {
-      view = new SvgView(argsMap.get("out"), Integer.parseInt(argsMap.get("speed")));
+      IViewSVG view = new SvgView(argsMap.get("out"), Integer.parseInt(argsMap.get("speed")));
       view.setAnimator(win);
-      view.makeVisible();
+      view.writeSVG();
     } else if (argsMap.get("view").equals("text")) {
-      view = new TextView(argsMap.get("out"));
+      IViewText view = new TextView(argsMap.get("out"));
       view.setAnimator(win);
-      view.makeVisible();
+      view.writeTxt();
+    } else if (argsMap.get("view").equals("playback")) {
+      IViewVisual view = new PlaybackView();
+      view.setAnimator(win);
     }
   }
 }

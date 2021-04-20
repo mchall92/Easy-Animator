@@ -9,4 +9,6 @@ public interface IViewText extends IViewCommon{
    * Write an text file if file name is provided, otherwise, print out in System.
    */
   public void writeTxt();
+
+  public void setOutput(String out);
 }

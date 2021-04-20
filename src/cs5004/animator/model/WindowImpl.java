@@ -17,6 +17,7 @@ public class WindowImpl implements Window {
   private int highestY;
   private int width;
   private int height;
+  private int endTime;
 
   /**
    * Initialize the window with a user-defined size.
@@ -35,6 +36,7 @@ public class WindowImpl implements Window {
     this.highestY = y + height;
     this.width = width;
     this.height = height;
+    this.endTime = 0;
   }
 
   /**
@@ -96,6 +98,9 @@ public class WindowImpl implements Window {
             appearTime,
             disappearTime);
     elements.put(id, ele);
+    if (disappearTime > this.endTime) {
+      this.endTime = disappearTime;
+    }
   }
 
   @Override
@@ -184,5 +189,15 @@ public class WindowImpl implements Window {
     }
     sb.append("</svg>");
     return sb.toString();
+  }
+
+  /**
+   * Return the end time of this animation.
+   *
+   * @return the end time of this animation.
+   */
+  @Override
+  public int getEndTime() {
+    return this.endTime;
   }
 }

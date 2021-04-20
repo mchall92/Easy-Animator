@@ -129,6 +129,13 @@ public interface Window {
   String toSvgString(int speed);
 
   /**
+   * Return the end time of this animation.
+   *
+   * @return the end time of this animation.
+   */
+  public int getEndTime();
+
+  /**
    * First shows basic information of every element. Second shows information of transformation in
    * order of time.
    *

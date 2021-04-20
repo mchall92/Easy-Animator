@@ -8,19 +8,23 @@ import java.io.IOException;
 
 /** This view can output a svg format output. */
 public class SvgView implements IViewSVG {
-  private Window win;
+  private Window window;
   private int tempo;
   private String out;
 
-  /**
-   * Constructor of this view.
-   *
-   * @param out String representation of the output target filepath
-   * @param tempo The speed of this view
-   */
-  public SvgView(String out, int tempo) {
-    this.tempo = tempo;
+  @Override
+  public void setModel(Window window) {
+    this.window = window;
+  }
+
+  @Override
+  public void setOutput(String out) {
     this.out = out;
+  }
+
+  @Override
+  public void setTempo(int tempo) {
+    this.tempo = tempo;
   }
 
   @Override
@@ -28,15 +32,10 @@ public class SvgView implements IViewSVG {
     File file = new File(out);
     try {
       FileWriter fileWriter = new FileWriter(file);
-      fileWriter.write(win.toSvgString(tempo));
+      fileWriter.write(window.toSvgString(tempo));
       fileWriter.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
-
-  @Override
-  public void setAnimator(Window window) {
-    this.win = window;
   }
 }

@@ -9,33 +9,20 @@ import java.io.IOException;
 /** This view can output a text format output. */
 public class TextView implements IViewText {
   private String out;
-  private Window win;
+  private Window window;
+
+  @Override
+  public void setModel(Window window) {
+    this.window = window;
+  }
 
   /**
-   * Constructor of this view.
-   *
-   * @param out String representation of the output target filepath
+   * Set the output for TextView.
+   * @param out output for TextView.
    */
-  public TextView(String out) {
+  @Override
+  public void setOutput(String out) {
     this.out = out;
-  }
-
-  /** System.out version of makeVisible */
-  private void writeSystem() {
-    System.out.print(win.toString());
-  }
-
-  /** File version of makeVisible */
-  private void writeFile() {
-    File file = new File(out);
-    FileWriter fileWriter = null;
-    try {
-      fileWriter = new FileWriter(file);
-      fileWriter.write(win.toString());
-      fileWriter.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
   }
 
   @Override
@@ -47,8 +34,22 @@ public class TextView implements IViewText {
     }
   }
 
-  @Override
-  public void setAnimator(Window window) {
-    this.win = window;
+  /** System.out version of makeVisible */
+  private void writeSystem() {
+    System.out.print(window.toString());
   }
+
+  /** File version of makeVisible */
+  private void writeFile() {
+    File file = new File(out);
+    FileWriter fileWriter = null;
+    try {
+      fileWriter = new FileWriter(file);
+      fileWriter.write(window.toString());
+      fileWriter.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
 }

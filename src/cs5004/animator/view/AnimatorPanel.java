@@ -17,14 +17,25 @@ public class AnimatorPanel extends JPanel implements ActionListener {
   private Window window;
   private Timer timer;
   private int time;
+  private int tempo;
 
-  public AnimatorPanel(int width, int height, int tempo) {
+  public AnimatorPanel() {
+    this.tempo = 1;
     setBackground(Color.WHITE);
     timer = new Timer((int) 1000 / tempo, this);
   }
 
   public void setAnimator(Window window) {
     this.window = window;
+  }
+
+  /**
+   * Change the speed of the animation.
+   *
+   * @param newTempo newTempo is the new speed for the animation.
+   */
+  public void setTempo(int newTempo) {
+    timer.setDelay((int) 1000/newTempo);
   }
 
   public void paintComponent(Graphics g) {
@@ -49,6 +60,13 @@ public class AnimatorPanel extends JPanel implements ActionListener {
             img.getSize().getSecondArg());
       }
     }
+    timer.start();
+  }
+
+  /**
+   * Start the animation.
+   */
+  public void start() {
     timer.start();
   }
 

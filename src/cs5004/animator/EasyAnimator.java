@@ -3,6 +3,7 @@ package cs5004.animator;
 import cs5004.animator.model.Window;
 import cs5004.animator.util.AnimationBuilder;
 import cs5004.animator.util.AnimationReader;
+import cs5004.animator.util.ArgsParser;
 import cs5004.animator.util.Builder;
 import cs5004.animator.view.IViewSVG;
 import cs5004.animator.view.IViewText;
@@ -20,13 +21,15 @@ import java.util.HashMap;
 /** This class is the driver class of the animator. */
 public class EasyAnimator {
 
+  private HashMap<String, String> argsMap;
+  private Window window;
   /**
    * User input args to this method to construct an animation.
    *
    * @param args
    */
-  public static void main(String[] args) {
-    HashMap<String, String> argsMap = new HashMap<>();
+  public EasyAnimator(String[] args) {
+    argsMap = new HashMap<>();
     Readable readable;
     try {
       // argsMap key: fileName, view, speed, out
@@ -43,23 +46,22 @@ public class EasyAnimator {
       return;
     }
     AnimationBuilder<Window> builder = new Builder();
-    Window win = AnimationReader.parseFile(readable, builder);
-    if (argsMap.get("view").equals("visual")) {
-      IViewVisual view =
-          new SwingView(argsMap.get("fileName"), 1440, 900, Integer.parseInt(argsMap.get("speed")));
-      view.setAnimator(win);
-      view.makeVisible();
-    } else if (argsMap.get("view").equals("svg")) {
-      IViewSVG view = new SvgView(argsMap.get("out"), Integer.parseInt(argsMap.get("speed")));
-      view.setAnimator(win);
-      view.writeSVG();
-    } else if (argsMap.get("view").equals("text")) {
-      IViewText view = new TextView(argsMap.get("out"));
-      view.setAnimator(win);
-      view.writeTxt();
-    } else if (argsMap.get("view").equals("playback")) {
-      IViewVisual view = new PlaybackView();
-      view.setAnimator(win);
-    }
+    this.window = AnimationReader.parseFile(readable, builder);
+  }
+
+  /**
+   * Return parsed strings from command line.
+   * @return parsed strings from command line.
+   */
+  public HashMap<String, String> getArgsMap() {
+    return argsMap;
+  }
+
+  /**
+   * Return window model after inputs.
+   * @return window model after inputs.
+   */
+  public Window getWindow() {
+    return window;
   }
 }

@@ -9,5 +9,5 @@ public interface IViewCommon {
    * Set an animator model to this view.
    * @param window the animator model
    */
-  void setAnimator(Window window);
+  void setModel(Window window);
 }

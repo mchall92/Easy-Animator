@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /** This view can output a svg format output. */
-public class SvgView implements IView {
+public class SvgView implements IViewSVG {
   private Window win;
   private int tempo;
   private String out;
@@ -24,7 +24,7 @@ public class SvgView implements IView {
   }
 
   @Override
-  public void makeVisible() {
+  public void writeSVG() {
     File file = new File(out);
     try {
       FileWriter fileWriter = new FileWriter(file);

@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /** This view can output a text format output. */
-public class TextView implements IView {
+public class TextView implements IViewText {
   private String out;
   private Window win;
 
@@ -20,13 +20,13 @@ public class TextView implements IView {
     this.out = out;
   }
 
-  /** System.out version of makeVisible. */
-  private void makeVisibleSystem() {
+  /** System.out version of makeVisible */
+  private void writeSystem() {
     System.out.print(win.toString());
   }
 
-  /** File version of makeVisible. */
-  private void makeVisibleFile() {
+  /** File version of makeVisible */
+  private void writeFile() {
     File file = new File(out);
     FileWriter fileWriter = null;
     try {
@@ -39,11 +39,11 @@ public class TextView implements IView {
   }
 
   @Override
-  public void makeVisible() {
+  public void writeTxt() {
     if (out.equals("system")) {
-      makeVisibleSystem();
+      writeSystem();
     } else {
-      makeVisibleFile();
+      writeFile();
     }
   }
 

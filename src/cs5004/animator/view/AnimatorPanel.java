@@ -9,12 +9,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-/**
- * This class represents a panel that can show animation visually by drawing graphs.
- */
 public class AnimatorPanel extends JPanel implements ActionListener {
   private Window window;
   private Timer timer;
@@ -25,18 +23,10 @@ public class AnimatorPanel extends JPanel implements ActionListener {
     timer = new Timer((int) 1000 / tempo, this);
   }
 
-  /**
-   * Set a model to this animator.
-   * @param window The model
-   */
   public void setAnimator(Window window) {
     this.window = window;
   }
 
-  /**
-   * Paint graphics.
-   * @param g The graphics to paint
-   */
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;

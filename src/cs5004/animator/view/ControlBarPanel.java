@@ -36,7 +36,15 @@ public class ControlBarPanel extends JPanel {
     this.repaint();
   }
 
-  private void showLoopImage(boolean isLoop) {
+  public void showPlay(boolean isPlay) {
+    if (isPlay) {
+      this.add(pauseButton);
+    } else {
+      this.add(playButton);
+    }
+  }
+
+  private void showLoop(boolean isLoop) {
     if (isLoop) {
       this.add(loopedButton);
     } else {
@@ -44,18 +52,11 @@ public class ControlBarPanel extends JPanel {
     }
   }
 
-  public void playingView(boolean isLoop) {
+  public void displayButtons(boolean isPlay, boolean isLoop) {
     this.clear();
-    this.add(pauseButton);
+    this.showPlay(isPlay);
     this.add(stopButton);
-    showLoopImage(isLoop);
-  }
-
-  public void pausingView(boolean isLoop) {
-    this.clear();
-    this.add(playButton);
-    this.add(stopButton);
-    showLoopImage(isLoop);
+    this.showLoop(isLoop);
   }
 
   public void setPauseButton() {
@@ -126,7 +127,7 @@ public class ControlBarPanel extends JPanel {
     toLoopButton.setActionCommand("l");
     toLoopButton.addActionListener(actionEvent);
 
-    toLoopButton.setActionCommand("l");
+    loopedButton.setActionCommand("l");
     loopedButton.addActionListener(actionEvent);
   }
 }

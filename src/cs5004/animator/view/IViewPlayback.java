@@ -13,4 +13,8 @@ public interface IViewPlayback extends IViewVisual{
   public void pauseAnimation();
 
   public boolean isAnimatorPlaying();
+
+  public void toggleLoop();
+
+  public void restartAnimation();
 }

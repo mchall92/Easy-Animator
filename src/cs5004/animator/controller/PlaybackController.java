@@ -44,6 +44,14 @@ public class PlaybackController implements IController, ActionListener {
         } else {
           view.startAnimation();
         }
+        break;
+
+      case "l":
+        view.toggleLoop();
+        break;
+
+      case "s":
+        view.restartAnimation();
     }
   }
 }

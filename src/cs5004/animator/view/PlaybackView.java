@@ -103,6 +103,16 @@ public class PlaybackView extends JFrame implements IViewPlayback {
     return animatorPanel.isPlaying();
   }
 
+  @Override
+  public void toggleLoop() {
+    animatorPanel.toggleLoop();
+  }
+
+  @Override
+  public void restartAnimation() {
+    animatorPanel.restart();
+  }
+
   /**
    * Pass actionEvent to Control Bar Panel to set button listeners.
    *

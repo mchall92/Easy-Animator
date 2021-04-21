@@ -73,13 +73,18 @@ public class AnimatorPanel extends JPanel implements ActionListener {
    * Start the animation.
    */
   public void start() {
-    controlBarPanel.playingView(isLoop);
+    controlBarPanel.displayButtons(true, isLoop);
     timer.start();
   }
 
   public void pause() {
-    controlBarPanel.pausingView(isLoop);
+    controlBarPanel.displayButtons(false, isLoop);
     timer.stop();
+  }
+
+  public void restart() {
+    controlBarPanel.displayButtons(true, isLoop);
+    time = 0;
   }
 
   /**
@@ -99,6 +104,14 @@ public class AnimatorPanel extends JPanel implements ActionListener {
   }
 
   /**
+   * Toggle isLoop.
+   */
+  public void toggleLoop() {
+    isLoop = !isLoop;
+    controlBarPanel.displayButtons(isPlaying(), isLoop);
+  }
+
+  /**
    * Invoked when an action occurs.
    *
    * @param e the event to be processed
@@ -107,12 +120,17 @@ public class AnimatorPanel extends JPanel implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     time += 1;
     if (time > window.getEndTime()) {
-      controlBarPanel.pausingView(isLoop);
-      timer.stop();
-      try {
-        Thread.sleep(1000);
-      } catch (InterruptedException interruptedException) {
-        interruptedException.printStackTrace();
+      if (!isLoop) {
+        controlBarPanel.displayButtons(false,false);
+        timer.stop();
+      } else {
+        try {
+          Thread.sleep(3000);
+        } catch (InterruptedException interruptedException) {
+          interruptedException.printStackTrace();
+        }
+        time = 0;
+        controlBarPanel.displayButtons(true,true);
       }
     }
     repaint();

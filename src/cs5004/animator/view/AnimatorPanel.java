@@ -22,9 +22,11 @@ public class AnimatorPanel extends JPanel implements ActionListener {
   private int time;
   private int tempo;
   private ControlBarPanel controlBarPanel;
+  private boolean isLoop;
 
   public AnimatorPanel() {
     this.tempo = 1;
+    this.isLoop = false;
     setBackground(Color.WHITE);
     timer = new Timer((int) 1000 / tempo, this);
   }
@@ -71,8 +73,13 @@ public class AnimatorPanel extends JPanel implements ActionListener {
    * Start the animation.
    */
   public void start() {
-    controlBarPanel.playingView();
+    controlBarPanel.playingView(isLoop);
     timer.start();
+  }
+
+  public void pause() {
+    controlBarPanel.pausingView(isLoop);
+    timer.stop();
   }
 
   /**
@@ -84,6 +91,14 @@ public class AnimatorPanel extends JPanel implements ActionListener {
   }
 
   /**
+   * Return true if timer/animation is playing.
+   * @return true if timer/animation is playing.
+   */
+  public boolean isPlaying() {
+    return timer.isRunning();
+  }
+
+  /**
    * Invoked when an action occurs.
    *
    * @param e the event to be processed
@@ -92,7 +107,7 @@ public class AnimatorPanel extends JPanel implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     time += 1;
     if (time > window.getEndTime()) {
-      controlBarPanel.pausingView();
+      controlBarPanel.pausingView(isLoop);
       timer.stop();
       try {
         Thread.sleep(1000);

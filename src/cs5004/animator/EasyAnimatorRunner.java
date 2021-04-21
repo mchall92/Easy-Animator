@@ -8,6 +8,7 @@ import cs5004.animator.controller.SwingController;
 import cs5004.animator.controller.TextController;
 import cs5004.animator.model.Window;
 import cs5004.animator.util.EasyAnimatorSetter;
+import cs5004.animator.view.IViewPlayback;
 import cs5004.animator.view.IViewSVG;
 import cs5004.animator.view.IViewText;
 import cs5004.animator.view.IViewVisual;
@@ -45,7 +46,7 @@ public class EasyAnimatorRunner {
         break;
       }
       case "playback": {
-        IViewVisual view = new PlaybackView();
+        IViewPlayback view = new PlaybackView();
         IController controller = new PlaybackController(window, view, argsMap);
         view.setModel(window);
         controller.go();

@@ -2,10 +2,12 @@ package cs5004.animator;
 
 
 import cs5004.animator.controller.IController;
+import cs5004.animator.controller.PlaybackController;
 import cs5004.animator.controller.SVGController;
 import cs5004.animator.controller.SwingController;
 import cs5004.animator.controller.TextController;
 import cs5004.animator.model.Window;
+import cs5004.animator.util.EasyAnimatorSetter;
 import cs5004.animator.view.IViewSVG;
 import cs5004.animator.view.IViewText;
 import cs5004.animator.view.IViewVisual;
@@ -13,13 +15,14 @@ import cs5004.animator.view.PlaybackView;
 import cs5004.animator.view.SvgView;
 import cs5004.animator.view.SwingView;
 import cs5004.animator.view.TextView;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 
 public class EasyAnimatorRunner {
-  public static void main(String[] args) {
-    System.out.print(Arrays.toString(args));
-    EasyAnimator easyAnimator = new EasyAnimator(args);
+  public static void main(String[] args) throws IOException {
+    System.out.println(Arrays.toString(args));
+    EasyAnimatorSetter easyAnimator = new EasyAnimatorSetter(args);
     HashMap<String, String> argsMap = easyAnimator.getArgsMap();
     Window window = easyAnimator.getWindow();
     switch (argsMap.get("view")) {
@@ -43,7 +46,9 @@ public class EasyAnimatorRunner {
       }
       case "playback": {
         IViewVisual view = new PlaybackView();
+        IController controller = new PlaybackController(window, view, argsMap);
         view.setModel(window);
+        controller.go();
         break;
       }
     }

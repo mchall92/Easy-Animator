@@ -47,29 +47,29 @@ public class ArgsParser {
 
     // verify view
     HashSet<String> legalViews = new HashSet<>();
-    legalViews.addAll(Arrays.asList("svg", "visual", "text"));
+    legalViews.addAll(Arrays.asList("svg", "visual", "text", "playback"));
 
     if (legalViews.contains(view)) {
       map.put("view", view);
     } else {
-      throw new IllegalArgumentException();
+      throw new IllegalArgumentException("View not legal");
     }
 
     // verify speed
     if (speed == null) {
-      if (view.equals("svg") || view.equals("visual")) {
+      if (view.equals("svg") || view.equals("visual") || view.equals("playback")) {
         speed = "1";
       }
     }
     int parseSpeed = Integer.parseInt(speed);
     if (parseSpeed <= 0) {
-      throw new IllegalArgumentException();
+      throw new IllegalArgumentException("Speed not legal");
     }
     map.put("speed", speed);
 
     // verify out
-    // view will only be either visual, text or svg
-    if (view.equals("visual")) {
+    // view will only be either visual, text, playback or svg
+    if (view.equals("visual") || view.equals("playback")) {
       if (out == null) {
         map.put("out", null);
       } else {

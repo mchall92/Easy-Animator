@@ -4,7 +4,10 @@ import cs5004.animator.model.Image;
 import cs5004.animator.model.Shape;
 import cs5004.animator.model.Window;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -18,6 +21,7 @@ public class AnimatorPanel extends JPanel implements ActionListener {
   private Timer timer;
   private int time;
   private int tempo;
+  private ControlBarPanel controlBarPanel;
 
   public AnimatorPanel() {
     this.tempo = 1;
@@ -38,6 +42,7 @@ public class AnimatorPanel extends JPanel implements ActionListener {
     timer.setDelay((int) 1000/newTempo);
   }
 
+  @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
@@ -60,14 +65,22 @@ public class AnimatorPanel extends JPanel implements ActionListener {
             img.getSize().getSecondArg());
       }
     }
-    timer.start();
   }
 
   /**
    * Start the animation.
    */
   public void start() {
+    controlBarPanel.playingView();
     timer.start();
+  }
+
+  /**
+   * Set controlBarPanel for animatorPanel to display proper icons.
+   * @param controlBarPanel controlBarPanel displays icons for control.
+   */
+  public void setControlBar(ControlBarPanel controlBarPanel) {
+    this.controlBarPanel = controlBarPanel;
   }
 
   /**
@@ -78,6 +91,15 @@ public class AnimatorPanel extends JPanel implements ActionListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     time += 1;
+    if (time > window.getEndTime()) {
+      controlBarPanel.pausingView();
+      timer.stop();
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException interruptedException) {
+        interruptedException.printStackTrace();
+      }
+    }
     repaint();
   }
 }

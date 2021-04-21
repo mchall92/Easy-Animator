@@ -1,17 +1,10 @@
-package cs5004.animator;
+package cs5004.animator.util;
 
 import cs5004.animator.model.Window;
 import cs5004.animator.util.AnimationBuilder;
 import cs5004.animator.util.AnimationReader;
 import cs5004.animator.util.ArgsParser;
 import cs5004.animator.util.Builder;
-import cs5004.animator.view.IViewSVG;
-import cs5004.animator.view.IViewText;
-import cs5004.animator.view.IViewVisual;
-import cs5004.animator.view.PlaybackView;
-import cs5004.animator.view.SvgView;
-import cs5004.animator.view.SwingView;
-import cs5004.animator.view.TextView;
 
 import javax.swing.*;
 import java.io.FileNotFoundException;
@@ -19,7 +12,7 @@ import java.io.FileReader;
 import java.util.HashMap;
 
 /** This class is the driver class of the animator. */
-public class EasyAnimator {
+public class EasyAnimatorSetter {
 
   private HashMap<String, String> argsMap;
   private Window window;
@@ -28,7 +21,7 @@ public class EasyAnimator {
    *
    * @param args
    */
-  public EasyAnimator(String[] args) {
+  public EasyAnimatorSetter(String[] args) {
     argsMap = new HashMap<>();
     Readable readable;
     try {

@@ -15,7 +15,6 @@ import javax.swing.WindowConstants;
 public class SwingView extends JFrame implements IViewVisual {
 
   private AnimatorPanel animatorPanel;
-  private Window window;
 
   /**
    * This method constructs a new SwingView.
@@ -38,12 +37,6 @@ public class SwingView extends JFrame implements IViewVisual {
     this.pack();
   }
 
-  @Override
-  public void setModel(Window window) {
-    this.window = window;
-    animatorPanel.setAnimator(window);
-  }
-
   /**
    * Set the frame name to file name.
    *
@@ -52,6 +45,11 @@ public class SwingView extends JFrame implements IViewVisual {
   @Override
   public void setFileName(String fileName) {
     this.setTitle(fileName);
+  }
+
+  @Override
+  public void setModel(Window window) {
+    animatorPanel.setAnimator(window);
   }
 
   /**

@@ -3,8 +3,8 @@ package cs5004.animator.view;
 import cs5004.animator.model.Window;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
+import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
@@ -15,6 +15,8 @@ import javax.swing.WindowConstants;
 public class SwingView extends JFrame implements IViewVisual {
 
   private AnimatorPanel animatorPanel;
+  private JScrollPane js;
+
 
   /**
    * This method constructs a new SwingView.
@@ -24,17 +26,19 @@ public class SwingView extends JFrame implements IViewVisual {
     this.setSize(720, 450);
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());
+
+    // add Animator Panel
     animatorPanel = new AnimatorPanel();
     animatorPanel.setPreferredSize(new Dimension(720, 450));
     this.add(animatorPanel, BorderLayout.CENTER);
-    JScrollPane js =
-        new JScrollPane(
-            animatorPanel,
-            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-            JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+    // add Scroll bars for animator panel
+    js = new JScrollPane(
+        animatorPanel,
+        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+        JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
     js.setPreferredSize(new Dimension(720, 450));
     this.add(js);
-    this.pack();
   }
 
   /**
@@ -52,17 +56,6 @@ public class SwingView extends JFrame implements IViewVisual {
     animatorPanel.setAnimator(window);
   }
 
-  /**
-   * Set tempo of the animation.
-   *
-   * @param tempo tempo is the speed fo the animation.
-   */
-  @Override
-  public void setTempo(int tempo) {
-    animatorPanel.setTempo(tempo);
-  }
-
-
   /** Make the view visible. Called after the view is constructed */
   @Override
   public void makeVisible() {
@@ -70,7 +63,9 @@ public class SwingView extends JFrame implements IViewVisual {
   }
 
   @Override
-  public void startAnimation() {
-    animatorPanel.start();
+  public void repaint(int time) {
+    animatorPanel.updateTime(time);
+    animatorPanel.repaint();
   }
+
 }

@@ -1,8 +1,8 @@
 package cs5004.animator.view;
 
+import cs5004.animator.controller.PlaybackFeatures;
 import java.awt.FlowLayout;
 import java.awt.Image;
-import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -30,28 +30,6 @@ public class ControlBarPanel extends JPanel {
     loopedButton.setHorizontalAlignment(SwingConstants.LEFT);
   }
 
-  private void clear() {
-    this.removeAll();
-    this.revalidate();
-    this.repaint();
-  }
-
-  public void showPlay(boolean isPlay) {
-    if (isPlay) {
-      this.add(pauseButton);
-    } else {
-      this.add(playButton);
-    }
-  }
-
-  private void showLoop(boolean isLoop) {
-    if (isLoop) {
-      this.add(loopedButton);
-    } else {
-      this.add(toLoopButton);
-    }
-  }
-
   public void displayButtons(boolean isPlay, boolean isLoop) {
     this.clear();
     this.showPlay(isPlay);
@@ -59,7 +37,16 @@ public class ControlBarPanel extends JPanel {
     this.showLoop(isLoop);
   }
 
-  public void setPauseButton() {
+  public void addFeatures(PlaybackFeatures features) {
+    playButton.addActionListener(e -> features.start());
+    pauseButton.addActionListener(e -> features.pause());
+    stopButton.addActionListener(e -> features.stop());
+    toLoopButton.addActionListener(e -> features.startLooping());
+    loopedButton.addActionListener(e -> features.stopLooping());
+  }
+
+  // buttons setup
+  private void setPauseButton() {
     pauseButton = new JButton();
     try {
       ImageIcon pauseIcon = new ImageIcon(getClass().getResource("images/pause.png"));
@@ -70,7 +57,7 @@ public class ControlBarPanel extends JPanel {
     }
   }
 
-  public void setPlayButton() {
+  private void setPlayButton() {
     playButton = new JButton();
     try {
       ImageIcon playIcon = new ImageIcon(getClass().getResource("images/play.png"));
@@ -114,20 +101,27 @@ public class ControlBarPanel extends JPanel {
     }
   }
 
-  public void setControlBarButtonListener(ActionListener actionEvent) {
-    playButton.setActionCommand("p");
-    playButton.addActionListener(actionEvent);
+  // helper methods
 
-    pauseButton.setActionCommand("p");
-    pauseButton.addActionListener(actionEvent);
+  private void clear() {
+    this.removeAll();
+    this.revalidate();
+    this.repaint();
+  }
 
-    stopButton.setActionCommand("s");
-    stopButton.addActionListener(actionEvent);
+  private void showPlay(boolean isPlay) {
+    if (isPlay) {
+      this.add(pauseButton);
+    } else {
+      this.add(playButton);
+    }
+  }
 
-    toLoopButton.setActionCommand("l");
-    toLoopButton.addActionListener(actionEvent);
-
-    loopedButton.setActionCommand("l");
-    loopedButton.addActionListener(actionEvent);
+  private void showLoop(boolean isLoop) {
+    if (isLoop) {
+      this.add(loopedButton);
+    } else {
+      this.add(toLoopButton);
+    }
   }
 }

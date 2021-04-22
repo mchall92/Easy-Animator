@@ -1,19 +1,13 @@
 package cs5004.animator.view;
 
+import cs5004.animator.controller.PlaybackFeatures;
 import cs5004.animator.model.Window;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Image;
-import java.awt.event.ActionListener;
 import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 public class PlaybackView extends JFrame implements IViewPlayback {
@@ -21,7 +15,6 @@ public class PlaybackView extends JFrame implements IViewPlayback {
   private AnimatorPanel animatorPanel;
   private ControlBarPanel controlBarPanel;
   private JScrollPane js;
-
 
 
   /**
@@ -46,12 +39,12 @@ public class PlaybackView extends JFrame implements IViewPlayback {
     js.setPreferredSize(new Dimension(720, 450));
     this.add(js);
 
-    // add control bar panel
+    // add control bar panel and display
     controlBarPanel = new ControlBarPanel(new FlowLayout(FlowLayout.LEFT));
     controlBarPanel.setPreferredSize(new Dimension(720, 50));
     this.add(controlBarPanel, BorderLayout.NORTH);
-    animatorPanel.setControlBar(controlBarPanel);
     this.pack();
+
   }
 
   /**
@@ -69,58 +62,26 @@ public class PlaybackView extends JFrame implements IViewPlayback {
     animatorPanel.setAnimator(window);
   }
 
-  /**
-   * Set tempo of the animation.
-   *
-   * @param tempo tempo is the speed fo the animation.
-   */
-  @Override
-  public void setTempo(int tempo) {
-    animatorPanel.setTempo(tempo);
-  }
-
   /** Make the view visible. Called after the view is constructed */
   @Override
   public void makeVisible() {
     this.setVisible(true);
   }
 
-  /**
-   * Start the animation.
-   */
-  @Override
-  public void startAnimation() {
-    animatorPanel.start();
+  public void displayButtons(boolean isPlaying, boolean isLoop) {
+    controlBarPanel.displayButtons(isPlaying, isLoop);
   }
 
   @Override
-  public void pauseAnimation() {
-    animatorPanel.pause();
+  public void addPlaybackFeatures(PlaybackFeatures playbackFeatures) {
+    // send playbackFeatures to ControlBarPanel
+    controlBarPanel.addFeatures(playbackFeatures);
   }
 
   @Override
-  public boolean isAnimatorPlaying() {
-    return animatorPanel.isPlaying();
-  }
-
-  @Override
-  public void toggleLoop() {
-    animatorPanel.toggleLoop();
-  }
-
-  @Override
-  public void restartAnimation() {
-    animatorPanel.restart();
-  }
-
-  /**
-   * Pass actionEvent to Control Bar Panel to set button listeners.
-   *
-   * @param actionEvent actionEvent to be passed to control bar panel.
-   */
-  @Override
-  public void passControlBarButtonListener(ActionListener actionEvent) {
-    controlBarPanel.setControlBarButtonListener(actionEvent);
+  public void repaint(int time) {
+    animatorPanel.updateTime(time);
+    animatorPanel.repaint();
   }
 }
 

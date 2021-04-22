@@ -10,4 +10,7 @@ public interface PlaybackFeatures {
   public void startLooping();
   public void stopLooping();
   public void setTempo(int newTempo);
+  public void setTempoX(String x);
+  public void toggleSettingPanel();
+  public void showId(boolean showId);
 }

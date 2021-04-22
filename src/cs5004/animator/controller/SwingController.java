@@ -48,5 +48,4 @@ public class SwingController implements IController, ActionListener {
     }
     view.repaint(time);
   }
-
 }

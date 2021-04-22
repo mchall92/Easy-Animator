@@ -14,6 +14,8 @@ public class PlaybackView extends JFrame implements IViewPlayback {
 
   private AnimatorPanel animatorPanel;
   private ControlBarPanel controlBarPanel;
+  private SettingPanel settingPanel;
+  private RealTimePanel realTimePanel;
   private JScrollPane js;
 
 
@@ -43,8 +45,16 @@ public class PlaybackView extends JFrame implements IViewPlayback {
     controlBarPanel = new ControlBarPanel(new FlowLayout(FlowLayout.LEFT));
     controlBarPanel.setPreferredSize(new Dimension(720, 50));
     this.add(controlBarPanel, BorderLayout.NORTH);
-    this.pack();
 
+    // add setting panel
+    settingPanel = new SettingPanel();
+    settingPanel.setPreferredSize(new Dimension(720, 100));
+    this.add(settingPanel, BorderLayout.SOUTH);
+
+    // get real time panel
+    realTimePanel = controlBarPanel.getRealTimePanel();
+
+    this.pack();
   }
 
   /**
@@ -68,8 +78,14 @@ public class PlaybackView extends JFrame implements IViewPlayback {
     this.setVisible(true);
   }
 
-  public void displayButtons(boolean isPlaying, boolean isLoop) {
-    controlBarPanel.displayButtons(isPlaying, isLoop);
+  @Override
+  public void displayControlButtons(boolean isPlaying, boolean isLoop) {
+    controlBarPanel.displayControl(isPlaying, isLoop);
+  }
+
+  @Override
+  public void displaySettingPanel() {
+    settingPanel.toggleVisible();
   }
 
   @Override
@@ -82,6 +98,13 @@ public class PlaybackView extends JFrame implements IViewPlayback {
   public void repaint(int time) {
     animatorPanel.updateTime(time);
     animatorPanel.repaint();
+    realTimePanel.updateTime(time);
+    realTimePanel.repaint();
+  }
+
+  @Override
+  public void showId(boolean showId) {
+    animatorPanel.showId(showId);
   }
 }
 

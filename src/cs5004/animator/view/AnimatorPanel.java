@@ -12,11 +12,12 @@ import javax.swing.JPanel;
 public class AnimatorPanel extends JPanel {
   private Window window;
   private int time;
-
+  private boolean showId;
 
   public AnimatorPanel() {
     setBackground(Color.WHITE);
     time = 0;
+    showId = false;
   }
 
   public void setAnimator(Window window) {
@@ -25,6 +26,10 @@ public class AnimatorPanel extends JPanel {
 
   public void updateTime(int time) {
     this.time = time;
+  }
+
+  public void showId(boolean showId) {
+    this.showId = showId;
   }
 
   @Override
@@ -48,6 +53,11 @@ public class AnimatorPanel extends JPanel {
             img.getPosition().getY(),
             img.getSize().getFirstArg(),
             img.getSize().getSecondArg());
+      }
+      if (showId) {
+        g2d.setColor(Color.BLACK);
+        g2d.drawString(img.getId(), img.getPosition().getX() + img.getSize().getFirstArg() / 3,
+            img.getPosition().getY() + img.getSize().getSecondArg() * 4 / 5);
       }
     }
   }

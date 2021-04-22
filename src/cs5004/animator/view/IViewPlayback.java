@@ -4,7 +4,11 @@ import cs5004.animator.controller.PlaybackFeatures;
 
 public interface IViewPlayback extends IViewVisual{
 
-  void displayButtons(boolean isPlaying, boolean isLoop);
+  void displayControlButtons(boolean isPlaying, boolean isLoop);
+
+  void displaySettingPanel();
 
   void addPlaybackFeatures(PlaybackFeatures playbackFeatures);
+
+  void showId(boolean showId);
 }

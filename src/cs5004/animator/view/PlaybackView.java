@@ -93,6 +93,9 @@ public class PlaybackView extends JFrame implements IViewPlayback {
   public void addPlaybackFeatures(PlaybackFeatures playbackFeatures) {
     // send playbackFeatures to ControlBarPanel
     controlBarPanel.addFeatures(playbackFeatures);
+
+    // send playbackFeatures to SeetingPanel
+    settingPanel.addFeatures(playbackFeatures);
   }
 
   @Override

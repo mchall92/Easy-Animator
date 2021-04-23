@@ -93,7 +93,7 @@ public class WindowImpl implements Window {
             id,
             shape,
             new Position(x, y),
-            new Color(r, g, b),
+            new ModelColor(r, g, b),
             new Size(sizeArg1, sizeArg2),
             appearTime,
             disappearTime);
@@ -122,7 +122,7 @@ public class WindowImpl implements Window {
   public void changeColor(String id, int r, int g, int b, int fromTime, int toTime) {
     checkTimeSequence(fromTime, toTime);
     checkExist(id);
-    elements.get(id).changeColor(new Color(r, g, b), fromTime, toTime);
+    elements.get(id).changeColor(new ModelColor(r, g, b), fromTime, toTime);
   }
 
   @Override

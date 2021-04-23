@@ -1,5 +1,6 @@
 package cs5004.animator.controller;
 
+import cs5004.animator.model.Shape;
 import cs5004.animator.model.Window;
 import cs5004.animator.view.IViewPlayback;
 import cs5004.animator.view.SettingPanel;
@@ -9,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 import javax.swing.Timer;
 
 
@@ -159,4 +161,30 @@ public class PlaybackController implements IController, ActionListener, Playback
     this.isMuted = false;
     view.displayControlButtons(timer.isRunning(), isLoop, false);
   }
+
+  @Override
+  public void addObject(String id, String x, String y, int r, int g,
+      int b, String shape, String sizeArg1, String sizeArg2,
+      String appearTime, String disappearTime) {
+    int xInt = Integer.parseInt(x);
+    int yInt = Integer.parseInt(y);
+    int sizeArg1Int = Integer.parseInt(sizeArg1);
+    int sizeArg2Int = Integer.parseInt(sizeArg2);
+    int appearTimeInt = Integer.parseInt(appearTime);
+    int disappearTimeInt = Integer.parseInt(disappearTime);
+    Shape objectShape = null;
+    for (Shape s : Shape.values()) {
+      if (s.toString().equals(shape)) {
+        objectShape = s;
+      }
+    }
+    window.addElement(id, xInt, yInt, r, g, b, objectShape,
+        sizeArg1Int, sizeArg2Int, appearTimeInt, disappearTimeInt);
+  }
+
+  @Override
+  public void test(String test) {
+
+  }
+
 }

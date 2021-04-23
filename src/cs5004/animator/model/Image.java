@@ -4,7 +4,7 @@ package cs5004.animator.model;
 public class Image {
   private String id;
   private Position position;
-  private Color color;
+  private ModelColor color;
   private Shape shape;
   private Size size;
 
@@ -17,7 +17,7 @@ public class Image {
    * @param shape shape of the element
    * @param size size of the element
    */
-  public Image(String id, Position position, Color color, Shape shape, Size size) {
+  public Image(String id, Position position, ModelColor color, Shape shape, Size size) {
     this.id = id;
     this.position = position;
     this.color = color;
@@ -33,7 +33,7 @@ public class Image {
     return position;
   }
 
-  public Color getColor() {
+  public ModelColor getColor() {
     return color;
   }
 

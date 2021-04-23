@@ -1,7 +1,7 @@
 package cs5004.animator.model;
 
 /** This class implements Feature interface and represents a color feature. */
-public class Color implements Feature {
+public class ModelColor implements Feature {
   private int r;
   private int g;
   private int b;
@@ -13,7 +13,7 @@ public class Color implements Feature {
    * @param g green value
    * @param b blue value
    */
-  public Color(int r, int g, int b) {
+  public ModelColor(int r, int g, int b) {
     this.r = r;
     this.g = g;
     this.b = b;

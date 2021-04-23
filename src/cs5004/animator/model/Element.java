@@ -80,4 +80,10 @@ public interface Element {
    * @return
    */
   String svgShape(int speed);
+
+  /**
+   * Return element shape.
+   * @return Return element shape.
+   */
+  Shape getShape();
 }

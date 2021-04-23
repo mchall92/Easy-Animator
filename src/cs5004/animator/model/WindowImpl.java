@@ -182,17 +182,17 @@ public class WindowImpl implements Window, IModelView {
   }
 
   /**
-   * Return a list of element IDs.
+   * Return a list of element IDs and their shapes.
    *
-   * @return a list of element IDs.
+   * @return a list of element IDs and their shapes.
    */
   @Override
-  public List<String> getElementIDs() {
-    List<String> elementIDs = new ArrayList<>();
-    for (String key : elements.keySet()) {
-      elementIDs.add(key);
+  public HashMap<String, Shape> getElementIDAndShape() {
+    HashMap<String, Shape> map = new HashMap<>();
+    for (String s : elements.keySet()) {
+      map.put(s, elements.get(s).getShape());
     }
-    return elementIDs;
+    return map;
   }
 
   @Override

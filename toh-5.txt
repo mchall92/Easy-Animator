@@ -4,6 +4,9 @@ shape disk2 rectangle
 shape disk3 rectangle
 shape disk4 rectangle
 shape disk5 rectangle
+shape oval1 ellipse
+
+motion oval1 1 190 168 20 18 127 185 246  1 190 168 20 18 127 185 246
 motion disk1 1 190 168 20 18 127 185 246  1 190 168 20 18 127 185 246
 motion disk1 1 190 168 20 18 127 185 246  25 190 168 20 18 127 185 246
 motion disk2 1 178 186 42 18 102 162 48  1 178 186 42 18 102 162 48

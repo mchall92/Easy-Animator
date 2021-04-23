@@ -181,12 +181,23 @@ public class PlaybackController implements IController, ActionListener, Playback
     } catch (IllegalArgumentException e) {
       System.out.println("warning sign for already existed ID");
     }
+  }
+
+  @Override
+  public void move(String id, String x, String y, String appearTime, String disappearTime) {
 
   }
 
   @Override
-  public void test(String test) {
+  public void changeSize(String id, String argsOne, String argsTwo, String appearTime,
+      String disappearTime) {
 
   }
+
+  @Override
+  public void changeColor(String id, int r, int g, int b, String appearTime, String disappearTime) {
+
+  }
+
 
 }

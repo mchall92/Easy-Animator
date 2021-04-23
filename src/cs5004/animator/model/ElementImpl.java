@@ -413,4 +413,14 @@ public class ElementImpl implements Element {
     sb.append("</" + shape.getSvgType() + ">\n");
     return sb.toString();
   }
+
+  /**
+   * Return element shape.
+   *
+   * @return Return element shape.
+   */
+  @Override
+  public Shape getShape() {
+    return this.shape;
+  }
 }

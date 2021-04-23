@@ -1,6 +1,7 @@
 package cs5004.animator.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -58,8 +59,8 @@ public interface IModelView {
   List<Element> getPriorities();
 
   /**
-   * Return a list of element IDs.
-   * @return a list of element IDs.
+   * Return a list of element IDs and their shapes.
+   * @return a list of element IDs and their shapes.
    */
-  public List<String> getElementIDs();
+  public HashMap<String, Shape> getElementIDAndShape();
 }

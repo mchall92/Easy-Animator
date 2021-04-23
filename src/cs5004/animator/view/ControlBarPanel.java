@@ -30,8 +30,6 @@ public class ControlBarPanel extends JPanel {
   private JPanel timePanel;
   private JLabel showTimeLabel;
   private RealTimePanel realTimePanel;
-  private JScrollPane js;
-
 
   public ControlBarPanel(FlowLayout flowLayout) {
     super(flowLayout);
@@ -50,9 +48,6 @@ public class ControlBarPanel extends JPanel {
     toLoopButton.setHorizontalAlignment(SwingConstants.LEFT);
     loopedButton.setHorizontalAlignment(SwingConstants.LEFT);
     settingButton.setHorizontalAlignment(SwingConstants.RIGHT);
-
-    // addScrollBar
-    
   }
 
   public void displayControl(boolean isPlay, boolean isLoop) {

@@ -3,10 +3,13 @@ package cs5004.animator.controller;
 import cs5004.animator.model.Window;
 import cs5004.animator.view.IViewPlayback;
 import cs5004.animator.view.SettingPanel;
+import jaco.mp3.player.MP3Player;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.HashMap;
 import javax.swing.Timer;
+
 
 public class PlaybackController implements IController, ActionListener, PlaybackFeatures {
 
@@ -19,6 +22,7 @@ public class PlaybackController implements IController, ActionListener, Playback
   private boolean isLoop;
   private boolean showId;
   private SettingPanel settingFrame;
+  private MP3Player mp3Player;
 
 
   public PlaybackController(Window window, IViewPlayback view, HashMap<String, String> argsMap) {
@@ -31,6 +35,18 @@ public class PlaybackController implements IController, ActionListener, Playback
     this.time = 0;
     this.isLoop = false;
     this.showId = false;
+
+    // media
+    mp3Player = null;
+    try {
+      File f = new File("audio/Lolly – Limujii (No Copyright Music).mp3");
+      String absolute = f.getAbsolutePath();
+      System.out.println(absolute);
+      mp3Player = new MP3Player(new File(absolute));
+    } catch(NullPointerException e) {
+      System.out.println("Audio not found.");
+    }
+    mp3Player.setRepeat(true);
   }
 
   @Override
@@ -41,7 +57,7 @@ public class PlaybackController implements IController, ActionListener, Playback
     this.view.setModel(this.window);
     this.view.displayControlButtons(true, isLoop);
     this.view.makeVisible();
-    timer.start();
+    this.start();
   }
 
   /**
@@ -68,12 +84,14 @@ public class PlaybackController implements IController, ActionListener, Playback
   @Override
   public void start() {
     timer.start();
+    mp3Player.play();
     view.displayControlButtons(true, isLoop);
   }
 
   @Override
   public void pause() {
     timer.stop();
+    mp3Player.pause();
     view.displayControlButtons(false, isLoop);
   }
 
@@ -81,7 +99,9 @@ public class PlaybackController implements IController, ActionListener, Playback
   public void stop() {
     time = 0;
     view.repaint(0);
-    this.pause();
+    mp3Player.stop();
+    timer.stop();
+    view.displayControlButtons(false, isLoop);
   }
 
   @Override

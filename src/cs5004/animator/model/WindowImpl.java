@@ -97,6 +97,9 @@ public class WindowImpl implements Window {
             new Size(sizeArg1, sizeArg2),
             appearTime,
             disappearTime);
+    if (elements.containsKey(id)) {
+      throw new IllegalArgumentException("ID has already existed.");
+    }
     elements.put(id, ele);
     if (disappearTime > this.endTime) {
       this.endTime = disappearTime;

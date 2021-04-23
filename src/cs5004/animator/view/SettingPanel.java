@@ -2,6 +2,7 @@ package cs5004.animator.view;
 
 import cs5004.animator.controller.PlaybackFeatures;
 import cs5004.animator.model.Shape;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -13,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -42,7 +44,11 @@ public class SettingPanel extends JPanel {
   private JPanel addTimePanel;
   private JFormattedTextField addAppearTime;
   private JFormattedTextField addDisappearTime;
+  private JPanel addObjectButtonPanel;
   private JButton submitAddObjectButton;
+  private JButton clearAddField;
+  private JFrame addObjectSuccessFrame;
+  private JButton addObjectSuccessButton;
 
   private NumberFormat intFormat;
   private NumberFormatter intFormatter;
@@ -61,7 +67,7 @@ public class SettingPanel extends JPanel {
   private void setAddObjectPanel() {
     // set up Add Object Panel
     addObjectPanel = new JPanel();
-    addObjectPanel.setPreferredSize(new Dimension(600, 230));
+    addObjectPanel.setPreferredSize(new Dimension(610, 240));
     addObjectPanel.setBorder(BorderFactory.createTitledBorder("Add An Object"));
     this.add(addObjectPanel);
 
@@ -90,22 +96,19 @@ public class SettingPanel extends JPanel {
     addPositionPanel.add(addYPositionField);
     addObjectPanel.add(addPositionPanel);
 
-    // build and add choose shape combo box
-    chooseShapePanel = new JPanel();
-    chooseShapePanel.setBorder(BorderFactory.createTitledBorder("Choose A Shape"));
-    String[] shapeChoiceArray;
-    List<String> shapeChoice = new ArrayList<>();
-    for (Shape s : Shape.values()) {
-      shapeChoice.add(s.toString());
-    }
-    shapeChoiceArray = new String[shapeChoice.size()];
-    shapeChoice.toArray(shapeChoiceArray);
-    chooseShapeComboBox = new JComboBox<>(shapeChoiceArray);
-    chooseShapeComboBox.setSelectedIndex(0);
-    chooseShapeComboBox.setVisible(true);
-    chooseShapePanel.add(chooseShapeComboBox);
-    chooseShapePanel.add(new JLabel("    "));
-    addObjectPanel.add(chooseShapePanel);
+    // build and add choose color button
+    //set default color to white
+    color = Color.WHITE;
+    addColorChooserPanel = new JPanel();
+    addColorChooserPanel.setBorder(BorderFactory.createTitledBorder("Set Color"));
+    addColorChooserButton = new JButton("Choose A Color");
+    addColorChooserPanel.add(addColorChooserButton);
+    colorChooserDisplay = new JLabel("     ");
+    colorChooserDisplay.setOpaque(true); //so that background color shows up
+    colorChooserDisplay.setBackground(Color.WHITE);
+    addColorChooserPanel.add(addColorChooserButton);
+    addColorChooserPanel.add(colorChooserDisplay);
+    addObjectPanel.add(addColorChooserPanel);
 
     // build and add size panel
     addSizePanel = new JPanel();
@@ -124,19 +127,23 @@ public class SettingPanel extends JPanel {
     addSizePanel.add(addSizeFieldTwo);
     addObjectPanel.add(addSizePanel);
 
-    // build and add choose color button
-    //set default color to white
-    color = Color.WHITE;
-    addColorChooserPanel = new JPanel();
-    addColorChooserPanel.setBorder(BorderFactory.createTitledBorder("Set Color"));
-    addColorChooserButton = new JButton("Choose A Color");
-    addColorChooserPanel.add(addColorChooserButton);
-    colorChooserDisplay = new JLabel("     ");
-    colorChooserDisplay.setOpaque(true); //so that background color shows up
-    colorChooserDisplay.setBackground(Color.WHITE);
-    addColorChooserPanel.add(addColorChooserButton);
-    addColorChooserPanel.add(colorChooserDisplay);
-    addObjectPanel.add(addColorChooserPanel);
+
+    // build and add choose shape combo box
+    chooseShapePanel = new JPanel();
+    chooseShapePanel.setBorder(BorderFactory.createTitledBorder("Choose A Shape"));
+    String[] shapeChoiceArray;
+    List<String> shapeChoice = new ArrayList<>();
+    for (Shape s : Shape.values()) {
+      shapeChoice.add(s.toString());
+    }
+    shapeChoiceArray = new String[shapeChoice.size()];
+    shapeChoice.toArray(shapeChoiceArray);
+    chooseShapeComboBox = new JComboBox<>(shapeChoiceArray);
+    chooseShapeComboBox.setSelectedIndex(0);
+    chooseShapeComboBox.setVisible(true);
+    chooseShapePanel.add(chooseShapeComboBox);
+    chooseShapePanel.add(new JLabel("    "));
+    addObjectPanel.add(chooseShapePanel);
 
     // build and add time panel
     addTimePanel = new JPanel();
@@ -153,9 +160,26 @@ public class SettingPanel extends JPanel {
     addTimePanel.add(addDisappearTime);
     addObjectPanel.add(addTimePanel);
 
+
     // build submit add object button
+    // build clear button
+    addObjectButtonPanel = new JPanel();
+    addObjectButtonPanel.setPreferredSize(new Dimension(140, 70));
     submitAddObjectButton = new JButton("Add");
-    addObjectPanel.add(submitAddObjectButton);
+    clearAddField = new JButton("Clear");
+    addObjectButtonPanel.add(submitAddObjectButton, BorderLayout.WEST);
+    addObjectButtonPanel.add(clearAddField, BorderLayout.EAST);
+    addObjectPanel.add(addObjectButtonPanel);
+
+    // add object successful frame
+    addObjectSuccessFrame = new JFrame();
+    JPanel addObjectSuccessPanel = new JPanel();
+    JLabel confirmLabel = new JLabel("Successfully Added Object!");
+    addObjectSuccessButton = new JButton("OK");
+    addObjectSuccessPanel.add(confirmLabel);
+    addObjectSuccessPanel.add(addObjectSuccessButton);
+    addObjectSuccessFrame.add(addObjectSuccessPanel);
+    addObjectSuccessFrame.setMinimumSize(new Dimension(200, 100));
   }
 
   public void toggleVisible() {
@@ -180,7 +204,14 @@ public class SettingPanel extends JPanel {
           addAppearTime.getText().replace(",", ""),
           addDisappearTime.getText().replace(",", "")
       );
+      this.clearAddObjectFields();
+      addObjectSuccessFrame.setVisible(true);
     });
+
+    addObjectSuccessButton.addActionListener(e -> addObjectSuccessFrame.setVisible(false));
+
+    // clear button
+    clearAddField.addActionListener(e -> this.clearAddObjectFields());
 
     // choose color button
     addColorChooserButton.addActionListener(e -> {
@@ -203,7 +234,7 @@ public class SettingPanel extends JPanel {
     intFormatter.setValueClass(Integer.class);
     intFormatter.setMinimum(Integer.MIN_VALUE);
     intFormatter.setMaximum(Integer.MAX_VALUE);
-    intFormatter.setAllowsInvalid(false);
+    intFormatter.setAllowsInvalid(true);
     intFormatter.setCommitsOnValidEdit(true);
 
     // non negative int
@@ -212,7 +243,7 @@ public class SettingPanel extends JPanel {
     positiveIntFormatter.setValueClass(Integer.class);
     positiveIntFormatter.setMinimum(0);
     positiveIntFormatter.setMaximum(Integer.MAX_VALUE);
-    positiveIntFormatter.setAllowsInvalid(false);
+    positiveIntFormatter.setAllowsInvalid(true);
     positiveIntFormatter.setCommitsOnValidEdit(true);
 
     // positive int
@@ -221,8 +252,20 @@ public class SettingPanel extends JPanel {
     nonNegativeIntFormatter.setValueClass(Integer.class);
     nonNegativeIntFormatter.setMinimum(0);
     nonNegativeIntFormatter.setMaximum(Integer.MAX_VALUE);
-    nonNegativeIntFormatter.setAllowsInvalid(false);
+    nonNegativeIntFormatter.setAllowsInvalid(true);
     nonNegativeIntFormatter.setCommitsOnValidEdit(true);
+  }
+
+  public void clearAddObjectFields() {
+    addObjectNameField.setText("");
+    addXPositionField.setText("");
+    addYPositionField.setText("");
+    addSizeFieldOne.setText("");
+    addSizeFieldTwo.setText("");
+    addAppearTime.setText("");
+    addDisappearTime.setText("");
+    color = Color.white;
+    chooseShapeComboBox.setSelectedIndex(0);
   }
 
 

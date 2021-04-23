@@ -21,16 +21,16 @@ public class AnimatorPanel extends JPanel {
     showId = false;
   }
 
-  public void setViewModel(IModelView viewModel) {
-    this.viewModel = viewModel;
-  }
-
   public void updateTime(int time) {
     this.time = time;
   }
 
   public void showId(boolean showId) {
     this.showId = showId;
+  }
+
+  public void setViewModel(IModelView viewModel) {
+    this.viewModel = viewModel;
   }
 
   @Override

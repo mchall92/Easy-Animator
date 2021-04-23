@@ -16,6 +16,4 @@ public interface IViewPlayback extends IViewVisual {
   void showInitialSpeed(int speed);
 
   void updateSpeed(int speed);
-
-  void setViewModel(IModelView viewModel);
 }

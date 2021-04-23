@@ -149,5 +149,5 @@ public interface Window {
    * Return a list of element IDs.
    * @return a list of element IDs.
    */
-  public List<String> getElements();
+  public List<String> getElementIDs();
 }

@@ -2,7 +2,6 @@ package cs5004.animator.view;
 
 import cs5004.animator.controller.PlaybackFeatures;
 import cs5004.animator.model.IModelView;
-import cs5004.animator.model.Window;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -70,7 +69,10 @@ public class PlaybackView extends JFrame implements IViewPlayback {
   }
 
   @Override
-  public void setModel(Window window) {
+  public void setViewModel(IModelView viewModel) {
+    animatorPanel.setViewModel(viewModel);
+    settingPanel.setViewModel(viewModel);
+    settingPanel.build();
   }
 
   /** Make the view visible. Called after the view is constructed */
@@ -94,7 +96,7 @@ public class PlaybackView extends JFrame implements IViewPlayback {
     // send playbackFeatures to ControlBarPanel
     controlBarPanel.addFeatures(playbackFeatures);
 
-    // send playbackFeatures to SeetingPanel
+    // send playbackFeatures to SettingPanel
     settingPanel.addFeatures(playbackFeatures);
   }
 
@@ -119,12 +121,6 @@ public class PlaybackView extends JFrame implements IViewPlayback {
   @Override
   public void updateSpeed(int speed) {
     controlBarPanel.updateSpeed(speed);
-  }
-
-  @Override
-  public void setViewModel(IModelView viewModel) {
-    animatorPanel.setViewModel(viewModel);
-    settingPanel.setViewModel(viewModel);
   }
 }
 

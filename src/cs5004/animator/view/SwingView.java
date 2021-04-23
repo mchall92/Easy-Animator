@@ -52,11 +52,6 @@ public class SwingView extends JFrame implements IViewVisual {
     this.setTitle(fileName);
   }
 
-  @Override
-  public void setModel(Window window) {
-    animatorPanel.setViewModel((IModelView) window);
-  }
-
   /** Make the view visible. Called after the view is constructed */
   @Override
   public void makeVisible() {
@@ -69,4 +64,13 @@ public class SwingView extends JFrame implements IViewVisual {
     animatorPanel.repaint();
   }
 
+  /**
+   * Set an animator model to this view.
+   *
+   * @param viewModel the animator model (view only)
+   */
+  @Override
+  public void setViewModel(IModelView viewModel) {
+    animatorPanel.setViewModel(viewModel);
+  }
 }

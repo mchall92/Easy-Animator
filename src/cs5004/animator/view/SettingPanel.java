@@ -89,6 +89,13 @@ public class SettingPanel extends JPanel {
   public SettingPanel(FlowLayout flowLayout) {
     super(flowLayout);
     this.setVisible(false);
+  }
+
+  public void setViewModel(IModelView viewModel) {
+    this.viewModel = viewModel;
+  }
+
+  public void build() {
     this.setFormatter();
     this.setAddObjectPanel();
     this.setOperationPanel();
@@ -215,9 +222,46 @@ public class SettingPanel extends JPanel {
   private void setOperationPanel() {
     // set up operation Panel
     operationPanel = new JPanel();
-    operationPanel.setPreferredSize(new Dimension(610, 240));
+    operationPanel.setPreferredSize(new Dimension(570, 240));
     operationPanel.setBorder(BorderFactory.createTitledBorder("Add An Operation"));
     this.add(operationPanel);
+
+    // build choose ID panel
+    operationIdPanel = new JPanel();
+    operationIdPanel.setBorder(BorderFactory.createTitledBorder
+        ("Choose An Object"));
+    operationIdPanel.setPreferredSize(new Dimension(170, 70));
+    List<String> operationIDList = viewModel.getElementIDs();
+    String[] operationIDArray = new String[operationIDList.size()];
+    operationIDList.toArray(operationIDArray);
+    operationChooseIdComboBox = new JComboBox<>(operationIDArray);
+    operationChooseIdComboBox.setPreferredSize
+        (new Dimension(150, 25));
+    operationIdPanel.add(operationChooseIdComboBox);
+    operationPanel.add(operationIdPanel);
+
+    // build action panel
+    operationMotionPanel = new JPanel();
+    operationMotionPanel.setBorder(BorderFactory.createTitledBorder
+        ("Choose An Operation"));
+    operationIdPanel.setPreferredSize(new Dimension(200, 80));
+    String[] motionArray = new String[]
+        {"Move", "Change size", "Change Color"};
+    operationMotionComboBox = new JComboBox<>(motionArray);
+    operationMotionComboBox.setPreferredSize
+        (new Dimension(150, 25));
+    operationMotionPanel.add(operationMotionComboBox);
+    operationPanel.add(operationMotionPanel);
+
+    // build move panel, initially visible
+    // build size panel , initially invisible
+    // build change color pane, initially invisible
+
+    // build time panel
+
+    // build add and clear buttons
+
+    
   }
 
   public void toggleVisible() {
@@ -305,9 +349,4 @@ public class SettingPanel extends JPanel {
     addColor = Color.white;
     chooseShapeComboBox.setSelectedIndex(0);
   }
-
-  public void setViewModel(IModelView viewModel) {
-    this.viewModel = viewModel;
-  }
-
 }

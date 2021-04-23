@@ -1,5 +1,6 @@
 package cs5004.animator.view;
 
+import cs5004.animator.model.IModelView;
 import cs5004.animator.model.Window;
 
 import java.io.File;
@@ -9,11 +10,11 @@ import java.io.IOException;
 /** This view can output a text format output. */
 public class TextView implements IViewText {
   private String out;
-  private Window window;
+  private IModelView viewModel;
 
   @Override
-  public void setModel(Window window) {
-    this.window = window;
+  public void setViewModel(IModelView viewModel) {
+    this.viewModel = viewModel;
   }
 
   /**
@@ -36,7 +37,7 @@ public class TextView implements IViewText {
 
   /** System.out version of makeVisible */
   private void writeSystem() {
-    System.out.print(window.toString());
+    System.out.print(viewModel.toString());
   }
 
   /** File version of makeVisible */
@@ -45,11 +46,17 @@ public class TextView implements IViewText {
     FileWriter fileWriter = null;
     try {
       fileWriter = new FileWriter(file);
-      fileWriter.write(window.toString());
+      fileWriter.write(viewModel.toString());
       fileWriter.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
+
+  /**
+   * Set an animator model to this view.
+   *
+   * @param viewModel the animator model (view only)
+   */
 
 }

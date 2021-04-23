@@ -1,5 +1,6 @@
 package cs5004.animator.controller;
 
+import cs5004.animator.model.IModelView;
 import cs5004.animator.model.Window;
 import cs5004.animator.view.IViewVisual;
 import java.awt.event.ActionEvent;
@@ -30,7 +31,7 @@ public class SwingController implements IController, ActionListener {
   public void go() {
     System.out.println("All images are from freeicons.io and free for use.");
     this.view.setFileName(this.argsMap.get("fileName"));
-    this.view.setModel(this.window);
+    this.view.setViewModel((IModelView) window);
     this.view.makeVisible();
     timer.start();
   }

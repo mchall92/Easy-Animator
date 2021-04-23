@@ -48,7 +48,6 @@ public class EasyAnimatorRunner {
       case "playback": {
         IViewPlayback view = new PlaybackView();
         IController controller = new PlaybackController(window, view, argsMap);
-        view.setModel(window);
         controller.go();
         break;
       }

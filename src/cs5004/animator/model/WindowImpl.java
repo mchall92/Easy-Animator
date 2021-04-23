@@ -187,7 +187,7 @@ public class WindowImpl implements Window, IModelView {
    * @return a list of element IDs.
    */
   @Override
-  public List<String> getElements() {
+  public List<String> getElementIDs() {
     List<String> elementIDs = new ArrayList<>();
     for (String key : elements.keySet()) {
       elementIDs.add(key);

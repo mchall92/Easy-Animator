@@ -2,7 +2,6 @@ package cs5004.animator.view;
 
 import cs5004.animator.controller.PlaybackFeatures;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import javax.swing.BorderFactory;
@@ -12,7 +11,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 public class ControlBarPanel extends JPanel {
@@ -22,6 +20,8 @@ public class ControlBarPanel extends JPanel {
   private JButton stopButton;
   private JButton toLoopButton;
   private JButton loopedButton;
+  private JButton toMuteButton;
+  private JButton unmuteButton;
   private JComboBox<String> comboBox;
   private JButton settingButton;
   private JPanel idCheckBoxPanel;
@@ -30,6 +30,10 @@ public class ControlBarPanel extends JPanel {
   private JPanel timePanel;
   private JLabel showTimeLabel;
   private RealTimePanel realTimePanel;
+  private JPanel speedPanel;
+  private JLabel showSpeedLabel;
+  private RealTimeSpeedPanel realTimeSpeedPanel;
+  private int speed;
 
   public ControlBarPanel(FlowLayout flowLayout) {
     super(flowLayout);
@@ -42,6 +46,8 @@ public class ControlBarPanel extends JPanel {
     setSettingButton();
     setIdCheckBox();
     setTimePanel();
+    setToMuteButton();
+    setUnmuteButton();
     playButton.setHorizontalAlignment(SwingConstants.LEFT);
     pauseButton.setHorizontalAlignment(SwingConstants.LEFT);
     stopButton.setHorizontalAlignment(SwingConstants.LEFT);
@@ -50,14 +56,15 @@ public class ControlBarPanel extends JPanel {
     settingButton.setHorizontalAlignment(SwingConstants.RIGHT);
   }
 
-  public void displayControl(boolean isPlay, boolean isLoop) {
+  public void displayControl(boolean isPlay, boolean isLoop, boolean isMuted) {
     this.clear();
     this.showPlay(isPlay);
     this.add(stopButton);
     this.showLoop(isLoop);
+    this.showMute(isMuted);
     this.add(comboBox, RIGHT_ALIGNMENT);
+    this.add(speedPanel);
     this.add(idCheckBoxPanel);
-    this.add(timePanel);
     this.add(timePanel);
     this.add(settingButton);
   }
@@ -68,6 +75,8 @@ public class ControlBarPanel extends JPanel {
     stopButton.addActionListener(e -> features.stop());
     toLoopButton.addActionListener(e -> features.startLooping());
     loopedButton.addActionListener(e -> features.stopLooping());
+    toMuteButton.addActionListener(e -> features.toMute());
+    unmuteButton.addActionListener(e -> features.unmute());
 
     comboBox.addActionListener(e ->
         features.setTempoX(comboBox.getItemAt(comboBox.getSelectedIndex())));
@@ -77,6 +86,14 @@ public class ControlBarPanel extends JPanel {
 
   public RealTimePanel getRealTimePanel() {
     return realTimePanel;
+  }
+
+  public void showRealTimeSpeed(int speed) {
+    this.speed = speed;
+    if (realTimeSpeedPanel != null) {
+      realTimeSpeedPanel.updateSpeed(speed);
+    }
+    this.setSpeedPanel();
   }
 
   // buttons setup
@@ -153,6 +170,28 @@ public class ControlBarPanel extends JPanel {
     }
   }
 
+  private void setToMuteButton() {
+    toMuteButton = new JButton();
+    try {
+      ImageIcon toMuteIcon = new ImageIcon(getClass().getResource("images/toMute.png"));
+      toMuteIcon = new ImageIcon(toMuteIcon.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+      toMuteButton.setIcon(toMuteIcon);
+    } catch (NullPointerException e) {
+      System.out.println("Image for toMute not found.");
+    }
+  }
+
+  private void setUnmuteButton() {
+    unmuteButton = new JButton();
+    try {
+      ImageIcon unmuteIcon = new ImageIcon(getClass().getResource("images/unmute.png"));
+      unmuteIcon = new ImageIcon(unmuteIcon.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+      unmuteButton.setIcon(unmuteIcon);
+    } catch (NullPointerException e) {
+      System.out.println("Image for toMute not found.");
+    }
+  }
+
   private void setIdCheckBox() {
     idCheckBoxPanel = new JPanel();
     idCheckBoxLabel = new JLabel("Show Object ID");
@@ -169,6 +208,15 @@ public class ControlBarPanel extends JPanel {
     timePanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
     timePanel.add(showTimeLabel);
     timePanel.add(realTimePanel);
+  }
+
+  private void setSpeedPanel() {
+    realTimeSpeedPanel = new RealTimeSpeedPanel(speed);
+    speedPanel = new JPanel();
+    showSpeedLabel = new JLabel("Speed : ");
+    speedPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+    speedPanel.add(showSpeedLabel);
+    speedPanel.add(realTimeSpeedPanel);
   }
 
   // helper methods
@@ -191,6 +239,14 @@ public class ControlBarPanel extends JPanel {
       this.add(loopedButton);
     } else {
       this.add(toLoopButton);
+    }
+  }
+
+  private void showMute(boolean isMuted) {
+    if (isMuted) {
+      this.add(unmuteButton);
+    } else {
+      this.add(toMuteButton);
     }
   }
 }

@@ -17,6 +17,7 @@ public class PlaybackView extends JFrame implements IViewPlayback {
   private SettingPanel settingPanel;
   private RealTimePanel realTimePanel;
   private JScrollPane js;
+  private int speed;
 
 
   /**
@@ -24,13 +25,13 @@ public class PlaybackView extends JFrame implements IViewPlayback {
    */
   public PlaybackView() throws IOException {
     super();
-    this.setSize(720, 450);
+    this.setSize(900, 700);
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());
 
     // add Animator Panel
     animatorPanel = new AnimatorPanel();
-    animatorPanel.setPreferredSize(new Dimension(720, 450));
+    animatorPanel.setPreferredSize(new Dimension(900, 700));
     this.add(animatorPanel, BorderLayout.CENTER);
 
     // add Scroll bars for animator panel
@@ -38,17 +39,17 @@ public class PlaybackView extends JFrame implements IViewPlayback {
             animatorPanel,
             JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
             JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-    js.setPreferredSize(new Dimension(720, 450));
+    js.setPreferredSize(new Dimension(900, 700));
     this.add(js);
 
     // add control bar panel and display
     controlBarPanel = new ControlBarPanel(new FlowLayout(FlowLayout.LEFT));
-    controlBarPanel.setPreferredSize(new Dimension(720, 50));
+    controlBarPanel.setPreferredSize(new Dimension(900, 50));
     this.add(controlBarPanel, BorderLayout.NORTH);
 
     // add setting panel
     settingPanel = new SettingPanel();
-    settingPanel.setPreferredSize(new Dimension(720, 100));
+    settingPanel.setPreferredSize(new Dimension(900, 150));
     this.add(settingPanel, BorderLayout.SOUTH);
 
     // get real time panel
@@ -79,8 +80,8 @@ public class PlaybackView extends JFrame implements IViewPlayback {
   }
 
   @Override
-  public void displayControlButtons(boolean isPlaying, boolean isLoop) {
-    controlBarPanel.displayControl(isPlaying, isLoop);
+  public void displayControlButtons(boolean isPlaying, boolean isLoop, boolean isMuted) {
+    controlBarPanel.displayControl(isPlaying, isLoop, isMuted);
   }
 
   @Override
@@ -105,6 +106,11 @@ public class PlaybackView extends JFrame implements IViewPlayback {
   @Override
   public void showId(boolean showId) {
     animatorPanel.showId(showId);
+  }
+
+  @Override
+  public void showRealTimeSpeed(int speed) {
+    controlBarPanel.showRealTimeSpeed(speed);
   }
 }
 

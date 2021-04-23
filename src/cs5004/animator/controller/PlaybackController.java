@@ -20,6 +20,7 @@ public class PlaybackController implements IController, ActionListener, Playback
   private int time;
   private int tempo;
   private boolean isLoop;
+  private boolean isMuted;
   private boolean showId;
   private SettingPanel settingFrame;
   private MP3Player mp3Player;
@@ -35,6 +36,7 @@ public class PlaybackController implements IController, ActionListener, Playback
     this.time = 0;
     this.isLoop = false;
     this.showId = false;
+    this.isMuted = false;
 
     // media
     mp3Player = null;
@@ -55,7 +57,8 @@ public class PlaybackController implements IController, ActionListener, Playback
     this.view.setFileName(this.argsMap.get("fileName"));
     this.view.addPlaybackFeatures(this);
     this.view.setModel(this.window);
-    this.view.displayControlButtons(true, isLoop);
+    this.view.showRealTimeSpeed(tempo);
+    this.view.displayControlButtons(true, isLoop, isMuted);
     this.view.makeVisible();
     this.start();
   }
@@ -70,12 +73,13 @@ public class PlaybackController implements IController, ActionListener, Playback
     time += 1;
     if (time > window.getEndTime()) {
       if (!isLoop) {
-        view.displayControlButtons(false,false);
+        view.displayControlButtons(false,false, isMuted);
         timer.stop();
+        mp3Player.stop();
         time = 0;
       } else {
         time = 0;
-        view.displayControlButtons(true,true);
+        view.displayControlButtons(true,true, isMuted);
       }
     }
     view.repaint(time);
@@ -84,15 +88,17 @@ public class PlaybackController implements IController, ActionListener, Playback
   @Override
   public void start() {
     timer.start();
-    mp3Player.play();
-    view.displayControlButtons(true, isLoop);
+    if (!isMuted) {
+      mp3Player.play();
+    }
+    view.displayControlButtons(true, isLoop, isMuted);
   }
 
   @Override
   public void pause() {
     timer.stop();
     mp3Player.pause();
-    view.displayControlButtons(false, isLoop);
+    view.displayControlButtons(false, isLoop, isMuted);
   }
 
   @Override
@@ -101,19 +107,19 @@ public class PlaybackController implements IController, ActionListener, Playback
     view.repaint(0);
     mp3Player.stop();
     timer.stop();
-    view.displayControlButtons(false, isLoop);
+    view.displayControlButtons(false, isLoop, isMuted);
   }
 
   @Override
   public void startLooping() {
     isLoop = true;
-    view.displayControlButtons(timer.isRunning(), true);
+    view.displayControlButtons(timer.isRunning(), true, isMuted);
   }
 
   @Override
   public void stopLooping() {
     isLoop = false;
-    view.displayControlButtons(timer.isRunning(), false);
+    view.displayControlButtons(timer.isRunning(), false, isMuted);
   }
 
   @Override
@@ -125,6 +131,7 @@ public class PlaybackController implements IController, ActionListener, Playback
   public void setTempoX(String x) {
     double times = Double.parseDouble(x.substring(0, x.length() - 1));
     this.setTempo((int) (tempo * times));
+    this.view.showRealTimeSpeed((int) (tempo * times));
   }
 
   @Override
@@ -136,5 +143,21 @@ public class PlaybackController implements IController, ActionListener, Playback
   public void showId(boolean showId) {
     view.showId(showId);
     view.repaint(time);
+  }
+
+  @Override
+  public void toMute() {
+    mp3Player.pause();
+    this.isMuted = true;
+    view.displayControlButtons(timer.isRunning(), isLoop, true);
+  }
+
+  @Override
+  public void unmute() {
+    if (timer.isRunning()) {
+      mp3Player.play();
+    }
+    this.isMuted = false;
+    view.displayControlButtons(timer.isRunning(), isLoop, false);
   }
 }

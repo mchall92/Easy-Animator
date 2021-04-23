@@ -2,13 +2,15 @@ package cs5004.animator.view;
 
 import cs5004.animator.controller.PlaybackFeatures;
 
-public interface IViewPlayback extends IViewVisual{
+public interface IViewPlayback extends IViewVisual {
 
-  void displayControlButtons(boolean isPlaying, boolean isLoop);
+  void displayControlButtons(boolean isPlaying, boolean isLoop, boolean isMuted);
 
   void displaySettingPanel();
 
   void addPlaybackFeatures(PlaybackFeatures playbackFeatures);
 
   void showId(boolean showId);
+
+  void showRealTimeSpeed(int speed);
 }

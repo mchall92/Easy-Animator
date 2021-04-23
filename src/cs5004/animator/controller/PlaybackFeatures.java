@@ -13,4 +13,7 @@ public interface PlaybackFeatures {
   public void setTempoX(String x);
   public void toggleSettingPanel();
   public void showId(boolean showId);
+  public void toMute();
+  public void unmute();
+
 }

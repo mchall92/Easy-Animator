@@ -57,7 +57,7 @@ public class PlaybackController implements IController, ActionListener, Playback
     this.view.setFileName(this.argsMap.get("fileName"));
     this.view.addPlaybackFeatures(this);
     this.view.setModel(this.window);
-    this.view.showRealTimeSpeed(tempo);
+    this.view.showInitialSpeed(tempo);
     this.view.displayControlButtons(true, isLoop, isMuted);
     this.view.makeVisible();
     this.start();
@@ -131,7 +131,7 @@ public class PlaybackController implements IController, ActionListener, Playback
   public void setTempoX(String x) {
     double times = Double.parseDouble(x.substring(0, x.length() - 1));
     this.setTempo((int) (tempo * times));
-    this.view.showRealTimeSpeed((int) (tempo * times));
+    this.view.updateSpeed((int) (tempo * times));
   }
 
   @Override

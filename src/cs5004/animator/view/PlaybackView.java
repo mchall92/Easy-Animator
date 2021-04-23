@@ -109,8 +109,13 @@ public class PlaybackView extends JFrame implements IViewPlayback {
   }
 
   @Override
-  public void showRealTimeSpeed(int speed) {
-    controlBarPanel.showRealTimeSpeed(speed);
+  public void showInitialSpeed(int speed) {
+    controlBarPanel.showInitialSpeed(speed);
+  }
+
+  @Override
+  public void updateSpeed(int speed) {
+    controlBarPanel.updateSpeed(speed);
   }
 }
 

@@ -11,7 +11,7 @@ public class RealTimeSpeedPanel extends JPanel {
   private int speed;
 
   public RealTimeSpeedPanel(int speed) {
-    this.add(new JLabel("             "));
+    this.add(new JLabel("      "));
     this.speed = speed;
   }
 

@@ -62,11 +62,11 @@ public class ControlBarPanel extends JPanel {
     this.add(stopButton);
     this.showLoop(isLoop);
     this.showMute(isMuted);
+    this.add(settingButton);
     this.add(comboBox, RIGHT_ALIGNMENT);
     this.add(speedPanel);
     this.add(idCheckBoxPanel);
     this.add(timePanel);
-    this.add(settingButton);
   }
 
   public void addFeatures(PlaybackFeatures features) {
@@ -88,12 +88,13 @@ public class ControlBarPanel extends JPanel {
     return realTimePanel;
   }
 
-  public void showRealTimeSpeed(int speed) {
+  public void showInitialSpeed(int speed) {
     this.speed = speed;
-    if (realTimeSpeedPanel != null) {
-      realTimeSpeedPanel.updateSpeed(speed);
-    }
     this.setSpeedPanel();
+  }
+
+  public void updateSpeed(int speed) {
+    realTimeSpeedPanel.updateSpeed(speed);
   }
 
   // buttons setup

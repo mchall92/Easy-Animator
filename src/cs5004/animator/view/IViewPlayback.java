@@ -12,5 +12,7 @@ public interface IViewPlayback extends IViewVisual {
 
   void showId(boolean showId);
 
-  void showRealTimeSpeed(int speed);
+  void showInitialSpeed(int speed);
+
+  void updateSpeed(int speed);
 }

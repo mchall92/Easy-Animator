@@ -4,6 +4,7 @@ import cs5004.animator.model.Window;
 import cs5004.animator.view.IViewPlayback;
 import cs5004.animator.view.SettingPanel;
 import jaco.mp3.player.MP3Player;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -22,7 +23,6 @@ public class PlaybackController implements IController, ActionListener, Playback
   private boolean isLoop;
   private boolean isMuted;
   private boolean showId;
-  private SettingPanel settingFrame;
   private MP3Player mp3Player;
 
 
@@ -31,7 +31,6 @@ public class PlaybackController implements IController, ActionListener, Playback
     this.view = view;
     this.argsMap = argsMap;
     this.tempo = Integer.parseInt(argsMap.get("speed"));
-    this.settingFrame = new SettingPanel();
     this.timer = new Timer((int) 1000 / tempo, this);
     this.time = 0;
     this.isLoop = false;

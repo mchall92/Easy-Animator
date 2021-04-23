@@ -25,13 +25,13 @@ public class PlaybackView extends JFrame implements IViewPlayback {
    */
   public PlaybackView() throws IOException {
     super();
-    this.setSize(900, 700);
+    this.setSize(1440, 900);
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());
 
     // add Animator Panel
     animatorPanel = new AnimatorPanel();
-    animatorPanel.setPreferredSize(new Dimension(900, 700));
+    animatorPanel.setPreferredSize(new Dimension(1400, 800));
     this.add(animatorPanel, BorderLayout.CENTER);
 
     // add Scroll bars for animator panel
@@ -39,17 +39,17 @@ public class PlaybackView extends JFrame implements IViewPlayback {
             animatorPanel,
             JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
             JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-    js.setPreferredSize(new Dimension(900, 700));
+    js.setPreferredSize(new Dimension(1440, 900));
     this.add(js);
 
     // add control bar panel and display
     controlBarPanel = new ControlBarPanel(new FlowLayout(FlowLayout.LEFT));
-    controlBarPanel.setPreferredSize(new Dimension(900, 50));
+    controlBarPanel.setPreferredSize(new Dimension(1440, 50));
     this.add(controlBarPanel, BorderLayout.NORTH);
 
     // add setting panel
-    settingPanel = new SettingPanel();
-    settingPanel.setPreferredSize(new Dimension(900, 150));
+    settingPanel = new SettingPanel(new FlowLayout(FlowLayout.LEFT));
+    settingPanel.setPreferredSize(new Dimension(1440, 250));
     this.add(settingPanel, BorderLayout.SOUTH);
 
     // get real time panel

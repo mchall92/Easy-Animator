@@ -155,7 +155,7 @@ public class ControlBarPanel extends JPanel {
 
   private void setDropDownMenu() {
     String[] choices = { "0.5X","0.75X", "1X","1.5X","2X"};
-    comboBox = new JComboBox<String>(choices);
+    comboBox = new JComboBox<>(choices);
     comboBox.setSelectedIndex(2);
     comboBox.setVisible(true);
   }

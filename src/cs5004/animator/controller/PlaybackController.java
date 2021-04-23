@@ -1,6 +1,6 @@
 package cs5004.animator.controller;
 
-import cs5004.animator.model.Image;
+import cs5004.animator.model.IModelView;
 import cs5004.animator.model.Shape;
 import cs5004.animator.model.Window;
 import cs5004.animator.view.IViewPlayback;
@@ -54,7 +54,7 @@ public class PlaybackController implements IController, ActionListener, Playback
     System.out.println("All images are from freeicons.io and free for use.");
     this.view.setFileName(this.argsMap.get("fileName"));
     this.view.addPlaybackFeatures(this);
-    this.view.setModel(this.window);
+    this.view.setViewModel((IModelView) this.window);
     this.view.showInitialSpeed(tempo);
     this.view.displayControlButtons(true, isLoop, isMuted);
     this.view.makeVisible();

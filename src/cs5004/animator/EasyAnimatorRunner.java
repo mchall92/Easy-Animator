@@ -6,7 +6,6 @@ import cs5004.animator.controller.PlaybackController;
 import cs5004.animator.controller.SVGController;
 import cs5004.animator.controller.SwingController;
 import cs5004.animator.controller.TextController;
-import cs5004.animator.model.IViewWindow;
 import cs5004.animator.model.Window;
 import cs5004.animator.util.EasyAnimatorSetter;
 import cs5004.animator.view.IViewPlayback;
@@ -27,7 +26,6 @@ public class EasyAnimatorRunner {
     EasyAnimatorSetter easyAnimator = new EasyAnimatorSetter(args);
     HashMap<String, String> argsMap = easyAnimator.getArgsMap();
     Window window = easyAnimator.getWindow();
-    IViewWindow 
     switch (argsMap.get("view")) {
       case "visual": {
         IViewVisual view = new SwingView();

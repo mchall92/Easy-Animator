@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
  * This class implements window and IViewWindow,
  * it's a concrete window users can use to generate animation.
  */
-public class WindowImpl implements Window, IViewWindow{
+public class WindowImpl implements Window, IModelView {
 
   private HashMap<String, Element> elements;
   private List<String> priorities;

@@ -1,6 +1,7 @@
 package cs5004.animator.view;
 
 import cs5004.animator.controller.PlaybackFeatures;
+import cs5004.animator.model.IModelView;
 
 public interface IViewPlayback extends IViewVisual {
 
@@ -15,4 +16,6 @@ public interface IViewPlayback extends IViewVisual {
   void showInitialSpeed(int speed);
 
   void updateSpeed(int speed);
+
+  void setViewModel(IModelView viewModel);
 }

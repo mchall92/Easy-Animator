@@ -7,7 +7,7 @@ import java.util.List;
  * This is the interface for windowImpl to implement getter methods
  * for adaptation.
  */
-public interface IViewWindow {
+public interface IModelView {
   /**
    * Get shape by tic.
    *

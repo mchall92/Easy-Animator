@@ -1,6 +1,7 @@
 package cs5004.animator.view;
 
 import cs5004.animator.controller.PlaybackFeatures;
+import cs5004.animator.model.IModelView;
 import cs5004.animator.model.Shape;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,6 +22,8 @@ import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 
 public class SettingPanel extends JPanel {
+
+  private IModelView viewModel;
 
   private JPanel addObjectPanel;
   private JPanel addIdPanel;
@@ -303,8 +306,8 @@ public class SettingPanel extends JPanel {
     chooseShapeComboBox.setSelectedIndex(0);
   }
 
-  public void setElementIDs(List<String> elementIDs) {
-    this.elementIDs = elementIDs;
+  public void setViewModel(IModelView viewModel) {
+    this.viewModel = viewModel;
   }
 
 }

@@ -1,5 +1,6 @@
 package cs5004.animator.view;
 
+import cs5004.animator.model.IModelView;
 import cs5004.animator.model.Image;
 import cs5004.animator.model.Shape;
 import cs5004.animator.model.Window;
@@ -10,7 +11,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 public class AnimatorPanel extends JPanel {
-  private Window window;
+  private IModelView viewModel;
   private int time;
   private boolean showId;
 
@@ -20,8 +21,8 @@ public class AnimatorPanel extends JPanel {
     showId = false;
   }
 
-  public void setAnimator(Window window) {
-    this.window = window;
+  public void setViewModel(IModelView viewModel) {
+    this.viewModel = viewModel;
   }
 
   public void updateTime(int time) {
@@ -37,7 +38,7 @@ public class AnimatorPanel extends JPanel {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
 
-    for (Image img : window.getAllShapeByTic(time)) {
+    for (Image img : viewModel.getAllShapeByTic(time)) {
       Color color = new Color(img.getColor().getR(), img.getColor().getG(), img.getColor().getB());
       g2d.setColor(color);
       if (img.getShape() == Shape.Oval) {

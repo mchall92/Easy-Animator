@@ -1,5 +1,6 @@
 package cs5004.animator.view;
 
+import cs5004.animator.model.IModelView;
 import cs5004.animator.model.Window;
 
 import java.awt.BorderLayout;
@@ -53,7 +54,7 @@ public class SwingView extends JFrame implements IViewVisual {
 
   @Override
   public void setModel(Window window) {
-    animatorPanel.setAnimator(window);
+    animatorPanel.setViewModel((IModelView) window);
   }
 
   /** Make the view visible. Called after the view is constructed */

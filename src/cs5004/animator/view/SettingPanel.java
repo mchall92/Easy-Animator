@@ -40,7 +40,7 @@ public class SettingPanel extends JPanel {
   private JPanel addColorChooserPanel;
   private JButton addColorChooserButton;
   private JLabel colorChooserDisplay;
-  private Color color;
+  private Color addColor;
   private JPanel addTimePanel;
   private JFormattedTextField addAppearTime;
   private JFormattedTextField addDisappearTime;
@@ -50,6 +50,30 @@ public class SettingPanel extends JPanel {
   private JFrame addObjectSuccessFrame;
   private JButton addObjectSuccessButton;
 
+  private JPanel operationPanel;
+  private JPanel operationIdPanel;
+  private JComboBox<String> operationChooseIdComboBox;
+  private JPanel operationMotionPanel;
+  private JComboBox<String> operationMotionComboBox;
+  private JPanel operationPositionPanel;
+  private JFormattedTextField operationXPositionField;
+  private JFormattedTextField operationYPositionField;
+  private JPanel operationSizePanel;
+  private JFormattedTextField operationSizeFieldOne;
+  private JFormattedTextField operationSizeFieldTwo;
+  private JPanel operationColorChooserPanel;
+  private JButton operationColorChooserButton;
+  private JLabel operationColorChooserDisplay;
+  private Color operationColor;
+  private JPanel operationTimePanel;
+  private JFormattedTextField operationAppearTime;
+  private JFormattedTextField operationDisappearTime;
+  private JPanel operationObjectButtonPanel;
+  private JButton submitOperationButton;
+  private JButton clearOperationField;
+  private JFrame operationObjectSuccessFrame;
+  private JButton operationObjectSuccessButton;
+
   private NumberFormat intFormat;
   private NumberFormatter intFormatter;
   private NumberFormat positiveIntFormat;
@@ -57,11 +81,14 @@ public class SettingPanel extends JPanel {
   private NumberFormat nonNegativeIntFormat;
   private NumberFormatter nonNegativeIntFormatter;
 
+  private List<String> elementIDs;
+
   public SettingPanel(FlowLayout flowLayout) {
     super(flowLayout);
     this.setVisible(false);
-    setFormatter();
+    this.setFormatter();
     this.setAddObjectPanel();
+    this.setOperationPanel();
   }
 
   private void setAddObjectPanel() {
@@ -98,7 +125,7 @@ public class SettingPanel extends JPanel {
 
     // build and add choose color button
     //set default color to white
-    color = Color.WHITE;
+    addColor = Color.WHITE;
     addColorChooserPanel = new JPanel();
     addColorChooserPanel.setBorder(BorderFactory.createTitledBorder("Set Color"));
     addColorChooserButton = new JButton("Choose A Color");
@@ -182,6 +209,14 @@ public class SettingPanel extends JPanel {
     addObjectSuccessFrame.setMinimumSize(new Dimension(200, 100));
   }
 
+  private void setOperationPanel() {
+    // set up operation Panel
+    operationPanel = new JPanel();
+    operationPanel.setPreferredSize(new Dimension(610, 240));
+    operationPanel.setBorder(BorderFactory.createTitledBorder("Add An Operation"));
+    this.add(operationPanel);
+  }
+
   public void toggleVisible() {
     this.setVisible(!this.isVisible());
   }
@@ -197,7 +232,7 @@ public class SettingPanel extends JPanel {
           addObjectNameField.getText().replace(",", ""),
           addXPositionField.getText().replace(",", ""),
           addYPositionField.getText().replace(",", ""),
-          color.getRed(), color.getGreen(), color.getBlue(),
+          addColor.getRed(), addColor.getGreen(), addColor.getBlue(),
           chooseShapeComboBox.getItemAt(chooseShapeComboBox.getSelectedIndex()),
           addSizeFieldOne.getText().replace(",", ""),
           addSizeFieldTwo.getText().replace(",", ""),
@@ -215,9 +250,9 @@ public class SettingPanel extends JPanel {
 
     // choose color button
     addColorChooserButton.addActionListener(e -> {
-      color = JColorChooser
+      addColor = JColorChooser
           .showDialog(this, "Choose A Color", colorChooserDisplay.getBackground());
-      colorChooserDisplay.setBackground(color);
+      colorChooserDisplay.setBackground(addColor);
     });
 
 
@@ -264,10 +299,12 @@ public class SettingPanel extends JPanel {
     addSizeFieldTwo.setText("");
     addAppearTime.setText("");
     addDisappearTime.setText("");
-    color = Color.white;
+    addColor = Color.white;
     chooseShapeComboBox.setSelectedIndex(0);
   }
 
-
+  public void setElementIDs(List<String> elementIDs) {
+    this.elementIDs = elementIDs;
+  }
 
 }

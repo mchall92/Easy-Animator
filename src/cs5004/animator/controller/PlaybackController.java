@@ -25,7 +25,6 @@ public class PlaybackController implements IController, ActionListener, Playback
   private boolean showId;
   private MP3Player mp3Player;
 
-
   public PlaybackController(Window window, IViewPlayback view, HashMap<String, String> argsMap) {
     this.window = window;
     this.view = view;

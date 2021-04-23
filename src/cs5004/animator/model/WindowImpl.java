@@ -6,8 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/** This class implements window, it's a concrete window users can use to generate animation. */
-public class WindowImpl implements Window {
+/**
+ * This class implements window and IViewWindow,
+ * it's a concrete window users can use to generate animation.
+ */
+public class WindowImpl implements Window, IViewWindow{
 
   private HashMap<String, Element> elements;
   private List<String> priorities;
@@ -176,6 +179,20 @@ public class WindowImpl implements Window {
   @Override
   public List<Element> getPriorities() {
     return priorities.stream().map((x) -> elements.get(x)).collect(Collectors.toList());
+  }
+
+  /**
+   * Return a list of element IDs.
+   *
+   * @return a list of element IDs.
+   */
+  @Override
+  public List<String> getElements() {
+    List<String> elementIDs = new ArrayList<>();
+    for (String key : elements.keySet()) {
+      elementIDs.add(key);
+    }
+    return elementIDs;
   }
 
   @Override

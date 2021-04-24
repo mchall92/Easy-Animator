@@ -22,6 +22,7 @@ public class PlaybackView extends JFrame implements IViewPlayback {
 
   /**
    * This method constructs a new SwingView.
+   * It consists of three panels: Animator panel, Control-Bar panel and Setting Panel.
    */
   public PlaybackView() throws IOException {
     super();

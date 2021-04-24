@@ -11,7 +11,10 @@ import java.io.File;
 import java.util.HashMap;
 import javax.swing.Timer;
 
-
+/**
+ * This class represents a Playback controller which controls the data flow of Playback
+ * view and model.
+ */
 public class PlaybackController implements IController, ActionListener, PlaybackFeatures {
 
   Window window;
@@ -25,6 +28,12 @@ public class PlaybackController implements IController, ActionListener, Playback
   private boolean showId;
   private MP3Player mp3Player;
 
+  /**
+   * Initialize a window and a view to this controller, and settings customized by the user.
+   * @param window the model
+   * @param view the view
+   * @param argsMap the customized settings
+   */
   public PlaybackController(Window window, IViewPlayback view, HashMap<String, String> argsMap) {
     this.window = window;
     this.view = view;

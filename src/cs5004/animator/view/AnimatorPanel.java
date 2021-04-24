@@ -3,32 +3,49 @@ package cs5004.animator.view;
 import cs5004.animator.model.IModelView;
 import cs5004.animator.model.Image;
 import cs5004.animator.model.Shape;
-import cs5004.animator.model.Window;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
+/**
+ * This class represents a Panel to play the animation within it.
+ */
 public class AnimatorPanel extends JPanel {
   private IModelView viewModel;
   private int time;
   private boolean showId;
 
+  /**
+   * Initialize the basic features of the panel.
+   */
   public AnimatorPanel() {
     setBackground(Color.WHITE);
     time = 0;
     showId = false;
   }
 
+  /**
+   * Change time feature.
+   * @param time
+   */
   public void updateTime(int time) {
     this.time = time;
   }
 
+  /**
+   * Control whether the object id shows
+   * @param showId the switch of the Id shower.
+   */
   public void showId(boolean showId) {
     this.showId = showId;
   }
 
+  /**
+   * Set a model to the view.
+   * @param viewModel the model
+   */
   public void setViewModel(IModelView viewModel) {
     this.viewModel = viewModel;
   }

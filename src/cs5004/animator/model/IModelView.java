@@ -1,5 +1,10 @@
 package cs5004.animator.model;
 
+import cs5004.animator.model.Element;
+import cs5004.animator.model.Image;
+import cs5004.animator.model.LogNode;
+import cs5004.animator.model.Shape;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

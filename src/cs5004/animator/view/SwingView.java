@@ -1,11 +1,9 @@
 package cs5004.animator.view;
 
 import cs5004.animator.model.IModelView;
-import cs5004.animator.model.Window;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;

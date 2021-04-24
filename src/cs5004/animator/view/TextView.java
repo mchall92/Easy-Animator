@@ -1,7 +1,6 @@
 package cs5004.animator.view;
 
 import cs5004.animator.model.IModelView;
-import cs5004.animator.model.Window;
 
 import java.io.File;
 import java.io.FileWriter;

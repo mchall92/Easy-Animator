@@ -253,9 +253,7 @@ public class SettingPanel extends JPanel {
     operationIdPanel.setPreferredSize(new Dimension(170, 60));
     HashMap<String, Shape> operationIDMap = viewModel.getElementIDAndShape();
     List<String> operationIDList = new ArrayList<>();
-    for (String id : operationIDMap.keySet()) {
-      operationIDList.add(id);
-    }
+    operationIDList.addAll(operationIDMap.keySet());
     String[] operationIDArray = new String[operationIDMap.size()];
     operationIDList.toArray(operationIDArray);
     operationChooseIdComboBox = new JComboBox<>(operationIDArray);
@@ -399,21 +397,23 @@ public class SettingPanel extends JPanel {
   public void addFeatures(PlaybackFeatures features) {
     // Add object button
     submitAddObjectButton.addActionListener(e -> {
-      if (Integer.parseInt(addAppearTime.getText().replace(",", "")) >=
-          Integer.parseInt(addDisappearTime.getText().replace(",", ""))) {
-        throw new IllegalArgumentException("error frame should be thrown");
+      try {
+        features.addObject(
+            addObjectNameField.getText(),
+            addXPositionField.getText(),
+            addYPositionField.getText(),
+            addColor.getRed(), addColor.getGreen(), addColor.getBlue(),
+            chooseShapeComboBox.getItemAt(chooseShapeComboBox.getSelectedIndex()),
+            addSizeFieldOne.getText(),
+            addSizeFieldTwo.getText(),
+            addAppearTime.getText(),
+            addDisappearTime.getText()
+        );
+      } catch (IllegalArgumentException addObjectError) {
+        this.clearAddObjectFields();
+        System.out.println("need to handle two kinds of errors: incorrect"
+            + "time and ID existed");
       }
-      features.addObject(
-          addObjectNameField.getText().replace(",", ""),
-          addXPositionField.getText().replace(",", ""),
-          addYPositionField.getText().replace(",", ""),
-          addColor.getRed(), addColor.getGreen(), addColor.getBlue(),
-          chooseShapeComboBox.getItemAt(chooseShapeComboBox.getSelectedIndex()),
-          addSizeFieldOne.getText().replace(",", ""),
-          addSizeFieldTwo.getText().replace(",", ""),
-          addAppearTime.getText().replace(",", ""),
-          addDisappearTime.getText().replace(",", "")
-      );
       this.clearAddObjectFields();
       addObjectSuccessFrame.setVisible(true);
     });
@@ -453,34 +453,38 @@ public class SettingPanel extends JPanel {
 
     // add operation button
     submitOperationButton.addActionListener(e -> {
-      if (Integer.parseInt(addAppearTime.getText().replace(",", "")) >=
-          Integer.parseInt(addDisappearTime.getText().replace(",", ""))) {
-        throw new IllegalArgumentException("error frame should be thrown");
+
+      try {
+        String motion = operationMotionComboBox.getItemAt(
+            operationMotionComboBox.getSelectedIndex());
+        String id = operationChooseIdComboBox.getItemAt(
+            operationChooseIdComboBox.getSelectedIndex());
+        if (motion.equals("Move")) {
+          features.move(id, operationXPositionField.getText(),
+              operationYPositionField.getText(),
+              operationAppearTimeField.getText(),
+              operationDisappearTimeField.getText()
+          );
+        } else if (motion.equals("Change Size")) {
+          features.changeSize(id, operationSizeFieldOne.getText(),
+              operationSizeFieldTwo.getText(),
+              operationAppearTimeField.getText(),
+              operationDisappearTimeField.getText());
+        } else if (motion.equals("Change Color")) {
+          features.changeColor(id, operationColor.getRed(),
+              operationColor.getGreen(), operationColor.getBlue(),
+              operationAppearTimeField.getText().replace(",", ""),
+              operationDisappearTimeField.getText().replace(",", ""));
+        }
+      } catch (IllegalArgumentException operationException) {
+        System.out.println("Three kinds of errors should be caught");
+        this.clearOperationFields();
       }
-      String motion = operationMotionComboBox.getItemAt(
-          operationMotionComboBox.getSelectedIndex());
-      String id = operationChooseIdComboBox.getItemAt(
-          operationChooseIdComboBox.getSelectedIndex());
-      if (motion.equals("Move")) {
-        features.move(id, operationXPositionField.getText().replace(",", ""),
-            operationYPositionField.getText().replace(",", ""),
-            operationAppearTimeField.getText().replace(",", ""),
-            operationDisappearTimeField.getText().replace(",", "")
-        );
-      } else if (motion.equals("Change Size")) {
-        features.changeSize(id, operationSizeFieldOne.getText().replace(",", ""),
-            operationSizeFieldTwo.getText().replace(",", ""),
-            operationAppearTimeField.getText().replace(",", ""),
-            operationDisappearTimeField.getText().replace(",", ""));
-      } else if (motion.equals("Change Color")) {
-        features.changeColor(id, operationColor.getRed(),
-            operationColor.getGreen(), operationColor.getBlue(),
-            operationAppearTimeField.getText().replace(",", ""),
-            operationDisappearTimeField.getText().replace(",", ""));
-      }
+      this.clearOperationFields();
     });
 
     // clear operation button
+    clearOperationFieldButton.addActionListener(e -> this.clearOperationFields());
 
   }
 
@@ -527,8 +531,9 @@ public class SettingPanel extends JPanel {
     addSizeFieldTwo.setText("");
     addAppearTime.setText("");
     addDisappearTime.setText("");
-    addColor = Color.white;
     chooseShapeComboBox.setSelectedIndex(0);
+    addColor = Color.white;
+    colorChooserDisplay.setBackground(addColor);
   }
 
   private void chooseScale(Shape currShape) {
@@ -563,5 +568,19 @@ public class SettingPanel extends JPanel {
         operationPositionPanel.setVisible(false);
         break;
     }
+  }
+
+  private void clearOperationFields() {
+    operationChooseIdComboBox.setSelectedIndex(0);
+    operationXPositionField.setText("");
+    operationYPositionField.setText("");
+    operationSizeFieldOne.setText("");
+    operationSizeFieldTwo.setText("");
+    operationSizeFieldOne.setText("");
+    operationSizeFieldTwo.setText("");
+    operationAppearTimeField.setText("");
+    operationDisappearTimeField.setText("");
+    operationColor = Color.white;
+    operationColorChooserDisplay.setBackground(operationColor);
   }
 }

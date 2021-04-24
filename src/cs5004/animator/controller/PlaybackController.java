@@ -1,7 +1,5 @@
 package cs5004.animator.controller;
 
-import cs5004.animator.model.IModelView;
-import cs5004.animator.model.Image;
 import cs5004.animator.model.Shape;
 import cs5004.animator.model.Window;
 import cs5004.animator.view.IViewPlayback;
@@ -198,6 +196,7 @@ public class PlaybackController implements IController, ActionListener, Playback
         Integer.parseInt(y.replace(",", "")),
         Integer.parseInt(appearTime.replace(",", "")),
         Integer.parseInt(disappearTime.replace(",", "")));
+    view.repaint(time);
   }
 
   @Override
@@ -207,7 +206,7 @@ public class PlaybackController implements IController, ActionListener, Playback
         Integer.parseInt(argsTwo.replace(",", "")),
         Integer.parseInt(appearTime.replace(",", "")),
         Integer.parseInt(disappearTime.replace(",", "")));
-
+    view.repaint(time);
   }
 
   @Override
@@ -216,8 +215,17 @@ public class PlaybackController implements IController, ActionListener, Playback
     window.changeColor(id, r, g, b,
         Integer.parseInt(appearTime.replace(",", "")),
         Integer.parseInt(disappearTime.replace(",", "")));
+    view.repaint(time);
   }
 
-
-
+  /**
+   * Delete element/object from model.
+   *
+   * @param id id is the element to be deleted.
+   */
+  @Override
+  public void deleteObject(String id) {
+    window.removeElement(id);
+    view.repaint(time);
+  }
 }

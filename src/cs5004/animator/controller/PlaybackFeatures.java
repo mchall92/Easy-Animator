@@ -115,4 +115,10 @@ public interface PlaybackFeatures {
    */
   void changeColor(String id, int r, int g, int b,
       String fromTime, String toTime);
+
+  /**
+   * Delete element/object from model.
+   * @param id id is the element to be deleted.
+   */
+  void deleteObject(String id);
 }

@@ -53,7 +53,7 @@ public class PlaybackView extends JFrame implements IViewPlayback {
 
     // add setting panel
     settingPanel = new SettingPanel(new FlowLayout(FlowLayout.LEFT));
-    settingPanel.setPreferredSize(new Dimension(1440, 250));
+    settingPanel.setPreferredSize(new Dimension(1440, 270));
     this.add(settingPanel, BorderLayout.SOUTH);
 
     // get real time panel

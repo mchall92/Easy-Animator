@@ -7,12 +7,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
@@ -90,9 +92,13 @@ public class SettingPanel extends JPanel {
 
   private JPanel deleteObjectPanel;
   private JComboBox<String> deleteChooseIdComboBox;
+  private JButton deleteObjectButton;
   private JFrame deleteObjectSuccessFrame;
   private JButton deleteObjectSuccessButton;
 
+  private JLabel saveFileLabel;
+  private JButton saveSVGButton;
+  private JButton saveTextButton;
 
 
   // ID comboBox
@@ -134,6 +140,7 @@ public class SettingPanel extends JPanel {
     this.setAddObjectPanel();
     this.setOperationPanel();
     this.setDeletePanel();
+    this.setSaveFilePanel();
   }
 
   private void setAddObjectPanel() {
@@ -249,9 +256,9 @@ public class SettingPanel extends JPanel {
     JLabel confirmLabel = new JLabel("Successfully Added Object!");
     addObjectSuccessButton = new JButton("OK");
     addObjectSuccessPanel.add(confirmLabel);
-    addObjectSuccessPanel.add(addObjectSuccessButton);
+    addObjectSuccessPanel.add(addObjectSuccessButton, BorderLayout.SOUTH);
     addObjectSuccessFrame.add(addObjectSuccessPanel);
-    addObjectSuccessFrame.setMinimumSize(new Dimension(200, 100));
+    addObjectSuccessFrame.setMinimumSize(new Dimension(300, 150));
   }
 
   private void setOperationPanel() {
@@ -266,7 +273,7 @@ public class SettingPanel extends JPanel {
     operationIdPanel.setBorder(BorderFactory.createTitledBorder
         ("Choose An Object"));
     operationIdPanel.setPreferredSize(new Dimension(170, 60));
-    this.updateOperationIdList();
+    this.updateIdList();
     operationChooseIdComboBox = new JComboBox<>();
     operationChooseIdComboBox.setModel(new DefaultComboBoxModel(operationIDArray));
     operationChooseIdComboBox.setPreferredSize
@@ -389,9 +396,9 @@ public class SettingPanel extends JPanel {
     JLabel confirmOperationLabel = new JLabel("Successfully Added Operation!");
     operationObjectSuccessButton = new JButton("OK");
     operationSuccessPanel.add(confirmOperationLabel);
-    operationSuccessPanel.add(operationObjectSuccessButton);
+    operationSuccessPanel.add(operationObjectSuccessButton, BorderLayout.SOUTH);
     operationObjectSuccessFrame.add(operationSuccessPanel);
-    operationObjectSuccessFrame.setMinimumSize(new Dimension(200, 100));
+    operationObjectSuccessFrame.setMinimumSize(new Dimension(300, 150));
 
   }
 
@@ -399,23 +406,50 @@ public class SettingPanel extends JPanel {
     // build and add delete object panel
     deleteObjectPanel = new JPanel();
     deleteObjectPanel.setBorder(BorderFactory.createTitledBorder("Delete An Object"));
-    deleteObjectPanel.setPreferredSize(new Dimension(200, 60));
+    deleteObjectPanel.setPreferredSize(new Dimension(300, 60));
     this.add(deleteObjectPanel);
 
     // build and add delete object comboBox
+    this.updateIdList();
     deleteChooseIdComboBox = new JComboBox<>();
     deleteChooseIdComboBox.setModel(new DefaultComboBoxModel(operationIDArray));
+    deleteChooseIdComboBox.setPreferredSize
+        (new Dimension(150, 25));
     deleteObjectPanel.add(deleteChooseIdComboBox);
+
+    // build and add delete object button
+    deleteObjectButton = new JButton("Delete");
+    deleteObjectPanel.add(deleteObjectButton);
 
     // build delete object success frame
     deleteObjectSuccessFrame = new JFrame();
     JPanel deleteSuccessPanel = new JPanel();
     JLabel confirmDeleteLabel = new JLabel("Successfully Deleted The Object!");
     deleteObjectSuccessButton = new JButton("OK");
-    deleteSuccessPanel.add(confirmDeleteLabel);
-    deleteSuccessPanel.add(deleteObjectSuccessButton);
+    deleteSuccessPanel.add(confirmDeleteLabel, BorderLayout.NORTH);
+    deleteSuccessPanel.add(deleteObjectSuccessButton, BorderLayout.CENTER);
     deleteObjectSuccessFrame.add(deleteSuccessPanel);
-    deleteObjectSuccessFrame.setMinimumSize(new Dimension(200, 100));
+    deleteObjectSuccessFrame.setMinimumSize(new Dimension(300, 150));
+  }
+
+  public void setSaveFilePanel() {
+    // build save panel
+    saveFileLabel = new JLabel();
+    saveFileLabel.setBorder(BorderFactory.createTitledBorder(""));
+    saveFileLabel.setPreferredSize(new Dimension(100, 10));
+    this.add(saveFileLabel, BorderLayout.LINE_END);
+
+    // SVG Button
+    saveSVGButton = new JButton();
+    try {
+      ImageIcon svgIcon = new ImageIcon(getClass().getResource("images/svg.png"));
+      svgIcon = new ImageIcon(svgIcon.getImage().
+          getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+      saveSVGButton.setIcon(svgIcon);
+    } catch (NullPointerException e) {
+      System.out.println("Image for SVG not found.");
+    }
+    saveFileLabel.add(saveSVGButton);
   }
 
   /**
@@ -444,8 +478,9 @@ public class SettingPanel extends JPanel {
             addAppearTime.getText(),
             addDisappearTime.getText()
         );
-        this.updateOperationIdList();
-        operationChooseIdComboBox.setModel(new DefaultComboBoxModel(operationIDArray));
+        this.updateIdList();
+        this.updateComboBoxes();
+        addObjectSuccessFrame.setVisible(true);
       } catch (IllegalArgumentException addObjectError) {
         this.clearAddObjectFields();
         System.out.println(addObjectError);
@@ -453,7 +488,6 @@ public class SettingPanel extends JPanel {
             + "time and ID existed");
       }
       this.clearAddObjectFields();
-      addObjectSuccessFrame.setVisible(true);
     });
 
     addObjectSuccessButton.addActionListener(e -> addObjectSuccessFrame.setVisible(false));
@@ -514,6 +548,7 @@ public class SettingPanel extends JPanel {
               operationAppearTimeField.getText().replace(",", ""),
               operationDisappearTimeField.getText().replace(",", ""));
         }
+        operationObjectSuccessFrame.setVisible(true);
       } catch (IllegalArgumentException operationException) {
         System.out.println("Three kinds of errors should be caught");
         this.clearOperationFields();
@@ -521,9 +556,30 @@ public class SettingPanel extends JPanel {
       this.clearOperationFields();
     });
 
+    // successful add operation frame button
+    operationObjectSuccessButton.addActionListener(e ->
+        operationObjectSuccessFrame.setVisible(false));
+
     // clear operation button
     clearOperationFieldButton.addActionListener(e -> this.clearOperationFields());
 
+    // delete object button
+    deleteObjectButton.addActionListener(e -> {
+      try {
+        features.deleteObject(deleteChooseIdComboBox.getItemAt(
+            deleteChooseIdComboBox.getSelectedIndex()
+        ));
+        this.updateIdList();
+        this.updateComboBoxes();
+        deleteObjectSuccessFrame.setVisible(true);
+      } catch (IllegalArgumentException deleteFailException) {
+        System.out.print("need to hand delete fail error message.");
+      }
+    });
+
+    // confirm successful deletion button
+    deleteObjectSuccessButton.addActionListener(e ->
+        deleteObjectSuccessFrame.setVisible(false));
   }
 
   /**
@@ -622,12 +678,16 @@ public class SettingPanel extends JPanel {
     operationColorChooserDisplay.setBackground(operationColor);
   }
 
-  private void updateOperationIdList() {
+  private void updateIdList() {
     operationIDMap = viewModel.getElementIDAndShape();
     operationIDList = new ArrayList<>();
     operationIDList.addAll(operationIDMap.keySet());
     operationIDArray = new String[operationIDMap.size()];
     operationIDList.toArray(operationIDArray);
+  }
 
+  private void updateComboBoxes() {
+    operationChooseIdComboBox.setModel(new DefaultComboBoxModel(operationIDArray));
+    deleteChooseIdComboBox.setModel(new DefaultComboBoxModel(operationIDArray));
   }
 }

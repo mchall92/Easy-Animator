@@ -7,14 +7,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Image;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
@@ -26,9 +24,9 @@ import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 
 /**
- * This class represents the setting panel of the playback view.
- * Generally speaking, it is divided into two panels, the 'addObject' panel
- * and 'operation' panel. Users can add element and operation to the animator.
+ * This class represents the setting panel of the playback view. Generally speaking, it is divided
+ * into two panels, the 'addObject' panel and 'operation' panel. Users can add element and operation
+ * to the animator.
  */
 public class SettingPanel extends JPanel {
 
@@ -96,16 +94,10 @@ public class SettingPanel extends JPanel {
   private JFrame deleteObjectSuccessFrame;
   private JButton deleteObjectSuccessButton;
 
-  private JLabel saveFileLabel;
-  private JButton saveSVGButton;
-  private JButton saveTextButton;
-
-
   // ID comboBox
   HashMap<String, Shape> operationIDMap;
   List<String> operationIDList;
   String[] operationIDArray;
-
 
   private NumberFormat intFormat;
   private NumberFormatter intFormatter;
@@ -115,8 +107,8 @@ public class SettingPanel extends JPanel {
   private NumberFormatter nonNegativeIntFormatter;
 
   /**
-   * Initialize the setting panel to be invisible.
-   * Initialize the setting panel's alignment.
+   * Initialize the setting panel to be invisible. Initialize the setting panel's alignment.
+   *
    * @param flowLayout alignment of the panel
    */
   public SettingPanel(FlowLayout flowLayout) {
@@ -126,23 +118,21 @@ public class SettingPanel extends JPanel {
 
   /**
    * Set a model to the panel.
+   *
    * @param viewModel model of the view
    */
   public void setViewModel(IModelView viewModel) {
     this.viewModel = viewModel;
-  }
-
-  /**
-   * set constraints to input and connect this panel to two of its sub-panels.
-   */
-  public void build() {
+    this.removeAll();
     this.setFormatter();
     this.setAddObjectPanel();
     this.setOperationPanel();
     this.setDeletePanel();
-    this.setSaveFilePanel();
   }
 
+  /**
+   * Set up add object panel.
+   */
   private void setAddObjectPanel() {
     // set up Add Object Panel
     addObjectPanel = new JPanel();
@@ -206,7 +196,6 @@ public class SettingPanel extends JPanel {
     addSizePanel.add(addSizeFieldTwo);
     addObjectPanel.add(addSizePanel);
 
-
     // build and add choose shape combo box
     chooseShapePanel = new JPanel();
     chooseShapePanel.setBorder(BorderFactory.createTitledBorder("Choose A Shape"));
@@ -239,7 +228,6 @@ public class SettingPanel extends JPanel {
     addTimePanel.add(addDisappearTime);
     addObjectPanel.add(addTimePanel);
 
-
     // build submit add object button
     // build clear button
     addObjectButtonPanel = new JPanel();
@@ -261,6 +249,9 @@ public class SettingPanel extends JPanel {
     addObjectSuccessFrame.setMinimumSize(new Dimension(300, 150));
   }
 
+  /**
+   * Set up operation panel.
+   */
   private void setOperationPanel() {
     // set up operation Panel
     operationPanel = new JPanel();
@@ -402,6 +393,9 @@ public class SettingPanel extends JPanel {
 
   }
 
+  /**
+   * Set up delete object panel.
+   */
   public void setDeletePanel() {
     // build and add delete object panel
     deleteObjectPanel = new JPanel();
@@ -432,25 +426,6 @@ public class SettingPanel extends JPanel {
     deleteObjectSuccessFrame.setMinimumSize(new Dimension(300, 150));
   }
 
-  public void setSaveFilePanel() {
-    // build save panel
-    saveFileLabel = new JLabel();
-    saveFileLabel.setBorder(BorderFactory.createTitledBorder(""));
-    saveFileLabel.setPreferredSize(new Dimension(100, 10));
-    this.add(saveFileLabel, BorderLayout.LINE_END);
-
-    // SVG Button
-    saveSVGButton = new JButton();
-    try {
-      ImageIcon svgIcon = new ImageIcon(getClass().getResource("images/svg.png"));
-      svgIcon = new ImageIcon(svgIcon.getImage().
-          getScaledInstance(30, 30, Image.SCALE_DEFAULT));
-      saveSVGButton.setIcon(svgIcon);
-    } catch (NullPointerException e) {
-      System.out.println("Image for SVG not found.");
-    }
-    saveFileLabel.add(saveSVGButton);
-  }
 
   /**
    * change the visibility of this panel.
@@ -461,6 +436,7 @@ public class SettingPanel extends JPanel {
 
   /**
    * Add features to the setting panel.
+   *
    * @param features the features passed in by controller
    */
   public void addFeatures(PlaybackFeatures features) {
@@ -505,9 +481,9 @@ public class SettingPanel extends JPanel {
     // choose ID comboBox
     operationChooseIdComboBox.addActionListener(e -> this.chooseScale(
         viewModel.getElementIDAndShape().get(
-        operationChooseIdComboBox.getItemAt(
-            operationChooseIdComboBox.getSelectedIndex()
-        ))));
+            operationChooseIdComboBox.getItemAt(
+                operationChooseIdComboBox.getSelectedIndex()
+            ))));
 
     // choose operation comboBox
     operationMotionComboBox.addActionListener(e -> this.chooseMotion(
@@ -630,6 +606,11 @@ public class SettingPanel extends JPanel {
     colorChooserDisplay.setBackground(addColor);
   }
 
+  /**
+   * Determine which parameters to show.
+   *
+   * @param currShape currShape is the shape of current object in ComboBox.
+   */
   private void chooseScale(Shape currShape) {
     if (currShape.toString().equals("Oval")) {
       operationXRadiusLabel.setVisible(true);
@@ -644,6 +625,11 @@ public class SettingPanel extends JPanel {
     }
   }
 
+  /**
+   * This method determines which motion to show on panel.
+   *
+   * @param motion motion is the motion currently selected in motion comboBox.
+   */
   private void chooseMotion(String motion) {
     switch (motion) {
       case "Move":
@@ -678,6 +664,9 @@ public class SettingPanel extends JPanel {
     operationColorChooserDisplay.setBackground(operationColor);
   }
 
+  /**
+   * Update current list of elements in model.
+   */
   private void updateIdList() {
     operationIDMap = viewModel.getElementIDAndShape();
     operationIDList = new ArrayList<>();
@@ -686,6 +675,9 @@ public class SettingPanel extends JPanel {
     operationIDList.toArray(operationIDArray);
   }
 
+  /**
+   * Update comboBoxes to reflect current elements in model.
+   */
   private void updateComboBoxes() {
     operationChooseIdComboBox.setModel(new DefaultComboBoxModel(operationIDArray));
     deleteChooseIdComboBox.setModel(new DefaultComboBoxModel(operationIDArray));

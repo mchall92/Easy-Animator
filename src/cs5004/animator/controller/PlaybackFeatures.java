@@ -121,4 +121,22 @@ public interface PlaybackFeatures {
    * @param id id is the element to be deleted.
    */
   void deleteObject(String id);
+
+  /**
+   * Save an SVG file at absolutePath.
+   * @param absolutePath absolutePath is the absolute path to save the file.
+   */
+  void saveSVGFile(String absolutePath);
+
+  /**
+   * Save an text file at absolutePath.
+   * @param absolutePath absolutePath is the absolute path to save the file.
+   */
+  void saveTextFile(String absolutePath);
+
+  /**
+   * Open a text file from an absolutePath.
+   * @param absolutePath absolutePath is the absolute path to open the file.
+   */
+  void openFile(String absolutePath);
 }

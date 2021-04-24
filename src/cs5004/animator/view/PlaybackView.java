@@ -76,7 +76,6 @@ public class PlaybackView extends JFrame implements IViewPlayback {
   public void setViewModel(IModelView viewModel) {
     animatorPanel.setViewModel(viewModel);
     settingPanel.setViewModel(viewModel);
-    settingPanel.build();
   }
 
   /** Make the view visible. Called after the view is constructed */

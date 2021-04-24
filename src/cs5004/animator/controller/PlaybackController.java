@@ -40,7 +40,7 @@ public class PlaybackController implements IController, ActionListener, Playback
     this.view = view;
     this.argsMap = argsMap;
     this.tempo = Integer.parseInt(argsMap.get("speed"));
-    this.timer = new Timer((int) 1000 / tempo, this);
+    this.timer = new Timer( 1000 / tempo, this);
     this.time = 0;
     this.isLoop = false;
     this.showId = false;
@@ -216,5 +216,45 @@ public class PlaybackController implements IController, ActionListener, Playback
     window.changeColor(id, r, g, b,
         Integer.parseInt(appearTime.replace(",", "")),
         Integer.parseInt(disappearTime.replace(",", "")));
+  }
+
+  public Window getWindow() {
+    return window;
+  }
+
+  public IViewPlayback getView() {
+    return view;
+  }
+
+  public HashMap<String, String> getArgsMap() {
+    return argsMap;
+  }
+
+  public Timer getTimer() {
+    return timer;
+  }
+
+  public int getTime() {
+    return time;
+  }
+
+  public int getTempo() {
+    return tempo;
+  }
+
+  public boolean isLoop() {
+    return isLoop;
+  }
+
+  public boolean isMuted() {
+    return isMuted;
+  }
+
+  public boolean isShowId() {
+    return showId;
+  }
+
+  public MP3Player getMp3Player() {
+    return mp3Player;
   }
 }

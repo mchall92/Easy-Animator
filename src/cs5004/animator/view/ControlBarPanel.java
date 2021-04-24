@@ -38,6 +38,10 @@ public class ControlBarPanel extends JPanel {
   private JLabel showSpeedLabel;
   private RealTimeSpeedPanel realTimeSpeedPanel;
   private int speed;
+  //for test
+  private boolean playing = false;
+  private boolean looping = false;
+  private boolean muting = false;
 
   /**
    * Set starting status of this panel.
@@ -258,25 +262,115 @@ public class ControlBarPanel extends JPanel {
 
   private void showPlay(boolean isPlay) {
     if (isPlay) {
+      playing = true;
       this.add(pauseButton);
     } else {
+      playing = false;
       this.add(playButton);
     }
   }
 
   private void showLoop(boolean isLoop) {
     if (isLoop) {
+      looping = true;
       this.add(loopedButton);
     } else {
+      looping = false;
       this.add(toLoopButton);
     }
   }
 
   private void showMute(boolean isMuted) {
     if (isMuted) {
+      muting = true;
       this.add(unmuteButton);
     } else {
+      muting = false;
       this.add(toMuteButton);
     }
+  }
+
+  public JButton getPlayButton() {
+    return playButton;
+  }
+
+  public JButton getPauseButton() {
+    return pauseButton;
+  }
+
+  public JButton getStopButton() {
+    return stopButton;
+  }
+
+  public JButton getToLoopButton() {
+    return toLoopButton;
+  }
+
+  public JButton getLoopedButton() {
+    return loopedButton;
+  }
+
+  public JButton getToMuteButton() {
+    return toMuteButton;
+  }
+
+  public JButton getUnmuteButton() {
+    return unmuteButton;
+  }
+
+  public JComboBox<String> getComboBox() {
+    return comboBox;
+  }
+
+  public JButton getSettingButton() {
+    return settingButton;
+  }
+
+  public JPanel getIdCheckBoxPanel() {
+    return idCheckBoxPanel;
+  }
+
+  public JLabel getIdCheckBoxLabel() {
+    return idCheckBoxLabel;
+  }
+
+  public JCheckBox getIdCheckBox() {
+    return idCheckBox;
+  }
+
+  public JPanel getTimePanel() {
+    return timePanel;
+  }
+
+  public JLabel getShowTimeLabel() {
+    return showTimeLabel;
+  }
+
+  public JPanel getSpeedPanel() {
+    return speedPanel;
+  }
+
+  public JLabel getShowSpeedLabel() {
+    return showSpeedLabel;
+  }
+
+  public RealTimeSpeedPanel getRealTimeSpeedPanel() {
+    return realTimeSpeedPanel;
+  }
+
+  public int getSpeed() {
+    return speed;
+  }
+
+  public boolean isPlaying() {
+    return playing;
+  }
+
+  public boolean isLooping() {
+    return looping;
+  }
+
+  public boolean isMuting() {
+    return muting;
   }
 }

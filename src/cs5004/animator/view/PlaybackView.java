@@ -23,11 +23,35 @@ public class PlaybackView extends JFrame implements IViewPlayback {
   private IModelView viewModel;
 
 
+  public AnimatorPanel getAnimatorPanel() {
+    return animatorPanel;
+  }
+
+  public ControlBarPanel getControlBarPanel() {
+    return controlBarPanel;
+  }
+
+  public SettingPanel getSettingPanel() {
+    return settingPanel;
+  }
+
+  public RealTimePanel getRealTimePanel() {
+    return realTimePanel;
+  }
+
+  public JScrollPane getJs() {
+    return js;
+  }
+
+  public IModelView getViewModel() {
+    return viewModel;
+  }
+
   /**
    * This method constructs a new SwingView.
    * It consists of three panels: Animator panel, Control-Bar panel and Setting Panel.
    */
-  public PlaybackView() throws IOException {
+  public PlaybackView() {
     super();
     this.setSize(1440, 900);
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

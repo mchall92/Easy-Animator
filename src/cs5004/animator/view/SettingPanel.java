@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
@@ -257,7 +258,9 @@ public class SettingPanel extends JPanel {
     operationIdPanel.setBorder(BorderFactory.createTitledBorder
         ("Choose An Object"));
     operationIdPanel.setPreferredSize(new Dimension(170, 60));
-    this.updateOperationIdComboBox();
+    this.updateOperationIdList();
+    operationChooseIdComboBox = new JComboBox<>();
+    operationChooseIdComboBox.setModel(new DefaultComboBoxModel(operationIDArray));
     operationChooseIdComboBox.setPreferredSize
         (new Dimension(150, 25));
     operationIdPanel.add(operationChooseIdComboBox);
@@ -410,9 +413,11 @@ public class SettingPanel extends JPanel {
             addAppearTime.getText(),
             addDisappearTime.getText()
         );
-        this.updateOperationIdComboBox();
+        this.updateOperationIdList();
+        operationChooseIdComboBox.setModel(new DefaultComboBoxModel(operationIDArray));
       } catch (IllegalArgumentException addObjectError) {
         this.clearAddObjectFields();
+        System.out.println(addObjectError);
         System.out.println("need to handle two kinds of errors: incorrect"
             + "time and ID existed");
       }
@@ -586,12 +591,13 @@ public class SettingPanel extends JPanel {
     operationColorChooserDisplay.setBackground(operationColor);
   }
 
-  private void updateOperationIdComboBox() {
+  private void updateOperationIdList() {
     operationIDMap = viewModel.getElementIDAndShape();
     operationIDList = new ArrayList<>();
     operationIDList.addAll(operationIDMap.keySet());
     operationIDArray = new String[operationIDMap.size()];
     operationIDList.toArray(operationIDArray);
-    operationChooseIdComboBox = new JComboBox<>(operationIDArray);
+
+
   }
 }

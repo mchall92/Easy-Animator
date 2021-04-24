@@ -52,10 +52,4 @@ public class TextView implements IViewText {
     }
   }
 
-  /**
-   * Set an animator model to this view.
-   *
-   * @param viewModel the animator model (view only)
-   */
-
 }

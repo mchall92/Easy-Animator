@@ -393,8 +393,8 @@ public class SettingPanel extends JPanel {
   }
 
   /**
-   *
-   * @param features
+   * Add features to the setting panel.
+   * @param features the features passed in by controller
    */
   public void addFeatures(PlaybackFeatures features) {
     // Add object button

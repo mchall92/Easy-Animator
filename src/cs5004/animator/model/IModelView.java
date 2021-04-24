@@ -12,6 +12,8 @@ import java.util.List;
 /**
  * This is the interface for windowImpl to implement getter methods
  * for adaptation.
+ * This interface avoids data flow pass by level and make it much more convenient
+ * getting data from model for the low-level views.
  */
 public interface IModelView {
   /**

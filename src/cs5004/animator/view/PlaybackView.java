@@ -10,6 +10,9 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
+/**
+ * This class represents a view which provides the User Interaction functions to users.
+ */
 public class PlaybackView extends JFrame implements IViewPlayback {
 
   private AnimatorPanel animatorPanel;

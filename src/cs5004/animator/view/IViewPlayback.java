@@ -8,7 +8,7 @@ import cs5004.animator.controller.PlaybackFeatures;
 public interface IViewPlayback extends IViewVisual {
 
   /**
-   * This method controls what the image of buttons are
+   * This method controls what the image of buttons are.
    * @param isPlaying controls the image of playing button
    * @param isLoop controls the image of looping button
    * @param isMuted controls the image of muting button

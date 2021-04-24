@@ -64,6 +64,12 @@ public class ControlBarPanel extends JPanel {
     settingButton.setHorizontalAlignment(SwingConstants.RIGHT);
   }
 
+  /**
+   * Set starting status of this view.
+   * @param isPlay switch of playing function
+   * @param isLoop switch of looping function
+   * @param isMuted switch of muting function
+   */
   public void displayControl(boolean isPlay, boolean isLoop, boolean isMuted) {
     this.clear();
     this.showPlay(isPlay);
@@ -77,6 +83,10 @@ public class ControlBarPanel extends JPanel {
     this.add(timePanel);
   }
 
+  /**
+   * Add clicking events to buttons.
+   * @param features collection of clicking events
+   */
   public void addFeatures(PlaybackFeatures features) {
     playButton.addActionListener(e -> features.start());
     pauseButton.addActionListener(e -> features.pause());
@@ -92,20 +102,31 @@ public class ControlBarPanel extends JPanel {
     idCheckBox.addActionListener(e -> features.showId(idCheckBox.isSelected()));
   }
 
+  /**
+   * Get the realtime panel.
+   * @return realtime panel.
+   */
   public RealTimePanel getRealTimePanel() {
     return realTimePanel;
   }
 
+  /**
+   * Set the initial speed to act like specialized and set the speed panel.
+   * @param speed initial speed
+   */
   public void showInitialSpeed(int speed) {
     this.speed = speed;
     this.setSpeedPanel();
   }
 
+  /**
+   * Update the speed in the realtime speed panel.
+   * @param speed the new speed.
+   */
   public void updateSpeed(int speed) {
     realTimeSpeedPanel.updateSpeed(speed);
   }
 
-  // buttons setup
   private void setPauseButton() {
     pauseButton = new JButton();
     try {

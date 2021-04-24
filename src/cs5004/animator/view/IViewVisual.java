@@ -15,5 +15,9 @@ public interface IViewVisual extends IViewCommon {
   /** Make the view visible. Called after the view is constructed. */
   void makeVisible();
 
+  /**
+   * Repaint the screen at a specific time.
+   * @param time the specific time
+   */
   void repaint(int time);
 }

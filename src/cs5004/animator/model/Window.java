@@ -57,7 +57,7 @@ public interface Window {
    * @param toX target x coordinate
    * @param toY target y coordinate
    * @param fromTime original time
-   * @param toTime original time
+   * @param toTime target time
    */
   void move(String id, int toX, int toY, int fromTime, int toTime);
 
@@ -69,7 +69,7 @@ public interface Window {
    * @param g green arg
    * @param b blue arg
    * @param fromTime original time
-   * @param toTime original time
+   * @param toTime target time
    */
   void changeColor(String id, int r, int g, int b, int fromTime, int toTime);
 
@@ -80,7 +80,7 @@ public interface Window {
    * @param first first argument of size
    * @param second second argument of size
    * @param fromTime original time
-   * @param toTime original time
+   * @param toTime target time
    */
   void scale(String id, int first, int second, int fromTime, int toTime);
 

@@ -15,7 +15,7 @@ public class SVGController implements IController {
   HashMap<String, String> argsMap;
 
   /**
-   * This is the constructor for TextController.
+   * This is the constructor for SVGController.
    * @param window window is the model.
    * @param view view is the view.
    * @param argsMap argsMap is a map for command line arguments.

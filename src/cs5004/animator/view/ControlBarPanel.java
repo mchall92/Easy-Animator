@@ -13,6 +13,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+/**
+ * This class represents the control bar of the animator.
+ * Functions like play, stop, pause, mute, loop are implemented in this panel.
+ */
 public class ControlBarPanel extends JPanel {
 
   private JButton playButton;
@@ -35,6 +39,10 @@ public class ControlBarPanel extends JPanel {
   private RealTimeSpeedPanel realTimeSpeedPanel;
   private int speed;
 
+  /**
+   * Set starting status of this panel.
+   * @param flowLayout The alignment
+   */
   public ControlBarPanel(FlowLayout flowLayout) {
     super(flowLayout);
     setPauseButton();

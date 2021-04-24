@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import javax.swing.Timer;
 
+/**
+ * This class controls the data flow between model and visual view.
+ */
 public class SwingController implements IController, ActionListener {
 
   Window window;
@@ -17,7 +20,12 @@ public class SwingController implements IController, ActionListener {
   private int time;
   private int tempo;
 
-
+  /**
+   * This is the constructor for SwingController.
+   * @param window window is the model.
+   * @param view view is the view.
+   * @param argsMap argsMap is a map for command line arguments.
+   */
   public SwingController(Window window, IViewVisual view, HashMap<String, String> argsMap) {
     this.window = window;
     this.view = view;

@@ -22,6 +22,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 
+/**
+ * This class represents the setting panel of the playback view.
+ * Generally speaking, it is divided into two panels, the 'addObject' panel
+ * and 'operation' panel. Users can add element and operation to the animator.
+ */
 public class SettingPanel extends JPanel {
 
   private IModelView viewModel;
@@ -89,15 +94,27 @@ public class SettingPanel extends JPanel {
   private NumberFormat nonNegativeIntFormat;
   private NumberFormatter nonNegativeIntFormatter;
 
+  /**
+   * Initialize the setting panel to be invisible.
+   * Initialize the setting panel's alignment.
+   * @param flowLayout alignment of the panel
+   */
   public SettingPanel(FlowLayout flowLayout) {
     super(flowLayout);
     this.setVisible(false);
   }
 
+  /**
+   * Set a model to the panel.
+   * @param viewModel model of the view
+   */
   public void setViewModel(IModelView viewModel) {
     this.viewModel = viewModel;
   }
 
+  /**
+   * set constraints to input and connect this panel to two of its sub-panels.
+   */
   public void build() {
     this.setFormatter();
     this.setAddObjectPanel();
@@ -368,10 +385,17 @@ public class SettingPanel extends JPanel {
     operationObjectSuccessFrame.setMinimumSize(new Dimension(200, 100));
   }
 
+  /**
+   * change the visibility of this panel.
+   */
   public void toggleVisible() {
     this.setVisible(!this.isVisible());
   }
 
+  /**
+   *
+   * @param features
+   */
   public void addFeatures(PlaybackFeatures features) {
     // Add object button
     submitAddObjectButton.addActionListener(e -> {
@@ -466,6 +490,9 @@ public class SettingPanel extends JPanel {
 
   }
 
+  /**
+   * This method constraints the input rule of number.
+   */
   public void setFormatter() {
     // Reference:  https://stackoverflow.com/questions/11093326/
     // restricting-jtextfield-input-to-integers/11093360

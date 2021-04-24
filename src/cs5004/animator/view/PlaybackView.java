@@ -1,27 +1,23 @@
 package cs5004.animator.view;
 
-import cs5004.animator.model.Window;
+import cs5004.animator.controller.PlaybackFeatures;
+import cs5004.animator.model.IModelView;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Image;
-import java.awt.event.ActionListener;
 import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 public class PlaybackView extends JFrame implements IViewPlayback {
 
   private AnimatorPanel animatorPanel;
   private ControlBarPanel controlBarPanel;
+  private SettingPanel settingPanel;
+  private RealTimePanel realTimePanel;
   private JScrollPane js;
-
+  private IModelView viewModel;
 
 
   /**
@@ -29,13 +25,13 @@ public class PlaybackView extends JFrame implements IViewPlayback {
    */
   public PlaybackView() throws IOException {
     super();
-    this.setSize(720, 450);
+    this.setSize(1440, 900);
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());
 
     // add Animator Panel
     animatorPanel = new AnimatorPanel();
-    animatorPanel.setPreferredSize(new Dimension(720, 450));
+    animatorPanel.setPreferredSize(new Dimension(1400, 800));
     this.add(animatorPanel, BorderLayout.CENTER);
 
     // add Scroll bars for animator panel
@@ -43,14 +39,22 @@ public class PlaybackView extends JFrame implements IViewPlayback {
             animatorPanel,
             JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
             JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-    js.setPreferredSize(new Dimension(720, 450));
+    js.setPreferredSize(new Dimension(1440, 900));
     this.add(js);
 
-    // add control bar panel
+    // add control bar panel and display
     controlBarPanel = new ControlBarPanel(new FlowLayout(FlowLayout.LEFT));
-    controlBarPanel.setPreferredSize(new Dimension(720, 50));
+    controlBarPanel.setPreferredSize(new Dimension(1440, 50));
     this.add(controlBarPanel, BorderLayout.NORTH);
-    animatorPanel.setControlBar(controlBarPanel);
+
+    // add setting panel
+    settingPanel = new SettingPanel(new FlowLayout(FlowLayout.LEFT));
+    settingPanel.setPreferredSize(new Dimension(1440, 250));
+    this.add(settingPanel, BorderLayout.SOUTH);
+
+    // get real time panel
+    realTimePanel = controlBarPanel.getRealTimePanel();
+
     this.pack();
   }
 
@@ -65,18 +69,10 @@ public class PlaybackView extends JFrame implements IViewPlayback {
   }
 
   @Override
-  public void setModel(Window window) {
-    animatorPanel.setAnimator(window);
-  }
-
-  /**
-   * Set tempo of the animation.
-   *
-   * @param tempo tempo is the speed fo the animation.
-   */
-  @Override
-  public void setTempo(int tempo) {
-    animatorPanel.setTempo(tempo);
+  public void setViewModel(IModelView viewModel) {
+    animatorPanel.setViewModel(viewModel);
+    settingPanel.setViewModel(viewModel);
+    settingPanel.build();
   }
 
   /** Make the view visible. Called after the view is constructed */
@@ -85,42 +81,46 @@ public class PlaybackView extends JFrame implements IViewPlayback {
     this.setVisible(true);
   }
 
-  /**
-   * Start the animation.
-   */
   @Override
-  public void startAnimation() {
-    animatorPanel.start();
+  public void displayControlButtons(boolean isPlaying, boolean isLoop, boolean isMuted) {
+    controlBarPanel.displayControl(isPlaying, isLoop, isMuted);
   }
 
   @Override
-  public void pauseAnimation() {
-    animatorPanel.pause();
+  public void displaySettingPanel() {
+    settingPanel.toggleVisible();
   }
 
   @Override
-  public boolean isAnimatorPlaying() {
-    return animatorPanel.isPlaying();
+  public void addPlaybackFeatures(PlaybackFeatures playbackFeatures) {
+    // send playbackFeatures to ControlBarPanel
+    controlBarPanel.addFeatures(playbackFeatures);
+
+    // send playbackFeatures to SettingPanel
+    settingPanel.addFeatures(playbackFeatures);
   }
 
   @Override
-  public void toggleLoop() {
-    animatorPanel.toggleLoop();
+  public void repaint(int time) {
+    animatorPanel.updateTime(time);
+    animatorPanel.repaint();
+    realTimePanel.updateTime(time);
+    realTimePanel.repaint();
   }
 
   @Override
-  public void restartAnimation() {
-    animatorPanel.restart();
+  public void showId(boolean showId) {
+    animatorPanel.showId(showId);
   }
 
-  /**
-   * Pass actionEvent to Control Bar Panel to set button listeners.
-   *
-   * @param actionEvent actionEvent to be passed to control bar panel.
-   */
   @Override
-  public void passControlBarButtonListener(ActionListener actionEvent) {
-    controlBarPanel.setControlBarButtonListener(actionEvent);
+  public void showInitialSpeed(int speed) {
+    controlBarPanel.showInitialSpeed(speed);
+  }
+
+  @Override
+  public void updateSpeed(int speed) {
+    controlBarPanel.updateSpeed(speed);
   }
 }
 

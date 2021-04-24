@@ -1,20 +1,19 @@
 package cs5004.animator.view;
 
-import java.awt.event.ActionListener;
+import cs5004.animator.controller.PlaybackFeatures;
+import cs5004.animator.model.IModelView;
 
-public interface IViewPlayback extends IViewVisual{
+public interface IViewPlayback extends IViewVisual {
 
-  /**
-   * Pass actionEvent to Control Bar Panel to set button listeners.
-   * @param actionEvent actionEvent to be passed to control bar panel.
-   */
-  public void passControlBarButtonListener(ActionListener actionEvent);
+  void displayControlButtons(boolean isPlaying, boolean isLoop, boolean isMuted);
 
-  public void pauseAnimation();
+  void displaySettingPanel();
 
-  public boolean isAnimatorPlaying();
+  void addPlaybackFeatures(PlaybackFeatures playbackFeatures);
 
-  public void toggleLoop();
+  void showId(boolean showId);
 
-  public void restartAnimation();
+  void showInitialSpeed(int speed);
+
+  void updateSpeed(int speed);
 }

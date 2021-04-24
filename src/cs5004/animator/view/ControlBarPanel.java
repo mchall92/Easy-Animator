@@ -1,10 +1,15 @@
 package cs5004.animator.view;
 
+import cs5004.animator.controller.PlaybackFeatures;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Image;
-import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -15,6 +20,20 @@ public class ControlBarPanel extends JPanel {
   private JButton stopButton;
   private JButton toLoopButton;
   private JButton loopedButton;
+  private JButton toMuteButton;
+  private JButton unmuteButton;
+  private JComboBox<String> comboBox;
+  private JButton settingButton;
+  private JPanel idCheckBoxPanel;
+  private JLabel idCheckBoxLabel;
+  private JCheckBox idCheckBox;
+  private JPanel timePanel;
+  private JLabel showTimeLabel;
+  private RealTimePanel realTimePanel;
+  private JPanel speedPanel;
+  private JLabel showSpeedLabel;
+  private RealTimeSpeedPanel realTimeSpeedPanel;
+  private int speed;
 
   public ControlBarPanel(FlowLayout flowLayout) {
     super(flowLayout);
@@ -23,43 +42,63 @@ public class ControlBarPanel extends JPanel {
     setPlayButton();
     setToLoopButton();
     setLoopedButton();
+    setDropDownMenu();
+    setSettingButton();
+    setIdCheckBox();
+    setTimePanel();
+    setToMuteButton();
+    setUnmuteButton();
     playButton.setHorizontalAlignment(SwingConstants.LEFT);
     pauseButton.setHorizontalAlignment(SwingConstants.LEFT);
     stopButton.setHorizontalAlignment(SwingConstants.LEFT);
     toLoopButton.setHorizontalAlignment(SwingConstants.LEFT);
     loopedButton.setHorizontalAlignment(SwingConstants.LEFT);
+    settingButton.setHorizontalAlignment(SwingConstants.RIGHT);
   }
 
-  private void clear() {
-    this.removeAll();
-    this.revalidate();
-    this.repaint();
-  }
-
-  public void showPlay(boolean isPlay) {
-    if (isPlay) {
-      this.add(pauseButton);
-    } else {
-      this.add(playButton);
-    }
-  }
-
-  private void showLoop(boolean isLoop) {
-    if (isLoop) {
-      this.add(loopedButton);
-    } else {
-      this.add(toLoopButton);
-    }
-  }
-
-  public void displayButtons(boolean isPlay, boolean isLoop) {
+  public void displayControl(boolean isPlay, boolean isLoop, boolean isMuted) {
     this.clear();
     this.showPlay(isPlay);
     this.add(stopButton);
     this.showLoop(isLoop);
+    this.showMute(isMuted);
+    this.add(settingButton);
+    this.add(comboBox, RIGHT_ALIGNMENT);
+    this.add(speedPanel);
+    this.add(idCheckBoxPanel);
+    this.add(timePanel);
   }
 
-  public void setPauseButton() {
+  public void addFeatures(PlaybackFeatures features) {
+    playButton.addActionListener(e -> features.start());
+    pauseButton.addActionListener(e -> features.pause());
+    stopButton.addActionListener(e -> features.stop());
+    toLoopButton.addActionListener(e -> features.startLooping());
+    loopedButton.addActionListener(e -> features.stopLooping());
+    toMuteButton.addActionListener(e -> features.toMute());
+    unmuteButton.addActionListener(e -> features.unmute());
+
+    comboBox.addActionListener(e ->
+        features.setTempoX(comboBox.getItemAt(comboBox.getSelectedIndex())));
+    settingButton.addActionListener(e -> features.toggleSettingPanel());
+    idCheckBox.addActionListener(e -> features.showId(idCheckBox.isSelected()));
+  }
+
+  public RealTimePanel getRealTimePanel() {
+    return realTimePanel;
+  }
+
+  public void showInitialSpeed(int speed) {
+    this.speed = speed;
+    this.setSpeedPanel();
+  }
+
+  public void updateSpeed(int speed) {
+    realTimeSpeedPanel.updateSpeed(speed);
+  }
+
+  // buttons setup
+  private void setPauseButton() {
     pauseButton = new JButton();
     try {
       ImageIcon pauseIcon = new ImageIcon(getClass().getResource("images/pause.png"));
@@ -70,7 +109,7 @@ public class ControlBarPanel extends JPanel {
     }
   }
 
-  public void setPlayButton() {
+  private void setPlayButton() {
     playButton = new JButton();
     try {
       ImageIcon playIcon = new ImageIcon(getClass().getResource("images/play.png"));
@@ -114,20 +153,101 @@ public class ControlBarPanel extends JPanel {
     }
   }
 
-  public void setControlBarButtonListener(ActionListener actionEvent) {
-    playButton.setActionCommand("p");
-    playButton.addActionListener(actionEvent);
+  private void setDropDownMenu() {
+    String[] choices = { "0.5X","0.75X", "1X","1.5X","2X"};
+    comboBox = new JComboBox<>(choices);
+    comboBox.setSelectedIndex(2);
+    comboBox.setVisible(true);
+  }
 
-    pauseButton.setActionCommand("p");
-    pauseButton.addActionListener(actionEvent);
+  private void setSettingButton() {
+    settingButton = new JButton();
+    try {
+      ImageIcon settingIcon = new ImageIcon(getClass().getResource("images/setting.png"));
+      settingIcon = new ImageIcon(settingIcon.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+      settingButton.setIcon(settingIcon);
+    } catch (NullPointerException e) {
+      System.out.println("Image for setting not found.");
+    }
+  }
 
-    stopButton.setActionCommand("s");
-    stopButton.addActionListener(actionEvent);
+  private void setToMuteButton() {
+    toMuteButton = new JButton();
+    try {
+      ImageIcon toMuteIcon = new ImageIcon(getClass().getResource("images/toMute.png"));
+      toMuteIcon = new ImageIcon(toMuteIcon.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+      toMuteButton.setIcon(toMuteIcon);
+    } catch (NullPointerException e) {
+      System.out.println("Image for toMute not found.");
+    }
+  }
 
-    toLoopButton.setActionCommand("l");
-    toLoopButton.addActionListener(actionEvent);
+  private void setUnmuteButton() {
+    unmuteButton = new JButton();
+    try {
+      ImageIcon unmuteIcon = new ImageIcon(getClass().getResource("images/unmute.png"));
+      unmuteIcon = new ImageIcon(unmuteIcon.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+      unmuteButton.setIcon(unmuteIcon);
+    } catch (NullPointerException e) {
+      System.out.println("Image for toMute not found.");
+    }
+  }
 
-    loopedButton.setActionCommand("l");
-    loopedButton.addActionListener(actionEvent);
+  private void setIdCheckBox() {
+    idCheckBoxPanel = new JPanel();
+    idCheckBoxLabel = new JLabel("Show Object ID");
+    idCheckBoxPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+    idCheckBox = new JCheckBox();
+    idCheckBoxPanel.add(idCheckBoxLabel);
+    idCheckBoxPanel.add(idCheckBox);
+  }
+
+  private void setTimePanel() {
+    realTimePanel = new RealTimePanel();
+    timePanel = new JPanel();
+    showTimeLabel = new JLabel("Time : ");
+    timePanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+    timePanel.add(showTimeLabel);
+    timePanel.add(realTimePanel);
+  }
+
+  private void setSpeedPanel() {
+    realTimeSpeedPanel = new RealTimeSpeedPanel(speed);
+    speedPanel = new JPanel();
+    showSpeedLabel = new JLabel("Speed : ");
+    speedPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+    speedPanel.add(showSpeedLabel);
+    speedPanel.add(realTimeSpeedPanel);
+  }
+
+  // helper methods
+  private void clear() {
+    this.removeAll();
+    this.revalidate();
+    this.repaint();
+  }
+
+  private void showPlay(boolean isPlay) {
+    if (isPlay) {
+      this.add(pauseButton);
+    } else {
+      this.add(playButton);
+    }
+  }
+
+  private void showLoop(boolean isLoop) {
+    if (isLoop) {
+      this.add(loopedButton);
+    } else {
+      this.add(toLoopButton);
+    }
+  }
+
+  private void showMute(boolean isMuted) {
+    if (isMuted) {
+      this.add(unmuteButton);
+    } else {
+      this.add(toMuteButton);
+    }
   }
 }

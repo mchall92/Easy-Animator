@@ -26,7 +26,7 @@ public interface Element {
    * @param fromTime original time
    * @param toTime original time return log of this changing action
    */
-  void changeColor(Color color, int fromTime, int toTime);
+  void changeColor(ModelColor color, int fromTime, int toTime);
 
   /**
    * Developer-oriented method of changeSize.
@@ -80,4 +80,10 @@ public interface Element {
    * @return
    */
   String svgShape(int speed);
+
+  /**
+   * Return element shape.
+   * @return Return element shape.
+   */
+  Shape getShape();
 }

@@ -1,10 +1,7 @@
 package cs5004.animator.util;
 
+import cs5004.animator.model.IModelView;
 import cs5004.animator.model.Window;
-import cs5004.animator.util.AnimationBuilder;
-import cs5004.animator.util.AnimationReader;
-import cs5004.animator.util.ArgsParser;
-import cs5004.animator.util.Builder;
 
 import javax.swing.*;
 import java.io.FileNotFoundException;
@@ -16,6 +13,7 @@ public class EasyAnimatorSetter {
 
   private HashMap<String, String> argsMap;
   private Window window;
+  private IModelView viewModel;
   /**
    * User input args to this method to construct an animation.
    *

@@ -6,8 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/** This class implements window, it's a concrete window users can use to generate animation. */
-public class WindowImpl implements Window {
+/**
+ * This class implements window and IViewWindow,
+ * it's a concrete window users can use to generate animation.
+ */
+public class WindowImpl implements Window, IModelView {
 
   private HashMap<String, Element> elements;
   private List<String> priorities;
@@ -93,10 +96,13 @@ public class WindowImpl implements Window {
             id,
             shape,
             new Position(x, y),
-            new Color(r, g, b),
+            new ModelColor(r, g, b),
             new Size(sizeArg1, sizeArg2),
             appearTime,
             disappearTime);
+    if (elements.containsKey(id)) {
+      throw new IllegalArgumentException("ID has already existed.");
+    }
     elements.put(id, ele);
     if (disappearTime > this.endTime) {
       this.endTime = disappearTime;
@@ -122,7 +128,7 @@ public class WindowImpl implements Window {
   public void changeColor(String id, int r, int g, int b, int fromTime, int toTime) {
     checkTimeSequence(fromTime, toTime);
     checkExist(id);
-    elements.get(id).changeColor(new Color(r, g, b), fromTime, toTime);
+    elements.get(id).changeColor(new ModelColor(r, g, b), fromTime, toTime);
   }
 
   @Override
@@ -173,6 +179,20 @@ public class WindowImpl implements Window {
   @Override
   public List<Element> getPriorities() {
     return priorities.stream().map((x) -> elements.get(x)).collect(Collectors.toList());
+  }
+
+  /**
+   * Return a list of element IDs and their shapes.
+   *
+   * @return a list of element IDs and their shapes.
+   */
+  @Override
+  public HashMap<String, Shape> getElementIDAndShape() {
+    HashMap<String, Shape> map = new HashMap<>();
+    for (String s : elements.keySet()) {
+      map.put(s, elements.get(s).getShape());
+    }
+    return map;
   }
 
   @Override

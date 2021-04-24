@@ -1,0 +1,5 @@
+canvas 145 50 410 220
+
+shape oval1 ellipse
+
+motion oval1 257 490 180 20 30 0 255 0  302 490 180 20 30 0 255 0

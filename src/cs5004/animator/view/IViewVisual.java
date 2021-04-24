@@ -10,19 +10,10 @@ public interface IViewVisual extends IViewCommon {
    * Set the frame name to file name.
    * @param fileName is the name of the input file.
    */
-  public void setFileName(String fileName);
-
-  /**
-   * Set tempo of the animation.
-   * @param tempo tempo is the speed fo the animation.
-   */
-  public void setTempo(int tempo);
+  void setFileName(String fileName);
 
   /** Make the view visible. Called after the view is constructed. */
-  public void makeVisible();
+  void makeVisible();
 
-  /**
-   * Start the animation.
-   */
-  public void startAnimation();
+  void repaint(int time);
 }

@@ -17,7 +17,7 @@ public class ElementImpl implements Element {
 
   private String id;
   private Position position;
-  private Color color;
+  private ModelColor color;
   private Shape shape;
   private Size size;
   private ArrayList<Transformation> moveSchedule;
@@ -43,7 +43,7 @@ public class ElementImpl implements Element {
       String id,
       Shape shape,
       Position position,
-      Color color,
+      ModelColor color,
       Size size,
       int appearTime,
       int disappearTime) {
@@ -167,18 +167,18 @@ public class ElementImpl implements Element {
    * @param time specific time
    * @return color at that time
    */
-  private Color getColorByTic(int time) {
-    Color curr = color;
+  private ModelColor getColorByTic(int time) {
+    ModelColor curr = color;
     for (Transformation t : colorSchedule) {
       if (time >= t.getToTime()) {
-        curr = (Color) t.getItem();
+        curr = (ModelColor) t.getItem();
       } else if (time >= t.getFromTime()) {
-        Color tmp = (Color) t.getItem();
+        ModelColor tmp = (ModelColor) t.getItem();
         double percentage = (double) (time - t.getFromTime()) / (t.getToTime() - t.getFromTime());
         int r = (int) (curr.getR() + (tmp.getR() - curr.getR()) * percentage);
         int g = (int) (curr.getG() + (tmp.getG() - curr.getG()) * percentage);
         int b = (int) (curr.getB() + (tmp.getB() - curr.getB()) * percentage);
-        return new Color(r, g, b);
+        return new ModelColor(r, g, b);
       } else {
         return curr;
       }
@@ -246,9 +246,9 @@ public class ElementImpl implements Element {
       curr1 = tmp;
     }
 
-    Color curr2 = color;
+    ModelColor curr2 = color;
     for (Transformation t : colorSchedule) {
-      Color tmp = (Color) t.getItem();
+      ModelColor tmp = (ModelColor) t.getItem();
       String s =
           String.format(
               "Shape %s changes color from %s to" + " %s from t=%d to t=%d\n",
@@ -327,7 +327,7 @@ public class ElementImpl implements Element {
   }
 
   @Override
-  public void changeColor(Color color, int fromTime, int toTime) {
+  public void changeColor(ModelColor color, int fromTime, int toTime) {
     checkTime(fromTime, toTime);
     checkTimeOverLappedColor(fromTime, toTime);
     colorSchedule.add(new Transformation(fromTime, toTime, color));
@@ -355,7 +355,7 @@ public class ElementImpl implements Element {
   @Override
   public Image getAtTic(int time) {
     Position pos = getPosByTic(time);
-    Color col = getColorByTic(time);
+    ModelColor col = getColorByTic(time);
     Size size = getSizeByTic(time);
     return new Image(id, pos, col, shape, size);
   }
@@ -412,5 +412,15 @@ public class ElementImpl implements Element {
     sb.append(getSvgMotion(speed));
     sb.append("</" + shape.getSvgType() + ">\n");
     return sb.toString();
+  }
+
+  /**
+   * Return element shape.
+   *
+   * @return Return element shape.
+   */
+  @Override
+  public Shape getShape() {
+    return this.shape;
   }
 }

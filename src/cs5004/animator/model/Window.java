@@ -1,6 +1,7 @@
 package cs5004.animator.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -96,7 +97,6 @@ public interface Window {
   //     * @param id id of Element
   //     */
   //    void decreasePriorityToLowest(String id);
-
   /**
    * Get shape by tic.
    *
@@ -145,4 +145,10 @@ public interface Window {
 
   /** Get all shapes in order of priority. New added. */
   List<Element> getPriorities();
+
+  /**
+   * Return a list of element IDs and their shapes.
+   * @return a list of element IDs and their shapes.
+   */
+  public HashMap<String, Shape> getElementIDAndShape();
 }

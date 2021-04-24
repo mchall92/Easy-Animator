@@ -19,5 +19,8 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="jlayer-1.0.1.4" level="project" />
+    <orderEntry type="library" name="jaco-mp3-player-0.9.3" level="project" />
+    <orderEntry type="library" name="jaco-mp3-player-0.9.31" level="project" />
   </component>
 </module>

@@ -5,8 +5,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * This class implements window and IViewWindow,
- * it's a concrete window users can use to generate animation.
+ * This class implements window and IViewWindow, it's a concrete window users can use to generate
+ * animation.
  */
 public class WindowImpl implements Window, IModelView {
 
@@ -23,9 +23,9 @@ public class WindowImpl implements Window, IModelView {
   /**
    * Initialize the window with a user-defined size.
    *
-   * @param x leftmost x value of the window(newly added)
-   * @param y top y value of the window(newly added)
-   * @param width width of the window
+   * @param x      leftmost x value of the window(newly added)
+   * @param y      top y value of the window(newly added)
+   * @param width  width of the window
    * @param height height of the window
    */
   public WindowImpl(int x, int y, int width, int height) {
@@ -39,6 +39,7 @@ public class WindowImpl implements Window, IModelView {
     this.height = height;
     this.endTime = 0;
   }
+
   /**
    * Check whether position is out of board, if not, throw exception.
    *
@@ -66,7 +67,7 @@ public class WindowImpl implements Window, IModelView {
    * Check whether fromTime is smaller than toTime, if not, throw exception.
    *
    * @param fromTime fromTime of the motion
-   * @param toTime toTime of the motion
+   * @param toTime   toTime of the motion
    */
   private void checkTimeSequence(int fromTime, int toTime) {
     if (fromTime >= toTime) {
@@ -88,15 +89,15 @@ public class WindowImpl implements Window, IModelView {
       int appearTime,
       int disappearTime) {
     this.checkTimeSequence(appearTime, disappearTime);
-    Element ele =
-        new ElementImpl(
-            id,
-            shape,
-            new Position(x, y),
-            new ModelColor(r, g, b),
-            new Size(sizeArg1, sizeArg2),
-            appearTime,
-            disappearTime);
+    Element ele = new ElementImpl(
+        id,
+        shape,
+        new Position(x, y),
+        new ModelColor(r, g, b),
+        new Size(sizeArg1, sizeArg2),
+        appearTime,
+        disappearTime
+    );
     priorities.add(id);
     if (elements.containsKey(id)) {
       throw new IllegalArgumentException("ID already exists.");
@@ -105,12 +106,6 @@ public class WindowImpl implements Window, IModelView {
     if (disappearTime > this.endTime) {
       this.endTime = disappearTime;
     }
-    System.out.println("Successfully added element: ");
-    System.out.println(id);
-    System.out.println(x + " " + y);
-    System.out.println(r + " " + g + " " + b);
-    System.out.println(sizeArg1 + " " + sizeArg2);
-    System.out.println(appearTime + " " + disappearTime);
   }
 
   @Override

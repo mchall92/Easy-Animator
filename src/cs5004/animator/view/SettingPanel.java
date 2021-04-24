@@ -88,6 +88,13 @@ public class SettingPanel extends JPanel {
   private JFrame operationObjectSuccessFrame;
   private JButton operationObjectSuccessButton;
 
+  private JPanel deleteObjectPanel;
+  private JComboBox<String> deleteChooseIdComboBox;
+  private JFrame deleteObjectSuccessFrame;
+  private JButton deleteObjectSuccessButton;
+
+
+
   // ID comboBox
   HashMap<String, Shape> operationIDMap;
   List<String> operationIDList;
@@ -126,6 +133,7 @@ public class SettingPanel extends JPanel {
     this.setFormatter();
     this.setAddObjectPanel();
     this.setOperationPanel();
+    this.setDeletePanel();
   }
 
   private void setAddObjectPanel() {
@@ -325,7 +333,6 @@ public class SettingPanel extends JPanel {
     Shape currentShape = viewModel.getElementIDAndShape().get(
         operationChooseIdComboBox.getItemAt(
             operationChooseIdComboBox.getSelectedIndex()));
-
     this.chooseScale(currentShape);
     // choose scale
 
@@ -385,6 +392,30 @@ public class SettingPanel extends JPanel {
     operationSuccessPanel.add(operationObjectSuccessButton);
     operationObjectSuccessFrame.add(operationSuccessPanel);
     operationObjectSuccessFrame.setMinimumSize(new Dimension(200, 100));
+
+  }
+
+  public void setDeletePanel() {
+    // build and add delete object panel
+    deleteObjectPanel = new JPanel();
+    deleteObjectPanel.setBorder(BorderFactory.createTitledBorder("Delete An Object"));
+    deleteObjectPanel.setPreferredSize(new Dimension(200, 60));
+    this.add(deleteObjectPanel);
+
+    // build and add delete object comboBox
+    deleteChooseIdComboBox = new JComboBox<>();
+    deleteChooseIdComboBox.setModel(new DefaultComboBoxModel(operationIDArray));
+    deleteObjectPanel.add(deleteChooseIdComboBox);
+
+    // build delete object success frame
+    deleteObjectSuccessFrame = new JFrame();
+    JPanel deleteSuccessPanel = new JPanel();
+    JLabel confirmDeleteLabel = new JLabel("Successfully Deleted The Object!");
+    deleteObjectSuccessButton = new JButton("OK");
+    deleteSuccessPanel.add(confirmDeleteLabel);
+    deleteSuccessPanel.add(deleteObjectSuccessButton);
+    deleteObjectSuccessFrame.add(deleteSuccessPanel);
+    deleteObjectSuccessFrame.setMinimumSize(new Dimension(200, 100));
   }
 
   /**
@@ -597,7 +628,6 @@ public class SettingPanel extends JPanel {
     operationIDList.addAll(operationIDMap.keySet());
     operationIDArray = new String[operationIDMap.size()];
     operationIDList.toArray(operationIDArray);
-
 
   }
 }

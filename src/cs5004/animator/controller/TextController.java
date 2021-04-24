@@ -29,7 +29,7 @@ public class TextController implements IController{
   @Override
   public void go() {
     view.setOutput(argsMap.get("out"));
-    view.setViewModel((IModelView) window);
+    view.setViewModel(window);
     view.writeTxt();
   }
 }

@@ -28,7 +28,7 @@ public class SVGController implements IController {
 
   @Override
   public void go() {
-    view.setViewModel((IModelView) window);
+    view.setViewModel(window);
     view.setOutput(argsMap.get("out"));
     view.setTempo(Integer.parseInt(argsMap.get("speed")));
     view.writeSVG();

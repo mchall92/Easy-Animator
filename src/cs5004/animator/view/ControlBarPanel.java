@@ -4,14 +4,17 @@ import cs5004.animator.controller.PlaybackFeatures;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Image;
+import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * This class represents the control bar of the animator.
@@ -26,6 +29,9 @@ public class ControlBarPanel extends JPanel {
   private JButton loopedButton;
   private JButton toMuteButton;
   private JButton unmuteButton;
+  private JButton saveSVGButton;
+  private JButton saveTextButton;
+  private JButton openFileButton;
   private JComboBox<String> comboBox;
   private JButton settingButton;
   private JPanel idCheckBoxPanel;
@@ -60,12 +66,15 @@ public class ControlBarPanel extends JPanel {
     setTimePanel();
     setToMuteButton();
     setUnmuteButton();
+    setSaveSVGButton();
+    setSaveTextButton();
+    setOpenFileButton();
     playButton.setHorizontalAlignment(SwingConstants.LEFT);
     pauseButton.setHorizontalAlignment(SwingConstants.LEFT);
     stopButton.setHorizontalAlignment(SwingConstants.LEFT);
     toLoopButton.setHorizontalAlignment(SwingConstants.LEFT);
     loopedButton.setHorizontalAlignment(SwingConstants.LEFT);
-    settingButton.setHorizontalAlignment(SwingConstants.RIGHT);
+    settingButton.setHorizontalAlignment(SwingConstants.LEFT);
   }
 
   /**
@@ -76,6 +85,9 @@ public class ControlBarPanel extends JPanel {
    */
   public void displayControl(boolean isPlay, boolean isLoop, boolean isMuted) {
     this.clear();
+    this.add(openFileButton);
+    this.add(saveTextButton);
+    this.add(saveSVGButton);
     this.showPlay(isPlay);
     this.add(stopButton);
     this.showLoop(isLoop);
@@ -104,6 +116,45 @@ public class ControlBarPanel extends JPanel {
         features.setTempoX(comboBox.getItemAt(comboBox.getSelectedIndex())));
     settingButton.addActionListener(e -> features.toggleSettingPanel());
     idCheckBox.addActionListener(e -> features.showId(idCheckBox.isSelected()));
+
+    saveSVGButton.addActionListener(e -> {
+      JFileChooser fileChooser = new JFileChooser(".");
+
+      FileNameExtensionFilter filter = new FileNameExtensionFilter(
+          "SVG", "svg");
+      fileChooser.setFileFilter(filter);
+      int retValue = fileChooser.showSaveDialog(ControlBarPanel.this);
+      if (retValue == JFileChooser.APPROVE_OPTION) {
+        File svgFile = fileChooser.getSelectedFile();
+        features.saveSVGFile(svgFile.getAbsolutePath());
+      }
+    });
+
+    saveTextButton.addActionListener(e -> {
+      JFileChooser fileChooser = new JFileChooser(".");
+
+      FileNameExtensionFilter filter = new FileNameExtensionFilter(
+          "txt", "txt");
+      fileChooser.setFileFilter(filter);
+      int retValue = fileChooser.showSaveDialog(ControlBarPanel.this);
+      if (retValue == JFileChooser.APPROVE_OPTION) {
+        File txtFile = fileChooser.getSelectedFile();
+        features.saveTextFile(txtFile.getAbsolutePath());
+      }
+    });
+
+    openFileButton.addActionListener(e-> {
+      JFileChooser fileChooser = new JFileChooser(".");
+      FileNameExtensionFilter filter = new FileNameExtensionFilter(
+          "text", "txt");
+      fileChooser.setFileFilter(filter);
+
+      int retValue = fileChooser.showOpenDialog(ControlBarPanel.this);
+      if (retValue == JFileChooser.APPROVE_OPTION) {
+        File file = fileChooser.getSelectedFile();
+        features.openFile(file.getAbsolutePath());
+      }
+    });
   }
 
   /**
@@ -251,6 +302,42 @@ public class ControlBarPanel extends JPanel {
     speedPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
     speedPanel.add(showSpeedLabel);
     speedPanel.add(realTimeSpeedPanel);
+  }
+
+  private void setSaveSVGButton() {
+    saveSVGButton = new JButton();
+    try {
+      ImageIcon svgIcon = new ImageIcon(getClass().getResource("images/svg.png"));
+      svgIcon = new ImageIcon(svgIcon.getImage().
+          getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+      saveSVGButton.setIcon(svgIcon);
+    } catch (NullPointerException e) {
+      System.out.println("Image for SVG not found.");
+    }
+  }
+
+  private void setSaveTextButton() {
+    saveTextButton = new JButton();
+    try {
+      ImageIcon textIcon = new ImageIcon(getClass().getResource("images/text.png"));
+      textIcon = new ImageIcon(textIcon.getImage().
+          getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+      saveTextButton.setIcon(textIcon);
+    } catch (NullPointerException e) {
+      System.out.println("Image for text not found.");
+    }
+  }
+
+  private void setOpenFileButton() {
+    openFileButton = new JButton();
+    try {
+      ImageIcon openFileIcon = new ImageIcon(getClass().getResource("images/openFile.png"));
+      openFileIcon = new ImageIcon(openFileIcon.getImage().
+          getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+      openFileButton.setIcon(openFileIcon);
+    } catch (NullPointerException e) {
+      System.out.println("Image for text not found.");
+    }
   }
 
   // helper methods

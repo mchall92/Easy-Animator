@@ -1,15 +1,23 @@
 package cs5004.animator.controller;
 
-import cs5004.animator.model.IModelView;
-import cs5004.animator.model.Image;
 import cs5004.animator.model.Shape;
 import cs5004.animator.model.Window;
+import cs5004.animator.util.AnimationBuilder;
+import cs5004.animator.util.AnimationReader;
+import cs5004.animator.util.ArgsParser;
+import cs5004.animator.util.Builder;
 import cs5004.animator.view.IViewPlayback;
 import jaco.mp3.player.MP3Player;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -40,7 +48,7 @@ public class PlaybackController implements IController, ActionListener, Playback
     this.view = view;
     this.argsMap = argsMap;
     this.tempo = Integer.parseInt(argsMap.get("speed"));
-    this.timer = new Timer( 1000 / tempo, this);
+    this.timer = new Timer((int) 1000 / tempo, this);
     this.time = 0;
     this.isLoop = false;
     this.showId = false;
@@ -61,7 +69,7 @@ public class PlaybackController implements IController, ActionListener, Playback
 
   @Override
   public void go() {
-    System.out.println("All images are from freeicons.io and free for use.");
+    System.out.println("All images are either free-for-use from freeicons.io or self-made.");
     this.view.setFileName(this.argsMap.get("fileName"));
     this.view.setViewModel(this.window);
     this.view.addPlaybackFeatures(this);
@@ -198,6 +206,7 @@ public class PlaybackController implements IController, ActionListener, Playback
         Integer.parseInt(y.replace(",", "")),
         Integer.parseInt(appearTime.replace(",", "")),
         Integer.parseInt(disappearTime.replace(",", "")));
+    view.repaint(time);
   }
 
   @Override
@@ -207,7 +216,7 @@ public class PlaybackController implements IController, ActionListener, Playback
         Integer.parseInt(argsTwo.replace(",", "")),
         Integer.parseInt(appearTime.replace(",", "")),
         Integer.parseInt(disappearTime.replace(",", "")));
-
+    view.repaint(time);
   }
 
   @Override
@@ -216,6 +225,85 @@ public class PlaybackController implements IController, ActionListener, Playback
     window.changeColor(id, r, g, b,
         Integer.parseInt(appearTime.replace(",", "")),
         Integer.parseInt(disappearTime.replace(",", "")));
+    view.repaint(time);
+  }
+
+  /**
+   * Delete element/object from model.
+   *
+   * @param id id is the element to be deleted.
+   */
+  @Override
+  public void deleteObject(String id) {
+    window.removeElement(id);
+    view.repaint(time);
+  }
+
+  /**
+   * Save an SVG file at absolutePath.
+   *
+   * @param absolutePath absolutePath is the absolute path to save the file.
+   */
+  @Override
+  public void saveSVGFile(String absolutePath) {
+    if (!absolutePath.endsWith(".svg")) {
+      absolutePath += ".svg";
+    }
+    File file = new File(absolutePath);
+    try {
+      FileWriter fileWriter = new FileWriter(file);
+      fileWriter.write(window.toSvgString(tempo));
+      fileWriter.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Save an text file at absolutePath.
+   *
+   * @param absolutePath absolutePath is the absolute path to save the file.
+   */
+  @Override
+  public void saveTextFile(String absolutePath) {
+    if (!absolutePath.endsWith(".txt")) {
+      absolutePath += ".txt";
+    }
+    File file = new File(absolutePath);
+    try {
+      FileWriter fileWriter = new FileWriter(file);
+      fileWriter.write(window.toString());
+      fileWriter.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Open a text file from an absolutePath.
+   *
+   * @param absolutePath absolutePath is the absolute path to open the file.
+   */
+  @Override
+  public void openFile(String absolutePath) {
+    try {
+      Readable readable = new FileReader(absolutePath);
+      AnimationBuilder<Window> builder = new Builder();
+      this.window = AnimationReader.parseFile(readable, builder);
+    } catch (IndexOutOfBoundsException | IllegalArgumentException | FileNotFoundException e) {
+      JFrame frame = new JFrame();
+      JOptionPane.showMessageDialog(
+          frame,
+          "An Error Occurs When Reading File.",
+          "Open File Error",
+          JOptionPane.ERROR_MESSAGE);
+    }
+    this.time = 0;
+    mp3Player.stop();
+    this.view.setFileName(absolutePath.substring(
+        absolutePath.lastIndexOf("/")+1));
+    this.view.setViewModel(this.window);
+    this.start();
   }
 
   public Window getWindow() {

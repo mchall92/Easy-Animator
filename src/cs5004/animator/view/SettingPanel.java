@@ -87,6 +87,12 @@ public class SettingPanel extends JPanel {
   private JFrame operationObjectSuccessFrame;
   private JButton operationObjectSuccessButton;
 
+  // ID comboBox
+  HashMap<String, Shape> operationIDMap;
+  List<String> operationIDList;
+  String[] operationIDArray;
+
+
   private NumberFormat intFormat;
   private NumberFormatter intFormatter;
   private NumberFormat positiveIntFormat;
@@ -251,12 +257,7 @@ public class SettingPanel extends JPanel {
     operationIdPanel.setBorder(BorderFactory.createTitledBorder
         ("Choose An Object"));
     operationIdPanel.setPreferredSize(new Dimension(170, 60));
-    HashMap<String, Shape> operationIDMap = viewModel.getElementIDAndShape();
-    List<String> operationIDList = new ArrayList<>();
-    operationIDList.addAll(operationIDMap.keySet());
-    String[] operationIDArray = new String[operationIDMap.size()];
-    operationIDList.toArray(operationIDArray);
-    operationChooseIdComboBox = new JComboBox<>(operationIDArray);
+    this.updateOperationIdComboBox();
     operationChooseIdComboBox.setPreferredSize
         (new Dimension(150, 25));
     operationIdPanel.add(operationChooseIdComboBox);
@@ -409,6 +410,7 @@ public class SettingPanel extends JPanel {
             addAppearTime.getText(),
             addDisappearTime.getText()
         );
+        this.updateOperationIdComboBox();
       } catch (IllegalArgumentException addObjectError) {
         this.clearAddObjectFields();
         System.out.println("need to handle two kinds of errors: incorrect"
@@ -582,5 +584,14 @@ public class SettingPanel extends JPanel {
     operationDisappearTimeField.setText("");
     operationColor = Color.white;
     operationColorChooserDisplay.setBackground(operationColor);
+  }
+
+  private void updateOperationIdComboBox() {
+    operationIDMap = viewModel.getElementIDAndShape();
+    operationIDList = new ArrayList<>();
+    operationIDList.addAll(operationIDMap.keySet());
+    operationIDArray = new String[operationIDMap.size()];
+    operationIDList.toArray(operationIDArray);
+    operationChooseIdComboBox = new JComboBox<>(operationIDArray);
   }
 }

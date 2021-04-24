@@ -1,10 +1,7 @@
 package cs5004.animator.model;
 
 import java.awt.SystemTray;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -31,9 +28,9 @@ public class WindowImpl implements Window, IModelView {
    * @param width width of the window
    * @param height height of the window
    */
-  public WindowImpl(int x, int y, int width, int height, List<String> priorities) {
+  public WindowImpl(int x, int y, int width, int height) {
     this.elements = new HashMap<>();
-    this.priorities = priorities;
+    this.priorities = new LinkedList<>();
     this.lowestX = x;
     this.lowestY = y;
     this.highestX = x + width;
@@ -100,8 +97,9 @@ public class WindowImpl implements Window, IModelView {
             new Size(sizeArg1, sizeArg2),
             appearTime,
             disappearTime);
+    priorities.add(id);
     if (elements.containsKey(id)) {
-      throw new IllegalArgumentException("ID has already existed.");
+      throw new IllegalArgumentException("ID already exists.");
     }
     this.elements.put(id, ele);
     if (disappearTime > this.endTime) {
@@ -197,6 +195,7 @@ public class WindowImpl implements Window, IModelView {
     HashMap<String, Shape> map = new HashMap<>();
     for (String s : elements.keySet()) {
       map.put(s, elements.get(s).getShape());
+      System.out.println(s);
     }
     return map;
   }

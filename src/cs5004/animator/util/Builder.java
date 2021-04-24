@@ -56,8 +56,8 @@ public final class Builder implements AnimationBuilder<Window> {
 
   @Override
   public Window build() {
-    Window window = new WindowImpl(x, y, width, height, priorities);
-    for (String name : attributeSrc.keySet()) {
+    Window window = new WindowImpl(x, y, width, height);
+    for (String name : priorities) {
       String shape = attributeSrc.get(name).getShape();
       List<TransAll> tmpLs = attributeSrc.get(name).getLs();
       tmpLs.sort(Comparator.comparingInt(TransAll::getFromTime));

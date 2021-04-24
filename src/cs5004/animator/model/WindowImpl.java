@@ -73,7 +73,7 @@ public class WindowImpl implements Window, IModelView {
    */
   private void checkTimeSequence(int fromTime, int toTime) {
     if (fromTime >= toTime) {
-      throw new IllegalArgumentException("fromTime should be smaller than toTime");
+      throw new IllegalArgumentException("From Time has to be smaller than To Time.");
     }
   }
 
@@ -90,7 +90,9 @@ public class WindowImpl implements Window, IModelView {
       int sizeArg2,
       int appearTime,
       int disappearTime) {
-    //        checkOutOfBoard(x, y);
+
+    this.checkTimeSequence(appearTime, disappearTime);
+
     Element ele =
         new ElementImpl(
             id,
@@ -103,7 +105,7 @@ public class WindowImpl implements Window, IModelView {
     if (elements.containsKey(id)) {
       throw new IllegalArgumentException("ID has already existed.");
     }
-    elements.put(id, ele);
+    this.elements.put(id, ele);
     if (disappearTime > this.endTime) {
       this.endTime = disappearTime;
     }

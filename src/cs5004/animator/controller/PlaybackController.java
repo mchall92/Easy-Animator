@@ -43,7 +43,7 @@ public class PlaybackController implements IController, ActionListener, Playback
       String absolute = f.getAbsolutePath();
       System.out.println(absolute);
       mp3Player = new MP3Player(new File(absolute));
-    } catch(NullPointerException e) {
+    } catch (NullPointerException e) {
       System.out.println("Audio not found.");
     }
     mp3Player.setRepeat(true);
@@ -71,13 +71,13 @@ public class PlaybackController implements IController, ActionListener, Playback
     time += 1;
     if (time > window.getEndTime()) {
       if (!isLoop) {
-        view.displayControlButtons(false,false, isMuted);
+        view.displayControlButtons(false, false, isMuted);
         timer.stop();
         mp3Player.stop();
         time = 0;
       } else {
         time = 0;
-        view.displayControlButtons(true,true, isMuted);
+        view.displayControlButtons(true, true, isMuted);
       }
     }
     view.repaint(time);
@@ -122,7 +122,7 @@ public class PlaybackController implements IController, ActionListener, Playback
 
   @Override
   public void setTempo(int newTempo) {
-    timer.setDelay((int) 1000/newTempo);
+    timer.setDelay((int) 1000 / newTempo);
   }
 
   @Override
@@ -163,40 +163,52 @@ public class PlaybackController implements IController, ActionListener, Playback
   public void addObject(String id, String x, String y, int r, int g,
       int b, String shape, String sizeArg1, String sizeArg2,
       String appearTime, String disappearTime) {
-    int xInt = Integer.parseInt(x);
-    int yInt = Integer.parseInt(y);
-    int sizeArg1Int = Integer.parseInt(sizeArg1);
-    int sizeArg2Int = Integer.parseInt(sizeArg2);
-    int appearTimeInt = Integer.parseInt(appearTime);
-    int disappearTimeInt = Integer.parseInt(disappearTime);
+
+    int xInt = Integer.parseInt(x.replace(",", ""));
+    int yInt = Integer.parseInt(y.replace(",", ""));
+    int sizeArg1Int = Integer.parseInt(sizeArg1.replace(",", ""));
+    int sizeArg2Int = Integer.parseInt(sizeArg2.replace(",", ""));
+    int appearTimeInt = Integer.parseInt(appearTime.replace(",", ""));
+    int disappearTimeInt = Integer.parseInt(disappearTime.replace(",", ""));
     Shape objectShape = null;
     for (Shape s : Shape.values()) {
       if (s.toString().equals(shape)) {
         objectShape = s;
       }
     }
-    try {
-      window.addElement(id, xInt, yInt, r, g, b, objectShape,
-          sizeArg1Int, sizeArg2Int, appearTimeInt, disappearTimeInt);
-    } catch (IllegalArgumentException e) {
-      System.out.println("warning sign for already existed ID");
-    }
+
+    window.addElement(id, xInt, yInt, r, g, b, objectShape,
+        sizeArg1Int, sizeArg2Int, appearTimeInt, disappearTimeInt);
+
+
   }
 
   @Override
-  public void move(String id, String x, String y, String appearTime, String disappearTime) {
+  public void move(String id, String x, String y,
+      String appearTime, String disappearTime) {
 
+    window.move(id, Integer.parseInt(x.replace(",", "")),
+        Integer.parseInt(y.replace(",", "")),
+        Integer.parseInt(appearTime.replace(",", "")),
+        Integer.parseInt(disappearTime.replace(",", "")));
   }
 
   @Override
   public void changeSize(String id, String argsOne, String argsTwo, String appearTime,
       String disappearTime) {
+    window.move(id, Integer.parseInt(argsOne.replace(",", "")),
+        Integer.parseInt(argsTwo.replace(",", "")),
+        Integer.parseInt(appearTime.replace(",", "")),
+        Integer.parseInt(disappearTime.replace(",", "")));
 
   }
 
   @Override
-  public void changeColor(String id, int r, int g, int b, String appearTime, String disappearTime) {
-
+  public void changeColor(String id, int r, int g, int b, String appearTime,
+      String disappearTime) {
+    window.changeColor(id, r, g, b,
+        Integer.parseInt(appearTime.replace(",", "")),
+        Integer.parseInt(disappearTime.replace(",", "")));
   }
 
 

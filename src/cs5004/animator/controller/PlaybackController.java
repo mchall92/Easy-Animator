@@ -1,6 +1,7 @@
 package cs5004.animator.controller;
 
 import cs5004.animator.model.IModelView;
+import cs5004.animator.model.Image;
 import cs5004.animator.model.Shape;
 import cs5004.animator.model.Window;
 import cs5004.animator.view.IViewPlayback;
@@ -90,6 +91,16 @@ public class PlaybackController implements IController, ActionListener, Playback
       }
     }
     view.repaint(time);
+    System.out.println("time" + time);
+    for (Image img : window.getAllShapeByTic(time)) {
+      System.out.println("shape" + img.getShape());
+      System.out.println("id:" + img.getId());
+      System.out.println("position" + img.getPosition());
+      System.out.println("size" + img.getSize());
+      System.out.println("color" + img.getColor());
+      System.out.println(" ............");
+    }
+
   }
 
   @Override
@@ -185,16 +196,19 @@ public class PlaybackController implements IController, ActionListener, Playback
         objectShape = s;
       }
     }
-
     window.addElement(id, xInt, yInt, r, g, b, objectShape,
         sizeArg1Int, sizeArg2Int, appearTimeInt, disappearTimeInt);
-
-
   }
 
   @Override
   public void move(String id, String x, String y,
       String appearTime, String disappearTime) {
+
+    System.out.println(id);
+    System.out.println(x.replace(",", ""));
+    System.out.println(y.replace(",", ""));
+    System.out.println(appearTime.replace(",", ""));
+    System.out.println(disappearTime.replace(",", ""));
 
     window.move(id, Integer.parseInt(x.replace(",", "")),
         Integer.parseInt(y.replace(",", "")),
@@ -219,6 +233,4 @@ public class PlaybackController implements IController, ActionListener, Playback
         Integer.parseInt(appearTime.replace(",", "")),
         Integer.parseInt(disappearTime.replace(",", "")));
   }
-
-
 }

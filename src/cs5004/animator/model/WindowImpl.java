@@ -1,5 +1,6 @@
 package cs5004.animator.model;
 
+import java.awt.SystemTray;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -41,7 +42,6 @@ public class WindowImpl implements Window, IModelView {
     this.height = height;
     this.endTime = 0;
   }
-
   /**
    * Check whether position is out of board, if not, throw exception.
    *
@@ -90,9 +90,7 @@ public class WindowImpl implements Window, IModelView {
       int sizeArg2,
       int appearTime,
       int disappearTime) {
-
     this.checkTimeSequence(appearTime, disappearTime);
-
     Element ele =
         new ElementImpl(
             id,
@@ -109,6 +107,12 @@ public class WindowImpl implements Window, IModelView {
     if (disappearTime > this.endTime) {
       this.endTime = disappearTime;
     }
+    System.out.println("Successfully added element: ");
+    System.out.println(id);
+    System.out.println(x + " " + y);
+    System.out.println(r + " " + g + " " + b);
+    System.out.println(sizeArg1 + " " + sizeArg2);
+    System.out.println(appearTime + " " + disappearTime);
   }
 
   @Override

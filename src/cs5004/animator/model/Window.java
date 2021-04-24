@@ -14,7 +14,7 @@ import java.util.List;
  * slice of an element at a specific time. User can call the string method to get a log of what
  * happened in the whole process.
  */
-public interface Window {
+public interface Window extends IModelView{
   /**
    * Add an Element to the window at position.
    *
@@ -83,72 +83,4 @@ public interface Window {
    * @param toTime target time
    */
   void scale(String id, int first, int second, int fromTime, int toTime);
-
-  //    /**
-  //     * Increase the priority of the Element to highest.
-  //     *
-  //     * @param id id of Element
-  //     */
-  //    void increasePriorityToHighest(String id);
-  //
-  //    /**
-  //     * Decrease the priority of the Element to lowest.
-  //     *
-  //     * @param id id of Element
-  //     */
-  //    void decreasePriorityToLowest(String id);
-  /**
-   * Get shape by tic.
-   *
-   * @param id id of Element
-   * @param time specific time
-   * @return element at a specific time
-   */
-  Image getShapeByTic(String id, int time);
-
-  /**
-   * Get all shapes by tic.
-   *
-   * @param time specific time
-   * @return all elements at a specific time
-   */
-  Iterable<Image> getAllShapeByTic(int time);
-
-  /**
-   * get the transformation log of a specific element.
-   *
-   * @return the element's log
-   */
-  ArrayList<LogNode> getLog(String id);
-
-  /**
-   * Generte a string representation of this window in svg format. New added.
-   *
-   * @return
-   */
-  String toSvgString(int speed);
-
-  /**
-   * Return the end time of this animation.
-   *
-   * @return the end time of this animation.
-   */
-  public int getEndTime();
-
-  /**
-   * First shows basic information of every element. Second shows information of transformation in
-   * order of time.
-   *
-   * @return The string which represents this window
-   */
-  String toString();
-
-  /** Get all shapes in order of priority. New added. */
-  List<Element> getPriorities();
-
-  /**
-   * Return a list of element IDs and their shapes.
-   * @return a list of element IDs and their shapes.
-   */
-  public HashMap<String, Shape> getElementIDAndShape();
 }

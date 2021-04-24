@@ -189,7 +189,6 @@ public class WindowImpl implements Window, IModelView {
     HashMap<String, Shape> map = new HashMap<>();
     for (String s : elements.keySet()) {
       map.put(s, elements.get(s).getShape());
-      System.out.println(s);
     }
     return map;
   }

@@ -39,7 +39,7 @@ public class SwingController implements IController, ActionListener {
   public void go() {
     System.out.println("All images are from freeicons.io and free for use.");
     this.view.setFileName(this.argsMap.get("fileName"));
-    this.view.setViewModel((IModelView) window);
+    this.view.setViewModel(window);
     this.view.makeVisible();
     timer.start();
   }

@@ -63,7 +63,7 @@ public class PlaybackController implements IController, ActionListener, Playback
   public void go() {
     System.out.println("All images are from freeicons.io and free for use.");
     this.view.setFileName(this.argsMap.get("fileName"));
-    this.view.setViewModel((IModelView) this.window);
+    this.view.setViewModel(this.window);
     this.view.addPlaybackFeatures(this);
     this.view.showInitialSpeed(tempo);
     this.view.displayControlButtons(true, isLoop, isMuted);

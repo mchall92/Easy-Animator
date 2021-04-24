@@ -91,16 +91,6 @@ public class PlaybackController implements IController, ActionListener, Playback
       }
     }
     view.repaint(time);
-    System.out.println("time" + time);
-    for (Image img : window.getAllShapeByTic(time)) {
-      System.out.println("shape" + img.getShape());
-      System.out.println("id:" + img.getId());
-      System.out.println("position" + img.getPosition());
-      System.out.println("size" + img.getSize());
-      System.out.println("color" + img.getColor());
-      System.out.println(" ............");
-    }
-
   }
 
   @Override
@@ -203,12 +193,6 @@ public class PlaybackController implements IController, ActionListener, Playback
   @Override
   public void move(String id, String x, String y,
       String appearTime, String disappearTime) {
-
-    System.out.println(id);
-    System.out.println(x.replace(",", ""));
-    System.out.println(y.replace(",", ""));
-    System.out.println(appearTime.replace(",", ""));
-    System.out.println(disappearTime.replace(",", ""));
 
     window.move(id, Integer.parseInt(x.replace(",", "")),
         Integer.parseInt(y.replace(",", "")),

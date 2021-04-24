@@ -253,9 +253,7 @@ public class SettingPanel extends JPanel {
     operationIdPanel.setPreferredSize(new Dimension(170, 60));
     HashMap<String, Shape> operationIDMap = viewModel.getElementIDAndShape();
     List<String> operationIDList = new ArrayList<>();
-    for (String id : operationIDMap.keySet()) {
-      operationIDList.add(id);
-    }
+    operationIDList.addAll(operationIDMap.keySet());
     String[] operationIDArray = new String[operationIDMap.size()];
     operationIDList.toArray(operationIDArray);
     operationChooseIdComboBox = new JComboBox<>(operationIDArray);
@@ -533,8 +531,9 @@ public class SettingPanel extends JPanel {
     addSizeFieldTwo.setText("");
     addAppearTime.setText("");
     addDisappearTime.setText("");
-    addColor = Color.white;
     chooseShapeComboBox.setSelectedIndex(0);
+    addColor = Color.white;
+    colorChooserDisplay.setBackground(addColor);
   }
 
   private void chooseScale(Shape currShape) {
@@ -582,6 +581,6 @@ public class SettingPanel extends JPanel {
     operationAppearTimeField.setText("");
     operationDisappearTimeField.setText("");
     operationColor = Color.white;
-
+    operationColorChooserDisplay.setBackground(operationColor);
   }
 }

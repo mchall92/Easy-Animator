@@ -1,6 +1,5 @@
 package cs5004.animator.model;
 
-import java.awt.SystemTray;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -107,12 +106,7 @@ public class WindowImpl implements Window, IModelView {
     if (disappearTime > this.endTime) {
       this.endTime = disappearTime;
     }
-    System.out.println("Successfully added element: ");
-    System.out.println(id);
-    System.out.println(x + " " + y);
-    System.out.println(r + " " + g + " " + b);
-    System.out.println(sizeArg1 + " " + sizeArg2);
-    System.out.println(appearTime + " " + disappearTime);
+    this.priorities.add(id);
   }
 
   @Override

@@ -79,4 +79,16 @@ public class AnimatorPanel extends JPanel {
       }
     }
   }
+
+  public IModelView getViewModel() {
+    return viewModel;
+  }
+
+  public int getTime() {
+    return time;
+  }
+
+  public boolean isShowId() {
+    return showId;
+  }
 }

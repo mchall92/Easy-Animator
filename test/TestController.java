@@ -39,10 +39,9 @@ public class TestController {
     @Test
     public void TestSVGController() {
         args = new String[]{
-                "speed", "1",
-                "view", "svg",
-                "out", "../testTarget/test-trash.svg",
-                "filename", "toh3.txt"
+                "-view", "svg",
+                "-out", "testTarget/test-trash.svg",
+                "-in", "toh-3.txt"
         };
         EasyAnimatorSetter easyAnimatorSetter = new EasyAnimatorSetter(args);
         window = easyAnimatorSetter.getWindow();
@@ -54,10 +53,10 @@ public class TestController {
     @Test
     public void TestTextController() {
         args = new String[]{
-                "speed", "1",
-                "view", "text",
-                "out", "../testTarget/test-trash.svg",
-                "filename", "toh3.txt"
+                "-speed", "1",
+                "-view", "text",
+                "-out", "testTarget/test-trash.svg",
+                "-in", "toh-3.txt"
         };
         EasyAnimatorSetter easyAnimatorSetter = new EasyAnimatorSetter(args);
         window = easyAnimatorSetter.getWindow();
@@ -69,10 +68,9 @@ public class TestController {
     @Test
     public void TestSwingController() {
         args = new String[]{
-                "speed", "1",
-                "view", "visual",
-                "out", "null",
-                "filename", "toh3.txt"
+                "-speed", "1",
+                "-view", "visual",
+                "-in", "toh-3.txt"
         };
         EasyAnimatorSetter easyAnimatorSetter = new EasyAnimatorSetter(args);
         window = easyAnimatorSetter.getWindow();
@@ -82,38 +80,68 @@ public class TestController {
     }
 
     @Test
-    public void TestPlayBackControllerStartStatus() {
+    public void TestPlayBackController() {
         PlaybackController controller;
         args = new String[]{
-                "speed", "1",
-                "view", "playback",
-                "out", "playback",
-                "filename", "toh3.txt"
+                "-speed", "1",
+                "-view", "playback",
+                "-in", "toh-3.txt"
         };
         EasyAnimatorSetter easyAnimatorSetter = new EasyAnimatorSetter(args);
         window = easyAnimatorSetter.getWindow();
         argsMap = easyAnimatorSetter.getArgsMap();
         controller = new PlaybackController(window, viewPlayback, argsMap);
         //start status -> constructor
-        assertEquals(controller.getTime(), 1);
+        assertEquals(controller.getTime(), 0);
         assertFalse(controller.isLoop());
         assertFalse(controller.isShowId());
         assertFalse(controller.isMuted());
         assertEquals(controller.getTempo(), 1);
-        assertEquals(controller.getMp3Player(), null);
 
         //initialization -> go
         controller.go();
-        assertEquals(viewPlayback.getTitle(), argsMap.get("filename"));
-        assertEquals(viewPlayback.getViewModel(), window);
         assertEquals(viewPlayback.getControlBarPanel().getSpeed(), 1);
         assertTrue(viewPlayback.isVisible());
         assertTrue(viewPlayback.getControlBarPanel().isPlaying());
         assertFalse(viewPlayback.getControlBarPanel().isLooping());
         assertFalse(viewPlayback.getControlBarPanel().isMuting());
 
-        //run -> actionPerformed
-        for (int i=0; i<window.getEndTime(); i++) {
-        }
+        //button -> start, pause, ...
+        controller.pause();
+        assertFalse(viewPlayback.getControlBarPanel().isPlaying());
+        controller.start();
+        assertTrue(viewPlayback.getControlBarPanel().isPlaying());
+        controller.toMute();
+        assertTrue(viewPlayback.getControlBarPanel().isMuting());
+        controller.unmute();
+        assertFalse(viewPlayback.getControlBarPanel().isMuting());
+        controller.startLooping();
+        assertTrue(viewPlayback.getControlBarPanel().isLooping());
+        controller.stopLooping();
+        assertFalse(viewPlayback.getControlBarPanel().isLooping());
+        controller.stop();
+        assertFalse(viewPlayback.getControlBarPanel().isPlaying());
+
+        //speed setter -> setTempoX
+        controller.setTempoX("2X");
+        assertEquals(viewPlayback.getControlBarPanel().getSpeed(), 1);
+
+        //toggle setting panel -> toggleSettingPanel
+        assertFalse(viewPlayback.getSettingPanel().isVisible());
+        controller.toggleSettingPanel();
+        assertTrue(viewPlayback.getSettingPanel().isVisible());
+
+    // showId
+    assertFalse(viewPlayback.getAnimatorPanel().isShowId());
+    controller.showId(true);
+        assertTrue(viewPlayback.getAnimatorPanel().isShowId());
+        controller.showId(false);
+        assertFalse(viewPlayback.getAnimatorPanel().isShowId());
+
+        //addObject
+        assertFalse(window.getElementIDAndShape().containsKey("11"));
+        controller.addObject("11", "20", "20", 1, 1, 1, "oval",
+                "10", "10", "2", "10");
+        assertTrue(window.getElementIDAndShape().containsKey("11"));
     }
 }

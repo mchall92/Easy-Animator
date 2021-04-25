@@ -48,7 +48,7 @@ public class PlaybackView extends JFrame implements IViewPlayback {
 
     // add control bar panel and display
     controlBarPanel = new ControlBarPanel(new FlowLayout(FlowLayout.LEFT));
-    controlBarPanel.setPreferredSize(new Dimension(1440, 50));
+    controlBarPanel.setPreferredSize(new Dimension(1440, 70));
     this.add(controlBarPanel, BorderLayout.NORTH);
 
     // add setting panel

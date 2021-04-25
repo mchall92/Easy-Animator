@@ -4,7 +4,6 @@ import cs5004.animator.model.Shape;
 import cs5004.animator.model.Window;
 import cs5004.animator.util.AnimationBuilder;
 import cs5004.animator.util.AnimationReader;
-import cs5004.animator.util.ArgsParser;
 import cs5004.animator.util.Builder;
 import cs5004.animator.view.IViewPlayback;
 import jaco.mp3.player.MP3Player;
@@ -146,8 +145,8 @@ public class PlaybackController implements IController, ActionListener, Playback
   @Override
   public void setTempoX(String x) {
     double times = Double.parseDouble(x.substring(0, x.length() - 1));
-    this.setTempo((int) (tempo * times));
-    this.view.updateSpeed((int) (tempo * times));
+    this.setTempo((int) (tempo * times < 1 ? 1 : tempo * times));
+    this.view.updateSpeed((int) (tempo * times < 1 ? 1 : tempo * times));
   }
 
   @Override

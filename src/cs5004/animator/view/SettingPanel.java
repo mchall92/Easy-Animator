@@ -19,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
@@ -247,6 +248,7 @@ public class SettingPanel extends JPanel {
     addObjectSuccessPanel.add(addObjectSuccessButton, BorderLayout.SOUTH);
     addObjectSuccessFrame.add(addObjectSuccessPanel);
     addObjectSuccessFrame.setMinimumSize(new Dimension(300, 150));
+    addObjectSuccessFrame.setLocationRelativeTo(null);
   }
 
   /**
@@ -390,7 +392,7 @@ public class SettingPanel extends JPanel {
     operationSuccessPanel.add(operationObjectSuccessButton, BorderLayout.SOUTH);
     operationObjectSuccessFrame.add(operationSuccessPanel);
     operationObjectSuccessFrame.setMinimumSize(new Dimension(300, 150));
-
+    operationObjectSuccessFrame.setLocationRelativeTo(null);
   }
 
   /**
@@ -424,6 +426,7 @@ public class SettingPanel extends JPanel {
     deleteSuccessPanel.add(deleteObjectSuccessButton, BorderLayout.CENTER);
     deleteObjectSuccessFrame.add(deleteSuccessPanel);
     deleteObjectSuccessFrame.setMinimumSize(new Dimension(300, 150));
+    deleteObjectSuccessFrame.setLocationRelativeTo(null);
   }
 
 
@@ -459,9 +462,13 @@ public class SettingPanel extends JPanel {
         addObjectSuccessFrame.setVisible(true);
       } catch (IllegalArgumentException addObjectError) {
         this.clearAddObjectFields();
-        System.out.println(addObjectError);
-        System.out.println("need to handle two kinds of errors: incorrect"
-            + "time and ID existed");
+        JFrame frame = new JFrame();
+        JOptionPane.showMessageDialog(
+            frame,
+            addObjectError.getMessage().startsWith("For input")?
+            "Fields cannot be empty." : addObjectError.getMessage(),
+            "Add Object Error",
+            JOptionPane.ERROR_MESSAGE);
       }
       this.clearAddObjectFields();
     });
@@ -526,8 +533,14 @@ public class SettingPanel extends JPanel {
         }
         operationObjectSuccessFrame.setVisible(true);
       } catch (IllegalArgumentException operationException) {
-        System.out.println("Three kinds of errors should be caught");
         this.clearOperationFields();
+        JFrame frame = new JFrame();
+        JOptionPane.showMessageDialog(
+            frame,
+            operationException.getMessage().startsWith("For input")?
+                "Fields cannot be empty." : operationException.getMessage(),
+            "Add Object Error",
+            JOptionPane.ERROR_MESSAGE);
       }
       this.clearOperationFields();
     });

@@ -21,6 +21,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class EasyAnimatorRunner {
+  /**
+   * This method is the starter of this animator.
+   * User should input arguments in this format:
+   * -out xxx.svg/txt -speed num -in xxx.txt -view oneKindOfView
+   * @param args The args input by user
+   * @throws IOException The file may not exist
+   */
   public static void main(String[] args) throws IOException {
     System.out.println(Arrays.toString(args));
     EasyAnimatorSetter easyAnimator = new EasyAnimatorSetter(args);

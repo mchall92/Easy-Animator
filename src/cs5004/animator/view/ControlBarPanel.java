@@ -451,10 +451,6 @@ public class ControlBarPanel extends JPanel {
     return speedPanel;
   }
 
-  public JLabel getShowSpeedLabel() {
-    return showSpeedLabel;
-  }
-
   public RealTimeSpeedPanel getRealTimeSpeedPanel() {
     return realTimeSpeedPanel;
   }

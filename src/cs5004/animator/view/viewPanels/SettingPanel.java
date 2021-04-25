@@ -1,4 +1,4 @@
-package cs5004.animator.view;
+package cs5004.animator.view.viewPanels;
 
 import cs5004.animator.controller.PlaybackFeatures;
 import cs5004.animator.model.IModelView;
@@ -625,12 +625,12 @@ public class SettingPanel extends JPanel {
    * @param currShape currShape is the shape of current object in ComboBox.
    */
   private void chooseScale(Shape currShape) {
-    if (currShape.toString().equals("Oval")) {
+    if (currShape != null && currShape.toString().equals("Oval")) {
       operationXRadiusLabel.setVisible(true);
       operationYRadiusLabel.setVisible(true);
       operationWidthLabel.setVisible(false);
       operationHeightLabel.setVisible(false);
-    } else if (currShape.toString().equals("Rectangle")) {
+    } else if (currShape != null && currShape.toString().equals("Rectangle")) {
       operationWidthLabel.setVisible(true);
       operationHeightLabel.setVisible(true);
       operationXRadiusLabel.setVisible(false);

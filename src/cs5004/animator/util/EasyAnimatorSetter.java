@@ -20,6 +20,9 @@ public class EasyAnimatorSetter {
    * @param args
    */
   public EasyAnimatorSetter(String[] args) {
+    if (args.length == 0) {
+      return;
+    }
     argsMap = new HashMap<>();
     Readable readable;
     try {
@@ -45,6 +48,14 @@ public class EasyAnimatorSetter {
    * @return parsed strings from command line.
    */
   public HashMap<String, String> getArgsMap() {
+    if (argsMap == null) {
+      argsMap = new HashMap<>();
+      argsMap.put("fileName", "empty.txt");
+      argsMap.put("speed", "20");
+      argsMap.put("view", "playback");
+      argsMap.put("out", "notNull");
+      return argsMap;
+    }
     return argsMap;
   }
 

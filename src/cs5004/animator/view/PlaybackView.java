@@ -2,10 +2,13 @@ package cs5004.animator.view;
 
 import cs5004.animator.controller.PlaybackFeatures;
 import cs5004.animator.model.IModelView;
+import cs5004.animator.view.viewPanels.AnimatorPanel;
+import cs5004.animator.view.viewPanels.ControlBarPanel;
+import cs5004.animator.view.viewPanels.RealTimePanel;
+import cs5004.animator.view.viewPanels.SettingPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;

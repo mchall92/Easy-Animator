@@ -1,4 +1,4 @@
-package cs5004.animator.view;
+package cs5004.animator.view.viewPanels;
 
 
 import java.awt.Color;

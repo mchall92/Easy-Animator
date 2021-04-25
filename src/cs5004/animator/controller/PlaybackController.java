@@ -56,7 +56,7 @@ public class PlaybackController implements IController, ActionListener, Playback
     // media
     mp3Player = null;
     try {
-      File f = new File("audio/Lolly – Limujii (No Copyright Music).mp3");
+      File f = new File("audio/Lolly-Limujii(No Copyright Music).mp3");
       String absolute = f.getAbsolutePath();
       System.out.println(absolute);
       mp3Player = new MP3Player(new File(absolute));
@@ -325,23 +325,8 @@ public class PlaybackController implements IController, ActionListener, Playback
     return time;
   }
 
-  public int getTempo() {
-    return tempo;
-  }
-
-  public boolean isLoop() {
-    return isLoop;
-  }
-
-  public boolean isMuted() {
-    return isMuted;
-  }
-
   public boolean isShowId() {
     return showId;
   }
 
-  public MP3Player getMp3Player() {
-    return mp3Player;
-  }
 }

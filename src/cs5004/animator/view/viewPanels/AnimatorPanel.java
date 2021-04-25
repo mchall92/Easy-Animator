@@ -1,4 +1,4 @@
-package cs5004.animator.view;
+package cs5004.animator.view.viewPanels;
 
 import cs5004.animator.model.IModelView;
 import cs5004.animator.model.Image;

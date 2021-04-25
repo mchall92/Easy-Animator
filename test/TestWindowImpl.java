@@ -11,7 +11,7 @@
 // import org.junit.Before;
 // import org.junit.Test;
 //
-/// **
+///**
 // * This test class tests methods in WindowImpl.
 // */
 //
@@ -58,12 +58,12 @@
 //    Iterable<Image> singleImg;
 //    int i;
 //
-//    single.addElement("1", 1, 2, 0.5, 0.1, 0.2,
+//    single.addElement("1", 1, 2, 1, 1, 1,
 //        Shape.Oval, 3, 4, 0, 100);
 //
 //    expectedId = new String[]{"1"};
 //    expectedPosition = new String[]{"(1.0,2.0)"};
-//    expectedColor = new String[]{"(0.500, 0.100, 0.200)"};
+//    expectedColor = new String[]{"(1, 1, 1)"};
 //    expectedShape = new String[]{"Oval"};
 //    expectedSize = new String[]{"3.0 4.0"};
 //    i = 0;
@@ -78,17 +78,17 @@
 //      i += 1;
 //    }
 //
-//    multiple1.addElement("oval1", 1, 2, 0.5, 0.1, 0.2,
+//    multiple1.addElement("oval1", 1, 2, 1, 1, 1,
 //        Shape.Oval, 3, 4, 0, 51);
-//    multiple1.addElement("rect1", 1, 2, 0.2, 0.1, 0.92,
+//    multiple1.addElement("rect1", 1, 2, 1, 1, 1,
 //        Shape.Rectangle, 3, 4, 50, 100);
-//    multiple1.addElement("rect2", 1, 21, 0.12, 0.11, 0.92,
+//    multiple1.addElement("rect2", 1, 21, 1, 1, 1,
 //        Shape.Rectangle, 2, 1, 3, 80);
 //
 //    expectedId = new String[]{"rect1", "rect2", "oval1"};
 //    expectedPosition = new String[]{"(1.0,2.0)", "(1.0,21.0)", "(1.0,2.0)"};
-//    expectedColor = new String[]{"(0.200, 0.100, 0.920)", "(0.120, 0.110, 0.920)",
-//        "(0.500, 0.100, 0.200)"};
+//    expectedColor = new String[]{"(1, 1, 1)", "(1, 1, 1)",
+//        "(1, 1, 1)"};
 //    expectedShape = new String[]{"Rectangle", "Rectangle", "Oval"};
 //    expectedSize = new String[]{"3.0 4.0", "2.0 1.0", "3.0 4.0"};
 //    i = 0;

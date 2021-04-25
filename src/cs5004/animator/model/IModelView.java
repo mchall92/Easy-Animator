@@ -1,10 +1,5 @@
 package cs5004.animator.model;
 
-import cs5004.animator.model.Element;
-import cs5004.animator.model.Image;
-import cs5004.animator.model.LogNode;
-import cs5004.animator.model.Shape;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,5 +64,5 @@ public interface IModelView {
    * Return a list of element IDs and their shapes.
    * @return a list of element IDs and their shapes.
    */
-  public HashMap<String, Shape> getElementIDAndShape();
+  HashMap<String, Shape> getElementIDAndShape();
 }

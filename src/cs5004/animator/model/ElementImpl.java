@@ -1,13 +1,11 @@
 package cs5004.animator.model;
 
-import cs5004.animator.util.SvgHelper;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.OptionalInt;
 
-import static cs5004.animator.util.SvgHelper.animationSvgGenerator;
+import static cs5004.animator.model.SvgHelper.animationSvgGenerator;
 
 /**
  * This class implements Element, it represents an element in a window. This class uses different

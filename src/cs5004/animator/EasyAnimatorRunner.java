@@ -7,6 +7,7 @@ import cs5004.animator.controller.SVGController;
 import cs5004.animator.controller.SwingController;
 import cs5004.animator.controller.TextController;
 import cs5004.animator.model.Window;
+import cs5004.animator.model.WindowImpl;
 import cs5004.animator.util.EasyAnimatorSetter;
 import cs5004.animator.view.IViewPlayback;
 import cs5004.animator.view.IViewSVG;
@@ -32,31 +33,41 @@ public class EasyAnimatorRunner {
     System.out.println(Arrays.toString(args));
     EasyAnimatorSetter easyAnimator = new EasyAnimatorSetter(args);
     HashMap<String, String> argsMap = easyAnimator.getArgsMap();
-    Window window = easyAnimator.getWindow();
     switch (argsMap.get("view")) {
       case "visual": {
+        Window window = easyAnimator.getWindow();
         IViewVisual view = new SwingView();
         IController controller = new SwingController(window, view, argsMap);
         controller.go();
         break;
       }
       case "svg": {
+        Window window = easyAnimator.getWindow();
         IViewSVG view = new SvgView();
         IController controller = new SVGController(window, view, argsMap);
         controller.go();
         break;
       }
       case "text": {
+        Window window = easyAnimator.getWindow();
         IViewText view = new TextView();
         IController controller = new TextController(window, view, argsMap);
         controller.go();
         break;
       }
       case "playback": {
-        IViewPlayback view = new PlaybackView();
-        IController controller = new PlaybackController(window, view, argsMap);
-        controller.go();
-        break;
+        if (argsMap.get("out") == null) {
+          Window window = easyAnimator.getWindow();
+          IViewPlayback view = new PlaybackView();
+          IController controller = new PlaybackController(window, view, argsMap);
+          controller.go();
+          break;
+        } else {
+          IViewPlayback view = new PlaybackView();
+          Window emptyWindow = new WindowImpl(1000, 1000, 1000, 1000);
+          IController controller = new PlaybackController(emptyWindow, view, argsMap);
+          controller.go();
+        }
       }
     }
   }

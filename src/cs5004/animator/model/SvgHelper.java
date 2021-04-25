@@ -1,4 +1,4 @@
-package cs5004.animator.util;
+package cs5004.animator.model;
 
 /** This class stores helper methods to help generate a svg log. */
 public class SvgHelper {

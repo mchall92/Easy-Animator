@@ -92,7 +92,6 @@ public class ArgsParser {
         map.put("out", out);
       }
     }
-
     return map;
   }
 }

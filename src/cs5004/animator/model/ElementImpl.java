@@ -45,6 +45,9 @@ public class ElementImpl implements Element {
       Size size,
       int appearTime,
       int disappearTime) {
+    if (appearTime < 0 || disappearTime < 0 || appearTime >= disappearTime) {
+      throw new IllegalArgumentException("appearTime and disappearTime should be positive");
+    }
     this.id = id;
     this.shape = shape;
     this.position = position;
@@ -83,7 +86,7 @@ public class ElementImpl implements Element {
     OptionalInt min1 = Arrays.stream(tmp).min();
     int max = max1.getAsInt();
     int min = min1.getAsInt();
-    if (max - min < toTime - fromTime + currFromTime - currToTime) {
+    if (max - min < toTime - fromTime + currToTime - currFromTime) {
       throw new IllegalArgumentException("Time Overlapped!");
     }
   }
@@ -270,8 +273,8 @@ public class ElementImpl implements Element {
       Size tmp = (Size) t.getItem();
       String s =
           String.format(
-              "Shape %s scales from %s: %.1f, %s: %.1f to"
-                  + " %s: %.1f, %s: %.1f from t=%d to t=%d\n",
+              "Shape %s scales from %s: %d, %s: %d to"
+                  + " %s: %d, %s: %d from t=%d to t=%d\n",
               id,
               shape.getSizeTitle1(),
               curr3.getFirstArg(),

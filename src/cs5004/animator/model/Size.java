@@ -12,6 +12,9 @@ public class Size implements Feature {
    * @param secondArg second argument of size
    */
   public Size(int firstArg, int secondArg) {
+    if (firstArg < 0 || secondArg < 0) {
+      throw new IllegalArgumentException("Size should not be negative");
+    }
     this.firstArg = firstArg;
     this.secondArg = secondArg;
   }

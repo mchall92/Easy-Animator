@@ -1,7 +1,10 @@
 package cs5004.animator.model;
 
-import java.awt.SystemTray;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -172,6 +175,7 @@ public class WindowImpl implements Window, IModelView {
     for (LogNode l : transLog) {
       sb.append(l.getInfo());
     }
+    sb.deleteCharAt(sb.length() - 1);
     return sb.toString();
   }
 

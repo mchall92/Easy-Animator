@@ -1,4 +1,4 @@
-package cs5004.animator.view.viewPanels;
+package cs5004.animator.view.viewpanels;
 
 import cs5004.animator.controller.PlaybackFeatures;
 import cs5004.animator.model.IModelView;
@@ -33,38 +33,23 @@ public class SettingPanel extends JPanel {
 
   private IModelView viewModel;
 
-  private JPanel addObjectPanel;
-  private JPanel addIdPanel;
   private JTextField addObjectNameField;
-  private JPanel addPositionPanel;
   private JFormattedTextField addXPositionField;
   private JFormattedTextField addYPositionField;
-  private JPanel chooseShapePanel;
   private JComboBox<String> chooseShapeComboBox;
-  private JPanel addSizePanel;
-  private JLabel addXRadiusLabel;
-  private JLabel addYRadiusLabel;
-  private JLabel addWidthLabel;
-  private JLabel addHeightLabel;
   private JFormattedTextField addSizeFieldOne;
   private JFormattedTextField addSizeFieldTwo;
-  private JPanel addColorChooserPanel;
   private JButton addColorChooserButton;
   private JLabel colorChooserDisplay;
   private Color addColor;
-  private JPanel addTimePanel;
   private JFormattedTextField addAppearTime;
   private JFormattedTextField addDisappearTime;
-  private JPanel addObjectButtonPanel;
   private JButton submitAddObjectButton;
   private JButton clearAddFieldButton;
   private JFrame addObjectSuccessFrame;
   private JButton addObjectSuccessButton;
 
-  private JPanel operationPanel;
-  private JPanel operationIdPanel;
   private JComboBox<String> operationChooseIdComboBox;
-  private JPanel operationMotionPanel;
   private JComboBox<String> operationMotionComboBox;
   private JPanel operationPositionPanel;
   private JFormattedTextField operationXPositionField;
@@ -80,16 +65,13 @@ public class SettingPanel extends JPanel {
   private JButton operationColorChooserButton;
   private JLabel operationColorChooserDisplay;
   private Color operationColor;
-  private JPanel operationTimePanel;
   private JFormattedTextField operationAppearTimeField;
   private JFormattedTextField operationDisappearTimeField;
-  private JPanel operationObjectButtonPanel;
   private JButton submitOperationButton;
   private JButton clearOperationFieldButton;
   private JFrame operationObjectSuccessFrame;
   private JButton operationObjectSuccessButton;
 
-  private JPanel deleteObjectPanel;
   private JComboBox<String> deleteChooseIdComboBox;
   private JButton deleteObjectButton;
   private JFrame deleteObjectSuccessFrame;
@@ -100,11 +82,8 @@ public class SettingPanel extends JPanel {
   List<String> operationIDList;
   String[] operationIDArray;
 
-  private NumberFormat intFormat;
   private NumberFormatter intFormatter;
-  private NumberFormat positiveIntFormat;
   private NumberFormatter positiveIntFormatter;
-  private NumberFormat nonNegativeIntFormat;
   private NumberFormatter nonNegativeIntFormatter;
 
   /**
@@ -136,13 +115,13 @@ public class SettingPanel extends JPanel {
    */
   private void setAddObjectPanel() {
     // set up Add Object Panel
-    addObjectPanel = new JPanel();
+    JPanel addObjectPanel = new JPanel();
     addObjectPanel.setPreferredSize(new Dimension(610, 240));
     addObjectPanel.setBorder(BorderFactory.createTitledBorder("Add An Object"));
     this.add(addObjectPanel);
 
     // set up and add ID panel
-    addIdPanel = new JPanel();
+    JPanel addIdPanel = new JPanel();
     JLabel addIdLabel = new JLabel("Object ID ");
     addObjectNameField = new JTextField();
     addObjectNameField.setColumns(7);
@@ -152,7 +131,7 @@ public class SettingPanel extends JPanel {
     addObjectPanel.add(new JLabel("           "));
 
     // set up and add Position panel
-    addPositionPanel = new JPanel();
+    JPanel addPositionPanel = new JPanel();
     addPositionPanel.setBorder(BorderFactory.createTitledBorder("Set Position"));
     JLabel addXPositionLabel = new JLabel("X");
     JLabel addYPositionLabel = new JLabel("  Y");
@@ -169,7 +148,7 @@ public class SettingPanel extends JPanel {
     // build and add choose color button
     //set default color to white
     addColor = Color.WHITE;
-    addColorChooserPanel = new JPanel();
+    JPanel addColorChooserPanel = new JPanel();
     addColorChooserPanel.setBorder(BorderFactory.createTitledBorder("Set Color"));
     addColorChooserButton = new JButton("Choose A Color");
     addColorChooserPanel.add(addColorChooserButton);
@@ -181,12 +160,12 @@ public class SettingPanel extends JPanel {
     addObjectPanel.add(addColorChooserPanel);
 
     // build and add size panel
-    addSizePanel = new JPanel();
+    JPanel addSizePanel = new JPanel();
     addSizePanel.setBorder(BorderFactory.createTitledBorder("Set Size"));
-    addXRadiusLabel = new JLabel("X Radius");
-    addYRadiusLabel = new JLabel("  Y Radius");
-    addWidthLabel = new JLabel("Width");
-    addHeightLabel = new JLabel("  Height");
+    JLabel addXRadiusLabel = new JLabel("X Radius");
+    JLabel addYRadiusLabel = new JLabel("  Y Radius");
+    JLabel addWidthLabel = new JLabel("Width");
+    JLabel addHeightLabel = new JLabel("  Height");
     addSizeFieldOne = new JFormattedTextField(positiveIntFormatter);
     addSizeFieldOne.setColumns(7);
     addSizeFieldTwo = new JFormattedTextField(positiveIntFormatter);
@@ -198,7 +177,7 @@ public class SettingPanel extends JPanel {
     addObjectPanel.add(addSizePanel);
 
     // build and add choose shape combo box
-    chooseShapePanel = new JPanel();
+    JPanel chooseShapePanel = new JPanel();
     chooseShapePanel.setBorder(BorderFactory.createTitledBorder("Choose A Shape"));
     String[] shapeChoiceArray;
     List<String> shapeChoice = new ArrayList<>();
@@ -215,7 +194,7 @@ public class SettingPanel extends JPanel {
     addObjectPanel.add(chooseShapePanel);
 
     // build and add time panel
-    addTimePanel = new JPanel();
+    JPanel addTimePanel = new JPanel();
     addTimePanel.setBorder(BorderFactory.createTitledBorder("Set Time"));
     JLabel addAppearTimeLabel = new JLabel("From");
     JLabel addYDisappearTimeLabel = new JLabel("  To");
@@ -231,7 +210,7 @@ public class SettingPanel extends JPanel {
 
     // build submit add object button
     // build clear button
-    addObjectButtonPanel = new JPanel();
+    JPanel addObjectButtonPanel = new JPanel();
     addObjectButtonPanel.setPreferredSize(new Dimension(140, 70));
     submitAddObjectButton = new JButton("Add");
     clearAddFieldButton = new JButton("Clear");
@@ -256,34 +235,29 @@ public class SettingPanel extends JPanel {
    */
   private void setOperationPanel() {
     // set up operation Panel
-    operationPanel = new JPanel();
+    JPanel operationPanel = new JPanel();
     operationPanel.setPreferredSize(new Dimension(470, 240));
     operationPanel.setBorder(BorderFactory.createTitledBorder("Add An Operation"));
     this.add(operationPanel);
 
     // build choose ID panel
-    operationIdPanel = new JPanel();
-    operationIdPanel.setBorder(BorderFactory.createTitledBorder
-        ("Choose An Object"));
+    JPanel operationIdPanel = new JPanel();
+    operationIdPanel.setBorder(BorderFactory.createTitledBorder("Choose An Object"));
     operationIdPanel.setPreferredSize(new Dimension(170, 60));
     this.updateIdList();
     operationChooseIdComboBox = new JComboBox<>();
     operationChooseIdComboBox.setModel(new DefaultComboBoxModel(operationIDArray));
-    operationChooseIdComboBox.setPreferredSize
-        (new Dimension(150, 25));
+    operationChooseIdComboBox.setPreferredSize(new Dimension(150, 25));
     operationIdPanel.add(operationChooseIdComboBox);
     operationPanel.add(operationIdPanel);
 
     // build action panel
-    operationMotionPanel = new JPanel();
-    operationMotionPanel.setBorder(BorderFactory.createTitledBorder
-        ("Choose An Operation"));
+    JPanel operationMotionPanel = new JPanel();
+    operationMotionPanel.setBorder(BorderFactory.createTitledBorder("Choose An Operation"));
     operationIdPanel.setPreferredSize(new Dimension(200, 60));
-    String[] motionArray = new String[]
-        {"Move", "Change Size", "Change Color"};
+    String[] motionArray = new String[]{"Move", "Change Size", "Change Color"};
     operationMotionComboBox = new JComboBox<>(motionArray);
-    operationMotionComboBox.setPreferredSize
-        (new Dimension(150, 25));
+    operationMotionComboBox.setPreferredSize(new Dimension(150, 25));
     operationMotionPanel.add(operationMotionComboBox);
     operationPanel.add(operationMotionPanel);
 
@@ -359,7 +333,7 @@ public class SettingPanel extends JPanel {
     ///// choose which action panel to display
 
     // build time panel
-    operationTimePanel = new JPanel();
+    JPanel operationTimePanel = new JPanel();
     operationTimePanel.setBorder(BorderFactory.createTitledBorder("Set Time"));
     operationTimePanel.setPreferredSize(new Dimension(300, 60));
     JLabel operationAppearTimeLabel = new JLabel("From");
@@ -375,7 +349,7 @@ public class SettingPanel extends JPanel {
     operationPanel.add(operationTimePanel);
 
     // build add and clear buttons
-    operationObjectButtonPanel = new JPanel();
+    JPanel operationObjectButtonPanel = new JPanel();
     operationObjectButtonPanel.setPreferredSize(new Dimension(140, 70));
     submitOperationButton = new JButton("Add");
     clearOperationFieldButton = new JButton("Clear");
@@ -400,7 +374,7 @@ public class SettingPanel extends JPanel {
    */
   public void setDeletePanel() {
     // build and add delete object panel
-    deleteObjectPanel = new JPanel();
+    JPanel deleteObjectPanel = new JPanel();
     deleteObjectPanel.setBorder(BorderFactory.createTitledBorder("Delete An Object"));
     deleteObjectPanel.setPreferredSize(new Dimension(300, 60));
     this.add(deleteObjectPanel);
@@ -409,8 +383,7 @@ public class SettingPanel extends JPanel {
     this.updateIdList();
     deleteChooseIdComboBox = new JComboBox<>();
     deleteChooseIdComboBox.setModel(new DefaultComboBoxModel(operationIDArray));
-    deleteChooseIdComboBox.setPreferredSize
-        (new Dimension(150, 25));
+    deleteChooseIdComboBox.setPreferredSize(new Dimension(150, 25));
     deleteObjectPanel.add(deleteChooseIdComboBox);
 
     // build and add delete object button
@@ -465,7 +438,7 @@ public class SettingPanel extends JPanel {
         JFrame frame = new JFrame();
         JOptionPane.showMessageDialog(
             frame,
-            addObjectError.getMessage().startsWith("For input")?
+            addObjectError.getMessage().startsWith("For input") ?
             "Fields cannot be empty." : addObjectError.getMessage(),
             "Add Object Error",
             JOptionPane.ERROR_MESSAGE);
@@ -537,7 +510,7 @@ public class SettingPanel extends JPanel {
         JFrame frame = new JFrame();
         JOptionPane.showMessageDialog(
             frame,
-            operationException.getMessage().startsWith("For input")?
+            operationException.getMessage().startsWith("For input") ?
                 "Fields cannot be empty." : operationException.getMessage(),
             "Add Object Error",
             JOptionPane.ERROR_MESSAGE);
@@ -579,7 +552,7 @@ public class SettingPanel extends JPanel {
     // restricting-jtextfield-input-to-integers/11093360
 
     // int
-    intFormat = NumberFormat.getInstance();
+    NumberFormat intFormat = NumberFormat.getInstance();
     intFormatter = new NumberFormatter(intFormat);
     intFormatter.setValueClass(Integer.class);
     intFormatter.setMinimum(Integer.MIN_VALUE);
@@ -588,7 +561,7 @@ public class SettingPanel extends JPanel {
     intFormatter.setCommitsOnValidEdit(true);
 
     // positive int
-    positiveIntFormat = NumberFormat.getInstance();
+    NumberFormat positiveIntFormat = NumberFormat.getInstance();
     positiveIntFormatter = new NumberFormatter(positiveIntFormat);
     positiveIntFormatter.setValueClass(Integer.class);
     positiveIntFormatter.setMinimum(0);
@@ -597,7 +570,7 @@ public class SettingPanel extends JPanel {
     positiveIntFormatter.setCommitsOnValidEdit(true);
 
     // non negative int
-    nonNegativeIntFormat = NumberFormat.getInstance();
+    NumberFormat nonNegativeIntFormat = NumberFormat.getInstance();
     nonNegativeIntFormatter = new NumberFormatter(nonNegativeIntFormat);
     nonNegativeIntFormatter.setValueClass(Integer.class);
     nonNegativeIntFormatter.setMinimum(0);
@@ -606,6 +579,9 @@ public class SettingPanel extends JPanel {
     nonNegativeIntFormatter.setCommitsOnValidEdit(true);
   }
 
+  /**
+   * clear Add field.
+   */
   public void clearAddObjectFields() {
     addObjectNameField.setText("");
     addXPositionField.setText("");
@@ -660,6 +636,7 @@ public class SettingPanel extends JPanel {
         operationSizePanel.setVisible(false);
         operationPositionPanel.setVisible(false);
         break;
+      default:
     }
   }
 

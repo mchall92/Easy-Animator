@@ -1,4 +1,4 @@
-package cs5004.animator.view.viewPanels;
+package cs5004.animator.view.viewpanels;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -24,7 +24,7 @@ public class RealTimeSpeedPanel extends JPanel {
 
   /**
    * Update the speed and repaint the speed panel.
-   * @param speed
+   * @param speed speed
    */
   public void updateSpeed(int speed) {
     this.speed = speed;

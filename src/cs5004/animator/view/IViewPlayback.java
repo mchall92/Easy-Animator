@@ -16,15 +16,31 @@ public interface IViewPlayback extends IViewVisual {
   void displayControlButtons(boolean isPlaying, boolean isLoop, boolean isMuted);
 
   /**
-   * This method
+   * This method displays the setting panel.
    */
   void displaySettingPanel();
 
+  /**
+   * This method adds features to buttons in playback view.
+   * @param playbackFeatures features added to buttons
+   */
   void addPlaybackFeatures(PlaybackFeatures playbackFeatures);
 
+  /**
+   * This method shows Object Ids.
+   * @param showId showId
+   */
   void showId(boolean showId);
 
+  /**
+   * This method shows initial speed.
+   * @param speed speed
+   */
   void showInitialSpeed(int speed);
 
+  /**
+   * This method updates speed.
+   * @param speed speed
+   */
   void updateSpeed(int speed);
 }

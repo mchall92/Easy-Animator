@@ -3,7 +3,8 @@ package cs5004.animator.util;
 import cs5004.animator.model.IModelView;
 import cs5004.animator.model.Window;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.HashMap;
@@ -17,12 +18,14 @@ public class EasyAnimatorSetter {
   /**
    * User input args to this method to construct an animation.
    *
-   * @param args
+   * @param args The args provided by user and passed in by runner
    */
   public EasyAnimatorSetter(String[] args) {
+
     if (args.length == 0) {
       return;
     }
+
     argsMap = new HashMap<>();
     Readable readable;
     try {

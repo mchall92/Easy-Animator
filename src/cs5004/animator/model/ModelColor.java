@@ -14,6 +14,9 @@ public class ModelColor implements Feature {
    * @param b blue value
    */
   public ModelColor(int r, int g, int b) {
+    if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
+      throw new IllegalArgumentException("Color should be between 0 and 255");
+    }
     this.r = r;
     this.g = g;
     this.b = b;

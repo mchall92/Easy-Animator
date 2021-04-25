@@ -7,5 +7,5 @@ public interface IController {
   /**
    * Run the controller, set basic features of the view.
    */
-  public void go();
+  public void setFeatures();
 }

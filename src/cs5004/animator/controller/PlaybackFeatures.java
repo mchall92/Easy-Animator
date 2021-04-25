@@ -1,7 +1,5 @@
 package cs5004.animator.controller;
 
-import cs5004.animator.model.Shape;
-
 /**
  * This interface contain methods for PlaybackController to implement.
  */

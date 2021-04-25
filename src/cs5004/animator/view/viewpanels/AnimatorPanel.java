@@ -1,4 +1,4 @@
-package cs5004.animator.view.viewPanels;
+package cs5004.animator.view.viewpanels;
 
 import cs5004.animator.model.IModelView;
 import cs5004.animator.model.Image;
@@ -28,14 +28,14 @@ public class AnimatorPanel extends JPanel {
 
   /**
    * Change time feature.
-   * @param time
+   * @param time time
    */
   public void updateTime(int time) {
     this.time = time;
   }
 
   /**
-   * Control whether the object id shows
+   * Control whether the object id shows.
    * @param showId the switch of the Id shower.
    */
   public void showId(boolean showId) {

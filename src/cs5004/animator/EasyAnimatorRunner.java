@@ -1,6 +1,5 @@
 package cs5004.animator;
 
-
 import cs5004.animator.controller.IController;
 import cs5004.animator.controller.PlaybackController;
 import cs5004.animator.controller.SVGController;
@@ -21,11 +20,12 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 
+/** This class is the runner of animator. */
 public class EasyAnimatorRunner {
   /**
-   * This method is the starter of this animator.
-   * User should input arguments in this format:
-   * -out xxx.svg/txt -speed num -in xxx.txt -view oneKindOfView
+   * This method is the starter of this animator. User should input arguments in this format: -out
+   * xxx.svg/txt -speed num -in xxx.txt -view oneKindOfView.
+   *
    * @param args The args input by user
    * @throws IOException The file may not exist
    */
@@ -34,41 +34,49 @@ public class EasyAnimatorRunner {
     EasyAnimatorSetter easyAnimator = new EasyAnimatorSetter(args);
     HashMap<String, String> argsMap = easyAnimator.getArgsMap();
     switch (argsMap.get("view")) {
-      case "visual": {
-        Window window = easyAnimator.getWindow();
-        IViewVisual view = new SwingView();
-        IController controller = new SwingController(window, view, argsMap);
-        controller.go();
-        break;
-      }
-      case "svg": {
-        Window window = easyAnimator.getWindow();
-        IViewSVG view = new SvgView();
-        IController controller = new SVGController(window, view, argsMap);
-        controller.go();
-        break;
-      }
-      case "text": {
-        Window window = easyAnimator.getWindow();
-        IViewText view = new TextView();
-        IController controller = new TextController(window, view, argsMap);
-        controller.go();
-        break;
-      }
-      case "playback": {
-        if (argsMap.get("out") == null) {
+      case "visual":
+        {
           Window window = easyAnimator.getWindow();
-          IViewPlayback view = new PlaybackView();
-          IController controller = new PlaybackController(window, view, argsMap);
-          controller.go();
+          IViewVisual view = new SwingView();
+          IController controller = new SwingController(window, view, argsMap);
+          controller.setFeatures();
           break;
-        } else {
-          IViewPlayback view = new PlaybackView();
-          Window emptyWindow = new WindowImpl(1000, 1000, 1000, 1000);
-          IController controller = new PlaybackController(emptyWindow, view, argsMap);
-          controller.go();
         }
-      }
+      case "svg":
+        {
+          Window window = easyAnimator.getWindow();
+          IViewSVG view = new SvgView();
+          IController controller = new SVGController(window, view, argsMap);
+          controller.setFeatures();
+          break;
+        }
+
+      case "text":
+        {
+          Window window = easyAnimator.getWindow();
+          IViewText view = new TextView();
+          IController controller = new TextController(window, view, argsMap);
+          controller.setFeatures();
+          break;
+        }
+      case "playback":
+        {
+          if (argsMap.get("out") == null) {
+            Window window = easyAnimator.getWindow();
+            IViewPlayback view = new PlaybackView();
+            IController controller = new PlaybackController(window, view, argsMap);
+            controller.setFeatures();
+            break;
+          } else {
+            IViewPlayback view = new PlaybackView();
+            Window emptyWindow = new WindowImpl(1000, 1000, 1000, 1000);
+            IController controller = new PlaybackController(emptyWindow, view, argsMap);
+            controller.setFeatures();
+          }
+        }
+        break;
+      default:
+        throw new IllegalStateException("Unexpected value: " + argsMap.get("view"));
     }
   }
 }

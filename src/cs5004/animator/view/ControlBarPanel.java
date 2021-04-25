@@ -4,6 +4,8 @@ import cs5004.animator.controller.PlaybackFeatures;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -41,7 +43,7 @@ public class ControlBarPanel extends JPanel {
   private JLabel showTimeLabel;
   private RealTimePanel realTimePanel;
   private JPanel speedPanel;
-  private JLabel showSpeedLabel;
+  private JLabel speedLabel;
   private RealTimeSpeedPanel realTimeSpeedPanel;
   private int speed;
   //for test
@@ -95,8 +97,8 @@ public class ControlBarPanel extends JPanel {
     this.add(settingButton);
     this.add(comboBox, RIGHT_ALIGNMENT);
     this.add(speedPanel);
-    this.add(idCheckBoxPanel);
     this.add(timePanel);
+    this.add(idCheckBoxPanel);
   }
 
   /**
@@ -116,6 +118,14 @@ public class ControlBarPanel extends JPanel {
         features.setTempoX(comboBox.getItemAt(comboBox.getSelectedIndex())));
     settingButton.addActionListener(e -> features.toggleSettingPanel());
     idCheckBox.addActionListener(e -> features.showId(idCheckBox.isSelected()));
+    idCheckBoxLabel.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        System.out.println("clicked");
+        idCheckBox.setSelected(!idCheckBox.isSelected());
+        features.showId(idCheckBox.isSelected());
+      }
+    });
 
     saveSVGButton.addActionListener(e -> {
       JFileChooser fileChooser = new JFileChooser(".");
@@ -186,7 +196,7 @@ public class ControlBarPanel extends JPanel {
     pauseButton = new JButton();
     try {
       ImageIcon pauseIcon = new ImageIcon(getClass().getResource("images/pause.png"));
-      pauseIcon = new ImageIcon(pauseIcon.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+      pauseIcon = new ImageIcon(pauseIcon.getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
       pauseButton.setIcon(pauseIcon);
     } catch (NullPointerException e) {
       System.out.println("Image for pause not found.");
@@ -197,7 +207,7 @@ public class ControlBarPanel extends JPanel {
     playButton = new JButton();
     try {
       ImageIcon playIcon = new ImageIcon(getClass().getResource("images/play.png"));
-      playIcon = new ImageIcon(playIcon.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+      playIcon = new ImageIcon(playIcon.getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
       playButton.setIcon(playIcon);
     } catch (NullPointerException e) {
       System.out.println("Image for play not found.");
@@ -208,7 +218,7 @@ public class ControlBarPanel extends JPanel {
     stopButton = new JButton();
     try {
       ImageIcon stopIcon = new ImageIcon(getClass().getResource("images/stop.png"));
-      stopIcon = new ImageIcon(stopIcon.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+      stopIcon = new ImageIcon(stopIcon.getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
       stopButton.setIcon(stopIcon);
     } catch (NullPointerException e) {
       System.out.println("Image for stop not found.");
@@ -219,7 +229,7 @@ public class ControlBarPanel extends JPanel {
     toLoopButton = new JButton();
     try {
       ImageIcon toLoopIcon = new ImageIcon(getClass().getResource("images/toLoop.png"));
-      toLoopIcon = new ImageIcon(toLoopIcon.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+      toLoopIcon = new ImageIcon(toLoopIcon.getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
       toLoopButton.setIcon(toLoopIcon);
     } catch (NullPointerException e) {
       System.out.println("Image for toLoop not found.");
@@ -230,7 +240,7 @@ public class ControlBarPanel extends JPanel {
     loopedButton = new JButton();
     try {
       ImageIcon loopedIcon = new ImageIcon(getClass().getResource("images/looped.png"));
-      loopedIcon = new ImageIcon(loopedIcon.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+      loopedIcon = new ImageIcon(loopedIcon.getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
       loopedButton.setIcon(loopedIcon);
     } catch (NullPointerException e) {
       System.out.println("Image for looped not found.");
@@ -248,7 +258,7 @@ public class ControlBarPanel extends JPanel {
     settingButton = new JButton();
     try {
       ImageIcon settingIcon = new ImageIcon(getClass().getResource("images/setting.png"));
-      settingIcon = new ImageIcon(settingIcon.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+      settingIcon = new ImageIcon(settingIcon.getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
       settingButton.setIcon(settingIcon);
     } catch (NullPointerException e) {
       System.out.println("Image for setting not found.");
@@ -259,7 +269,7 @@ public class ControlBarPanel extends JPanel {
     toMuteButton = new JButton();
     try {
       ImageIcon toMuteIcon = new ImageIcon(getClass().getResource("images/toMute.png"));
-      toMuteIcon = new ImageIcon(toMuteIcon.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+      toMuteIcon = new ImageIcon(toMuteIcon.getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
       toMuteButton.setIcon(toMuteIcon);
     } catch (NullPointerException e) {
       System.out.println("Image for toMute not found.");
@@ -270,7 +280,7 @@ public class ControlBarPanel extends JPanel {
     unmuteButton = new JButton();
     try {
       ImageIcon unmuteIcon = new ImageIcon(getClass().getResource("images/unmute.png"));
-      unmuteIcon = new ImageIcon(unmuteIcon.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+      unmuteIcon = new ImageIcon(unmuteIcon.getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
       unmuteButton.setIcon(unmuteIcon);
     } catch (NullPointerException e) {
       System.out.println("Image for toMute not found.");
@@ -282,26 +292,30 @@ public class ControlBarPanel extends JPanel {
     idCheckBoxLabel = new JLabel("Show Object ID");
     idCheckBoxPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
     idCheckBox = new JCheckBox();
-    idCheckBoxPanel.add(idCheckBoxLabel);
     idCheckBoxPanel.add(idCheckBox);
+    idCheckBoxPanel.add(idCheckBoxLabel);
   }
 
   private void setTimePanel() {
     realTimePanel = new RealTimePanel();
     timePanel = new JPanel();
-    showTimeLabel = new JLabel("Time : ");
+    showTimeLabel = new JLabel("          ");
     timePanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-    timePanel.add(showTimeLabel);
+    timePanel.setBorder(BorderFactory.createTitledBorder("Time"));
+    timePanel.add(new JLabel("  "));
     timePanel.add(realTimePanel);
+    timePanel.add(showTimeLabel);
+
   }
 
   private void setSpeedPanel() {
     realTimeSpeedPanel = new RealTimeSpeedPanel(speed);
     speedPanel = new JPanel();
-    showSpeedLabel = new JLabel("Speed : ");
+    speedLabel = new JLabel("      ");
     speedPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-    speedPanel.add(showSpeedLabel);
+    speedPanel.setBorder(BorderFactory.createTitledBorder("Speed"));
     speedPanel.add(realTimeSpeedPanel);
+    speedPanel.add(speedLabel);
   }
 
   private void setSaveSVGButton() {
@@ -309,7 +323,7 @@ public class ControlBarPanel extends JPanel {
     try {
       ImageIcon svgIcon = new ImageIcon(getClass().getResource("images/svg.png"));
       svgIcon = new ImageIcon(svgIcon.getImage().
-          getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+          getScaledInstance(35, 35, Image.SCALE_DEFAULT));
       saveSVGButton.setIcon(svgIcon);
     } catch (NullPointerException e) {
       System.out.println("Image for SVG not found.");
@@ -321,7 +335,7 @@ public class ControlBarPanel extends JPanel {
     try {
       ImageIcon textIcon = new ImageIcon(getClass().getResource("images/text.png"));
       textIcon = new ImageIcon(textIcon.getImage().
-          getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+          getScaledInstance(35, 35, Image.SCALE_DEFAULT));
       saveTextButton.setIcon(textIcon);
     } catch (NullPointerException e) {
       System.out.println("Image for text not found.");
@@ -333,7 +347,7 @@ public class ControlBarPanel extends JPanel {
     try {
       ImageIcon openFileIcon = new ImageIcon(getClass().getResource("images/openFile.png"));
       openFileIcon = new ImageIcon(openFileIcon.getImage().
-          getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+          getScaledInstance(35, 35, Image.SCALE_DEFAULT));
       openFileButton.setIcon(openFileIcon);
     } catch (NullPointerException e) {
       System.out.println("Image for text not found.");

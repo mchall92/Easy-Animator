@@ -120,7 +120,6 @@ public class ControlBarPanel extends JPanel {
     idCheckBoxLabel.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
-        System.out.println("clicked");
         idCheckBox.setSelected(!idCheckBox.isSelected());
         features.showId(idCheckBox.isSelected());
       }

@@ -211,7 +211,7 @@ public class PlaybackController implements IController, ActionListener, Playback
   @Override
   public void changeSize(String id, String argsOne, String argsTwo, String appearTime,
       String disappearTime) {
-    window.move(id, Integer.parseInt(argsOne.replace(",", "")),
+    window.scale(id, Integer.parseInt(argsOne.replace(",", "")),
         Integer.parseInt(argsTwo.replace(",", "")),
         Integer.parseInt(appearTime.replace(",", "")),
         Integer.parseInt(disappearTime.replace(",", "")));

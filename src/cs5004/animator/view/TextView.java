@@ -34,12 +34,12 @@ public class TextView implements IViewText {
     }
   }
 
-  /** System.out version of makeVisible */
+  /** System.out version of makeVisible. */
   private void writeSystem() {
     System.out.print(viewModel.toString());
   }
 
-  /** File version of makeVisible */
+  /** File version of makeVisible. */
   private void writeFile() {
     File file = new File(out);
     FileWriter fileWriter = null;

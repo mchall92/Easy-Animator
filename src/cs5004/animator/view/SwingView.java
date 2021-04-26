@@ -2,7 +2,7 @@ package cs5004.animator.view;
 
 import cs5004.animator.model.IModelView;
 
-import cs5004.animator.view.viewPanels.AnimatorPanel;
+import cs5004.animator.view.viewpanels.AnimatorPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JFrame;
@@ -15,7 +15,6 @@ import javax.swing.WindowConstants;
 public class SwingView extends JFrame implements IViewVisual {
 
   private AnimatorPanel animatorPanel;
-  private JScrollPane js;
 
 
   /**
@@ -33,7 +32,7 @@ public class SwingView extends JFrame implements IViewVisual {
     this.add(animatorPanel, BorderLayout.CENTER);
 
     // add Scroll bars for animator panel
-    js = new JScrollPane(
+    JScrollPane js = new JScrollPane(
         animatorPanel,
         JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
         JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);

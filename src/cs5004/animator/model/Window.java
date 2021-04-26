@@ -1,9 +1,5 @@
 package cs5004.animator.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 /**
  * This is the user-oriented interface of the animator.
  *
@@ -14,7 +10,7 @@ import java.util.List;
  * slice of an element at a specific time. User can call the string method to get a log of what
  * happened in the whole process.
  */
-public interface Window extends IModelView{
+public interface Window extends IModelView {
   /**
    * Add an Element to the window at position.
    *

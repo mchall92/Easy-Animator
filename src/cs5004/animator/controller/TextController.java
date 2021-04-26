@@ -1,6 +1,5 @@
 package cs5004.animator.controller;
 
-import cs5004.animator.model.IModelView;
 import cs5004.animator.model.Window;
 import cs5004.animator.view.IViewText;
 import java.util.HashMap;
@@ -8,7 +7,7 @@ import java.util.HashMap;
 /**
  * This class implements IController for text output controller.
  */
-public class TextController implements IController{
+public class TextController implements IController {
 
   private Window window;
   private IViewText view;
@@ -27,7 +26,7 @@ public class TextController implements IController{
   }
 
   @Override
-  public void go() {
+  public void setFeatures() {
     view.setOutput(argsMap.get("out"));
     view.setViewModel(window);
     view.writeTxt();

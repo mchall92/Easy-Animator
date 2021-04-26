@@ -1,6 +1,5 @@
 package cs5004.animator.controller;
 
-import cs5004.animator.model.IModelView;
 import cs5004.animator.model.Window;
 import cs5004.animator.view.IViewVisual;
 import java.awt.event.ActionEvent;
@@ -18,7 +17,6 @@ public class SwingController implements IController, ActionListener {
   HashMap<String, String> argsMap;
   private Timer timer;
   private int time;
-  private int tempo;
 
   /**
    * This is the constructor for SwingController.
@@ -30,13 +28,13 @@ public class SwingController implements IController, ActionListener {
     this.window = window;
     this.view = view;
     this.argsMap = argsMap;
-    this.tempo = Integer.parseInt(argsMap.get("speed"));
-    timer = new Timer((int) 1000 / tempo, this);
+    Integer tempo = Integer.parseInt(argsMap.get("speed"));
+    timer = new Timer(1000 / tempo, this);
     time = 0;
   }
 
   @Override
-  public void go() {
+  public void setFeatures() {
     System.out.println("All images are from freeicons.io and free for use.");
     this.view.setFileName(this.argsMap.get("fileName"));
     this.view.setViewModel(window);

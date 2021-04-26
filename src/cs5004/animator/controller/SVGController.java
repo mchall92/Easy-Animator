@@ -1,6 +1,5 @@
 package cs5004.animator.controller;
 
-import cs5004.animator.model.IModelView;
 import cs5004.animator.model.Window;
 import cs5004.animator.view.IViewSVG;
 import java.util.HashMap;
@@ -27,7 +26,7 @@ public class SVGController implements IController {
   }
 
   @Override
-  public void go() {
+  public void setFeatures() {
     view.setViewModel(window);
     view.setOutput(argsMap.get("out"));
     view.setTempo(Integer.parseInt(argsMap.get("speed")));

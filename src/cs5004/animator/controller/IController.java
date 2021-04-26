@@ -5,7 +5,7 @@ package cs5004.animator.controller;
  */
 public interface IController {
   /**
-   * Run the controller, set basic features of the view.
+   * Run the controller, set basic features of view.
    */
-  public void go();
+  public void setFeatures();
 }

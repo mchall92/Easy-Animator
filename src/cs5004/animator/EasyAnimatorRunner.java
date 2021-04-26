@@ -1,6 +1,5 @@
 package cs5004.animator;
 
-
 import cs5004.animator.controller.IController;
 import cs5004.animator.controller.PlaybackController;
 import cs5004.animator.controller.SVGController;
@@ -21,18 +20,14 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 
-/**
- * This is the starter class for our EasyAnimator.
- */
-
+/** This class is the runner of animator. */
 public class EasyAnimatorRunner {
-
   /**
-   * This runs our EasyAnimator by instantiating model and view and pass them
-   * to our controller.
-   * @param args args is the argument that decides how our animator view will run.
+   * This method is the starter of this animator. It instantiates a view and ad model
+   * and pass them to the controller.
    *
-   * @throws IOException if there is an I/O error when reading input file.
+   * @param args args is the argument that determines the view mode.
+   * @throws IOException IOException is thrown when I/O exception reading the input.
    */
   public static void main(String[] args) throws IOException {
     System.out.println(Arrays.toString(args));
@@ -43,21 +38,21 @@ public class EasyAnimatorRunner {
         Window window = easyAnimator.getWindow();
         IViewVisual view = new SwingView();
         IController controller = new SwingController(window, view, argsMap);
-        controller.go();
+        controller.setFeatures();
         break;
       }
       case "svg": {
         Window window = easyAnimator.getWindow();
         IViewSVG view = new SvgView();
         IController controller = new SVGController(window, view, argsMap);
-        controller.go();
+        controller.setFeatures();
         break;
       }
       case "text": {
         Window window = easyAnimator.getWindow();
         IViewText view = new TextView();
         IController controller = new TextController(window, view, argsMap);
-        controller.go();
+        controller.setFeatures();
         break;
       }
       case "playback": {
@@ -65,18 +60,19 @@ public class EasyAnimatorRunner {
           Window window = easyAnimator.getWindow();
           IViewPlayback view = new PlaybackView();
           IController controller = new PlaybackController(window, view, argsMap);
-          controller.go();
+          controller.setFeatures();
           break;
         } else {
           IViewPlayback view = new PlaybackView();
           Window emptyWindow = new WindowImpl(1000, 1000, 1000, 1000);
           IController controller = new PlaybackController(emptyWindow, view, argsMap);
-          controller.go();
+          controller.setFeatures();
         }
+        break;
       }
       default: {
-        System.out.println("Should not reach here, error with argsParse and "
-            + "EasyAnimatorSetter.");
+        System.out.println("Should not reach here, there is "
+            + "an error in argsParse and EasyAnimatorSetter.");
       }
     }
   }

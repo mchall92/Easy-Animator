@@ -67,7 +67,7 @@ public class PlaybackController implements IController, ActionListener, Playback
   }
 
   @Override
-  public void go() {
+  public void setFeatures() {
     System.out.println("All images are either free-for-use from freeicons.io or self-made.");
     this.view.setFileName(this.argsMap.get("fileName"));
     this.view.setViewModel(this.window);
@@ -300,7 +300,7 @@ public class PlaybackController implements IController, ActionListener, Playback
     this.time = 0;
     mp3Player.stop();
     this.view.setFileName(absolutePath.substring(
-        absolutePath.lastIndexOf("/")+1));
+        absolutePath.lastIndexOf("/") + 1));
     this.view.setViewModel(this.window);
     this.start();
   }
@@ -329,4 +329,19 @@ public class PlaybackController implements IController, ActionListener, Playback
     return showId;
   }
 
+  public int getTempo() {
+    return tempo;
+  }
+
+  public boolean isLoop() {
+    return isLoop;
+  }
+
+  public boolean isMuted() {
+    return isMuted;
+  }
+
+  public MP3Player getMp3Player() {
+    return mp3Player;
+  }
 }

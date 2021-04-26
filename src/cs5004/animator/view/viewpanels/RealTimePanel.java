@@ -1,4 +1,4 @@
-package cs5004.animator.view.viewPanels;
+package cs5004.animator.view.viewpanels;
 
 
 import java.awt.Color;
@@ -15,7 +15,7 @@ public class RealTimePanel extends JPanel {
   private int time;
 
   /**
-   * Initialize the value of panel to be blank and initialize the time to be 0
+   * Initialize the value of panel to be blank and initialize the time to be 0.
    */
   public RealTimePanel() {
     this.add(new JLabel("             "));
@@ -23,7 +23,7 @@ public class RealTimePanel extends JPanel {
   }
 
   /**
-   * Change the time showing in the panel
+   * Change the time showing in the panel.
    * @param time the current time
    */
   public void updateTime(int time) {

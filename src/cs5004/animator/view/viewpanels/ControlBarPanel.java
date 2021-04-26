@@ -1,4 +1,4 @@
-package cs5004.animator.view.viewPanels;
+package cs5004.animator.view.viewpanels;
 
 import cs5004.animator.controller.PlaybackFeatures;
 import java.awt.Color;
@@ -45,6 +45,9 @@ public class ControlBarPanel extends JPanel {
   private JPanel speedPanel;
   private JLabel speedLabel;
   private RealTimeSpeedPanel realTimeSpeedPanel;
+  private boolean playing;
+  private boolean looping;
+  private boolean muting;
   private int speed;
 
   /**
@@ -149,7 +152,7 @@ public class ControlBarPanel extends JPanel {
       }
     });
 
-    openFileButton.addActionListener(e-> {
+    openFileButton.addActionListener(e -> {
       JFileChooser fileChooser = new JFileChooser(".");
       FileNameExtensionFilter filter = new FileNameExtensionFilter(
           "text", "txt");
@@ -192,7 +195,8 @@ public class ControlBarPanel extends JPanel {
     pauseButton = new JButton();
     try {
       ImageIcon pauseIcon = new ImageIcon(getClass().getResource("images/pause.png"));
-      pauseIcon = new ImageIcon(pauseIcon.getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
+      pauseIcon = new ImageIcon(pauseIcon.getImage().getScaledInstance(35, 35,
+              Image.SCALE_DEFAULT));
       pauseButton.setIcon(pauseIcon);
     } catch (NullPointerException e) {
       System.out.println("Image for pause not found.");
@@ -203,7 +207,8 @@ public class ControlBarPanel extends JPanel {
     playButton = new JButton();
     try {
       ImageIcon playIcon = new ImageIcon(getClass().getResource("images/play.png"));
-      playIcon = new ImageIcon(playIcon.getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
+      playIcon = new ImageIcon(playIcon.getImage().getScaledInstance(35, 35,
+              Image.SCALE_DEFAULT));
       playButton.setIcon(playIcon);
     } catch (NullPointerException e) {
       System.out.println("Image for play not found.");
@@ -214,7 +219,8 @@ public class ControlBarPanel extends JPanel {
     stopButton = new JButton();
     try {
       ImageIcon stopIcon = new ImageIcon(getClass().getResource("images/stop.png"));
-      stopIcon = new ImageIcon(stopIcon.getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
+      stopIcon = new ImageIcon(stopIcon.getImage().getScaledInstance(35, 35,
+              Image.SCALE_DEFAULT));
       stopButton.setIcon(stopIcon);
     } catch (NullPointerException e) {
       System.out.println("Image for stop not found.");
@@ -225,7 +231,8 @@ public class ControlBarPanel extends JPanel {
     toLoopButton = new JButton();
     try {
       ImageIcon toLoopIcon = new ImageIcon(getClass().getResource("images/toLoop.png"));
-      toLoopIcon = new ImageIcon(toLoopIcon.getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
+      toLoopIcon = new ImageIcon(toLoopIcon.getImage().getScaledInstance(35, 35,
+              Image.SCALE_DEFAULT));
       toLoopButton.setIcon(toLoopIcon);
     } catch (NullPointerException e) {
       System.out.println("Image for toLoop not found.");
@@ -236,7 +243,8 @@ public class ControlBarPanel extends JPanel {
     loopedButton = new JButton();
     try {
       ImageIcon loopedIcon = new ImageIcon(getClass().getResource("images/looped.png"));
-      loopedIcon = new ImageIcon(loopedIcon.getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
+      loopedIcon = new ImageIcon(loopedIcon.getImage().getScaledInstance(35, 35,
+              Image.SCALE_DEFAULT));
       loopedButton.setIcon(loopedIcon);
     } catch (NullPointerException e) {
       System.out.println("Image for looped not found.");
@@ -254,7 +262,8 @@ public class ControlBarPanel extends JPanel {
     settingButton = new JButton();
     try {
       ImageIcon settingIcon = new ImageIcon(getClass().getResource("images/setting.png"));
-      settingIcon = new ImageIcon(settingIcon.getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
+      settingIcon = new ImageIcon(settingIcon.getImage().getScaledInstance(35, 35,
+              Image.SCALE_DEFAULT));
       settingButton.setIcon(settingIcon);
     } catch (NullPointerException e) {
       System.out.println("Image for setting not found.");
@@ -265,7 +274,8 @@ public class ControlBarPanel extends JPanel {
     toMuteButton = new JButton();
     try {
       ImageIcon toMuteIcon = new ImageIcon(getClass().getResource("images/toMute.png"));
-      toMuteIcon = new ImageIcon(toMuteIcon.getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
+      toMuteIcon = new ImageIcon(toMuteIcon.getImage().getScaledInstance(35, 35,
+              Image.SCALE_DEFAULT));
       toMuteButton.setIcon(toMuteIcon);
     } catch (NullPointerException e) {
       System.out.println("Image for toMute not found.");
@@ -276,7 +286,8 @@ public class ControlBarPanel extends JPanel {
     unmuteButton = new JButton();
     try {
       ImageIcon unmuteIcon = new ImageIcon(getClass().getResource("images/unmute.png"));
-      unmuteIcon = new ImageIcon(unmuteIcon.getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
+      unmuteIcon = new ImageIcon(unmuteIcon.getImage().getScaledInstance(35, 35,
+              Image.SCALE_DEFAULT));
       unmuteButton.setIcon(unmuteIcon);
     } catch (NullPointerException e) {
       System.out.println("Image for toMute not found.");
@@ -360,24 +371,126 @@ public class ControlBarPanel extends JPanel {
   private void showPlay(boolean isPlay) {
     if (isPlay) {
       this.add(pauseButton);
+      playing = true;
     } else {
       this.add(playButton);
+      playing = false;
     }
   }
 
   private void showLoop(boolean isLoop) {
     if (isLoop) {
       this.add(loopedButton);
+      looping = true;
     } else {
       this.add(toLoopButton);
+      looping = false;
     }
   }
 
   private void showMute(boolean isMuted) {
     if (isMuted) {
       this.add(unmuteButton);
+      muting = true;
     } else {
       this.add(toMuteButton);
+      muting = false;
     }
+  }
+
+  public JButton getPlayButton() {
+    return playButton;
+  }
+
+  public JButton getPauseButton() {
+    return pauseButton;
+  }
+
+  public JButton getStopButton() {
+    return stopButton;
+  }
+
+  public JButton getToLoopButton() {
+    return toLoopButton;
+  }
+
+  public JButton getLoopedButton() {
+    return loopedButton;
+  }
+
+  public JButton getToMuteButton() {
+    return toMuteButton;
+  }
+
+  public JButton getUnmuteButton() {
+    return unmuteButton;
+  }
+
+  public JButton getSaveSVGButton() {
+    return saveSVGButton;
+  }
+
+  public JButton getSaveTextButton() {
+    return saveTextButton;
+  }
+
+  public JButton getOpenFileButton() {
+    return openFileButton;
+  }
+
+  public JComboBox<String> getComboBox() {
+    return comboBox;
+  }
+
+  public JButton getSettingButton() {
+    return settingButton;
+  }
+
+  public JPanel getIdCheckBoxPanel() {
+    return idCheckBoxPanel;
+  }
+
+  public JLabel getIdCheckBoxLabel() {
+    return idCheckBoxLabel;
+  }
+
+  public JCheckBox getIdCheckBox() {
+    return idCheckBox;
+  }
+
+  public JPanel getTimePanel() {
+    return timePanel;
+  }
+
+  public JLabel getShowTimeLabel() {
+    return showTimeLabel;
+  }
+
+  public JPanel getSpeedPanel() {
+    return speedPanel;
+  }
+
+  public JLabel getSpeedLabel() {
+    return speedLabel;
+  }
+
+  public RealTimeSpeedPanel getRealTimeSpeedPanel() {
+    return realTimeSpeedPanel;
+  }
+
+  public int getSpeed() {
+    return speed;
+  }
+
+  public boolean isPlaying() {
+    return playing;
+  }
+
+  public boolean isLooping() {
+    return looping;
+  }
+
+  public boolean isMuting() {
+    return muting;
   }
 }

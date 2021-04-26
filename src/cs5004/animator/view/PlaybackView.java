@@ -2,10 +2,10 @@ package cs5004.animator.view;
 
 import cs5004.animator.controller.PlaybackFeatures;
 import cs5004.animator.model.IModelView;
-import cs5004.animator.view.viewpanels.AnimatorPanel;
-import cs5004.animator.view.viewpanels.ControlBarPanel;
-import cs5004.animator.view.viewpanels.RealTimePanel;
-import cs5004.animator.view.viewpanels.SettingPanel;
+import cs5004.animator.view.viewingPanels.AnimatorPanel;
+import cs5004.animator.view.viewingPanels.ControlBarPanel;
+import cs5004.animator.view.viewingPanels.RealTimePanel;
+import cs5004.animator.view.viewingPanels.SettingPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;

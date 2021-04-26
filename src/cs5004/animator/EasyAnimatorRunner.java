@@ -29,7 +29,7 @@ public class EasyAnimatorRunner {
    * @param args args is the argument that determines the view mode.
    * @throws IOException IOException is thrown when I/O exception reading the input.
    */
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) {
     System.out.println(Arrays.toString(args));
     EasyAnimatorSetter easyAnimator = new EasyAnimatorSetter(args);
     HashMap<String, String> argsMap = easyAnimator.getArgsMap();

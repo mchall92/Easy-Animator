@@ -2,7 +2,7 @@ package cs5004.animator.view;
 
 import cs5004.animator.model.IModelView;
 
-import cs5004.animator.view.viewpanels.AnimatorPanel;
+import cs5004.animator.view.viewingPanels.AnimatorPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JFrame;

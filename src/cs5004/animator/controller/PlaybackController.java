@@ -302,6 +302,7 @@ public class PlaybackController implements IController, ActionListener, Playback
     this.view.setFileName(absolutePath.substring(
         absolutePath.lastIndexOf("/") + 1));
     this.view.setViewModel(this.window);
+    this.view.addPlaybackFeatures(this);
     this.start();
   }
 
@@ -311,14 +312,6 @@ public class PlaybackController implements IController, ActionListener, Playback
 
   public IViewPlayback getView() {
     return view;
-  }
-
-  public HashMap<String, String> getArgsMap() {
-    return argsMap;
-  }
-
-  public Timer getTimer() {
-    return timer;
   }
 
   public int getTime() {
@@ -339,9 +332,5 @@ public class PlaybackController implements IController, ActionListener, Playback
 
   public boolean isMuted() {
     return isMuted;
-  }
-
-  public MP3Player getMp3Player() {
-    return mp3Player;
   }
 }

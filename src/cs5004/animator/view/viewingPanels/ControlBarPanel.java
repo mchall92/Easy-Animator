@@ -1,4 +1,4 @@
-package cs5004.animator.view.viewpanels;
+package cs5004.animator.view.viewingPanels;
 
 import cs5004.animator.controller.PlaybackFeatures;
 import java.awt.Color;

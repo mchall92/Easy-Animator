@@ -6,13 +6,14 @@
     position: fixed !important;
     left: 0px;
     top: 0px;
-    min-height: 50px;
+    min-height: 70px;
     padding: .5rem 1rem;
 }
 
 .nav-content .nav-logo h2 {
     color: white;
-    font-size: large;
+    font-size: 1.4rem;
     letter-spacing: 3px; 
-    margin-left:20px;
+    margin-left:40px;
+    font-weight: 500;
 }

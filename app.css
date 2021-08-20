@@ -1,3 +1,6 @@
+body {
+    margin: 0px;
+}
 .nav-bar {
     width: 100%;
     display: inline-block;
@@ -5,15 +8,14 @@
     font-family: Lato, sans-serif;
     left: 0px;
     top: 0px;
-    min-height: 70px;
-    padding: .5rem 1rem;
+    min-height: 100px;
 }
 
 .nav-content .nav-logo h2 {
     color: white;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     letter-spacing: 3px;
-    margin-top: 10px;
+    margin-top: 27px;
     margin-left:40px;
     font-weight: 500;
 }

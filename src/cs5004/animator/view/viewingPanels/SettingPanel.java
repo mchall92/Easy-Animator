@@ -116,7 +116,7 @@ public class SettingPanel extends JPanel {
   private void setAddObjectPanel() {
     // set up Add Object Panel
     JPanel addObjectPanel = new JPanel();
-    addObjectPanel.setPreferredSize(new Dimension(610, 240));
+    addObjectPanel.setPreferredSize(new Dimension(550, 240));
     addObjectPanel.setBorder(BorderFactory.createTitledBorder("Add An Object"));
     this.add(addObjectPanel);
 
@@ -136,9 +136,9 @@ public class SettingPanel extends JPanel {
     JLabel addXPositionLabel = new JLabel("X");
     JLabel addYPositionLabel = new JLabel("  Y");
     addXPositionField = new JFormattedTextField(intFormatter);
-    addXPositionField.setColumns(7);
+    addXPositionField.setColumns(5);
     addYPositionField = new JFormattedTextField(intFormatter);
-    addYPositionField.setColumns(7);
+    addYPositionField.setColumns(5);
     addPositionPanel.add(addXPositionLabel);
     addPositionPanel.add(addXPositionField);
     addPositionPanel.add(addYPositionLabel);
@@ -167,9 +167,9 @@ public class SettingPanel extends JPanel {
     JLabel addWidthLabel = new JLabel("Width");
     JLabel addHeightLabel = new JLabel("  Height");
     addSizeFieldOne = new JFormattedTextField(positiveIntFormatter);
-    addSizeFieldOne.setColumns(7);
+    addSizeFieldOne.setColumns(5);
     addSizeFieldTwo = new JFormattedTextField(positiveIntFormatter);
-    addSizeFieldTwo.setColumns(7);
+    addSizeFieldTwo.setColumns(5);
     addSizePanel.add(addXRadiusLabel);
     addSizePanel.add(addSizeFieldOne);
     addSizePanel.add(addYRadiusLabel);
@@ -190,7 +190,7 @@ public class SettingPanel extends JPanel {
     chooseShapeComboBox.setSelectedIndex(0);
     chooseShapeComboBox.setVisible(true);
     chooseShapePanel.add(chooseShapeComboBox);
-    chooseShapePanel.add(new JLabel("    "));
+    chooseShapePanel.add(new JLabel("   "));
     addObjectPanel.add(chooseShapePanel);
 
     // build and add time panel
@@ -199,9 +199,9 @@ public class SettingPanel extends JPanel {
     JLabel addAppearTimeLabel = new JLabel("From");
     JLabel addYDisappearTimeLabel = new JLabel("  To");
     addAppearTime = new JFormattedTextField(nonNegativeIntFormatter);
-    addAppearTime.setColumns(7);
+    addAppearTime.setColumns(5);
     addDisappearTime = new JFormattedTextField(nonNegativeIntFormatter);
-    addDisappearTime.setColumns(7);
+    addDisappearTime.setColumns(5);
     addTimePanel.add(addAppearTimeLabel);
     addTimePanel.add(addAppearTime);
     addTimePanel.add(addYDisappearTimeLabel);
@@ -211,7 +211,7 @@ public class SettingPanel extends JPanel {
     // build submit add object button
     // build clear button
     JPanel addObjectButtonPanel = new JPanel();
-    addObjectButtonPanel.setPreferredSize(new Dimension(140, 70));
+    addObjectButtonPanel.setPreferredSize(new Dimension(120, 70));
     submitAddObjectButton = new JButton("Add");
     clearAddFieldButton = new JButton("Clear");
     addObjectButtonPanel.add(submitAddObjectButton, BorderLayout.WEST);
@@ -236,7 +236,7 @@ public class SettingPanel extends JPanel {
   private void setOperationPanel() {
     // set up operation Panel
     JPanel operationPanel = new JPanel();
-    operationPanel.setPreferredSize(new Dimension(470, 240));
+    operationPanel.setPreferredSize(new Dimension(430, 240));
     operationPanel.setBorder(BorderFactory.createTitledBorder("Add An Operation"));
     this.add(operationPanel);
 
@@ -335,13 +335,13 @@ public class SettingPanel extends JPanel {
     // build time panel
     JPanel operationTimePanel = new JPanel();
     operationTimePanel.setBorder(BorderFactory.createTitledBorder("Set Time"));
-    operationTimePanel.setPreferredSize(new Dimension(300, 60));
+    operationTimePanel.setPreferredSize(new Dimension(240, 60));
     JLabel operationAppearTimeLabel = new JLabel("From");
     JLabel operationDisappearTimeLabel = new JLabel("  To");
     operationAppearTimeField = new JFormattedTextField(nonNegativeIntFormatter);
-    operationAppearTimeField.setColumns(7);
+    operationAppearTimeField.setColumns(5);
     operationDisappearTimeField = new JFormattedTextField(nonNegativeIntFormatter);
-    operationDisappearTimeField.setColumns(7);
+    operationDisappearTimeField.setColumns(5);
     operationTimePanel.add(operationAppearTimeLabel);
     operationTimePanel.add(operationAppearTimeField);
     operationTimePanel.add(operationDisappearTimeLabel);
@@ -376,7 +376,7 @@ public class SettingPanel extends JPanel {
     // build and add delete object panel
     JPanel deleteObjectPanel = new JPanel();
     deleteObjectPanel.setBorder(BorderFactory.createTitledBorder("Delete An Object"));
-    deleteObjectPanel.setPreferredSize(new Dimension(300, 60));
+    deleteObjectPanel.setPreferredSize(new Dimension(270, 60));
     this.add(deleteObjectPanel);
 
     // build and add delete object comboBox

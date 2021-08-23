@@ -19,9 +19,46 @@
 
     <div class="content">
         <div class="description">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis modi incidunt atque, provident perferendis ea? Cupiditate, impedit, voluptas, veniam iure excepturi numquam ipsum libero, quas quaerat asperiores quisquam! Laborum, repellendus.
-          </p>
+          <p>Users can load their animation with a .txt file 
+            (<a href="https://github.com/mchall92/Easy-Animator/blob/main/resources/README-v3.md"><instructions/a>) 
+            or start with an empty canvas. This player supports five basic 
+            functions: play, pause, stop, loop/unloop and mute/unmute 
+            background music while they are also allowed to change the 
+            speed of the animation. Users can edit the animation by 
+            clicking on the “settings” button. To enhance user friendliness 
+            and accessibility, we added two extra functions: current time 
+            and object IDs (by checking the "Show Object ID" box) so that 
+            users know which object they are editing. Outputting the 
+            animation as .txt and .svg files is also supported.</p>
+            <p></p>
+            <p>This application generally follows the Model-View-Controller 
+              design. There are two software design strategies we have 
+              adopted in our application: </p>
+            <p></p>
+            <p>Adapter design pattern: 
+              we separate the interface of our model into two, one that 
+              only provides getter methods while the other one extends 
+              all methods. With this design, our view has a direct 
+              reference to model which is limited to getter methods 
+              without mediating through controller.</p>
+              <p></p>
+              <p>
+                <b>SOLID principles:</b>
+              </p>
+              <p>(a)The complexity of our model is separated out 
+                into smaller classes to adhere to single responsibility.</p>
+              <p>(b) We encpasulate actions in our view to callback 
+                methods in an interface that controller implements so 
+                that we can close for modification but open for future 
+                extension. </p>
+              <p>(c) We also split up our view interface for 
+                  interface segregation. This design will help 
+                  hide methods that users do not need under different 
+                  view mode.</p>
+              <p></p>
+              
+              <p>Finally, our model is done by 
+                <b>pair programming</b>.</p>
         </div>
         
         <div class="container">
